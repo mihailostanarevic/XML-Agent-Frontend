@@ -21,11 +21,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required, Validators.email, Validators.minLength(8)]],
-      password: [null, [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]]
+      password: [null, [Validators.required, ]]
     });
     if(!isNaN(parseFloat(localStorage.getItem('hours')))){
       const currentTime = moment().format('HH:mm:ss');
       var array = currentTime.split(':');
+      // if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) == 0){
       if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) > 2 || Number(array[1]) - Number(localStorage.getItem('minutes')) < 0){
         localStorage.clear();
       }
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
 
     {
       this.authService.login(this.validateForm.value).subscribe(() => {
-        console.log(this.validateForm.value);
+        this.router.navigateByUrl(`dashboard`);
       }, error => {
         console.log(error.error.message)
         this.attempts = this.attempts + 1;
