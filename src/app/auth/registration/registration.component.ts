@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
     this.isValid = true;
     this.validateForm = this.fb.group({
       username: ['', [Validators.email, Validators.required, Validators.minLength(8)]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]],
       rePassword: ['', [Validators.required, this.confirmationValidator]],
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       lastName: ['', [Validators.required]],
@@ -35,6 +35,12 @@ export class RegistrationComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
+    }
+
+    {
+      this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
+        console.log(this.validateForm.value);
+      })
     }
   }
 
