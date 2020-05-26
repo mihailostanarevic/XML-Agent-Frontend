@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularSplitModule } from 'angular-split';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { LoginComponent } from './auth/login/login.component';
+import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 
 registerLocaleData(en);
 
@@ -35,6 +36,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AppComponent,
     RegistrationComponent,
     LoginComponent,
+    LimitRedirectComponent,
   ],
   imports: [
     BrowserModule,
