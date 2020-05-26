@@ -1,4 +1,13 @@
-<div class="wallpaper">
+<div class="wallpaper" style="background-image: url('https://cdn.hipwallpaper.com/i/44/6/bB3ysO.jpg');">
+  <div>
+    <header style="color: white; font-size: x-large; font-style: oblique; margin-left: 10%;">
+      <br/>
+      <b>
+        Official site of Rent A Car
+      </b>
+      <br/>
+      <br/>
+    </header>
     <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
       <nz-form-item>
         <nz-form-control>
@@ -17,9 +26,12 @@
           <button nz-button nzType="primary" class="login-form-button" [disabled]="!validateForm.valid">Log In</button>
           <br/>
           <br/>
+        <label style="margin-left: 4%; color: white;">
           or if you don't have an account
-          <b><a (click)="onRegistration()" style="color:#001529; font-style: oblique;">register!</a></b>
+        </label>
+          <b><a (click)="onRegistration()">register!</a></b>
         </nz-form-control>
       </nz-form-item>
     </form>
   </div>
+</div>

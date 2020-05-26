@@ -1,6 +1,12 @@
 .registrationForm {
     height: 100%;
     width: 600px;
-    margin-left: 2%;
-    margin-top: 2%;
+    margin-left: 10%;
+}
+
+.wallpaper {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
 }
