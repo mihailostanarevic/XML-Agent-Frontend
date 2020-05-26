@@ -40,8 +40,16 @@ export class RegistrationComponent implements OnInit {
     {
       this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
         console.log(this.validateForm.value);
-      })
+      }
+        , error => {
+        this.message.info('Please check your data again. You have entered pre-existing data.');
+      }
+      );
     }
+  }
+
+  backToLogin(): void {
+    this.router.navigateByUrl('auth/login');
   }
 
   updateConfirmValidator(): void {

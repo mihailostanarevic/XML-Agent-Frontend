@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
     }
     if(isNaN(parseFloat(localStorage.getItem('attempts')))){
       this.attempts = 0;
+    }else{
+      this.attempts = Number(localStorage.getItem('attempts'));
     }
     if(Number(localStorage.getItem('attempts')) >=3){
       this.router.navigateByUrl('auth/limit-redirect');
@@ -56,7 +58,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.validateForm.value).subscribe(() => {
         this.router.navigateByUrl(`dashboard`);
       }, error => {
-        // this.message(error.error.message);
+        this.message.info('Bad credentials.');
         this.attempts = this.attempts + 1;
         localStorage.setItem('attempts', this.attempts.toString());
       });
