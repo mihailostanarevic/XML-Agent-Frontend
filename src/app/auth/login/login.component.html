@@ -1,0 +1,25 @@
+<div class="wallpaper">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="username" placeholder="Username" />
+          </nz-input-group></nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group></nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" class="login-form-button" [disabled]="!validateForm.valid">Log In</button>
+          <br/>
+          <br/>
+          or if you don't have an account
+          <b><a (click)="onRegistration()" style="color:#001529; font-style: oblique;">register!</a></b>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
