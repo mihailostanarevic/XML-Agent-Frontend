@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.validateForm.value).subscribe(() => {
         this.router.navigateByUrl(`dashboard`);
       }, error => {
-        console.log(error.error.message)
+        // this.message(error.error.message);
         this.attempts = this.attempts + 1;
         localStorage.setItem('attempts', this.attempts.toString());
       });
