@@ -13,21 +13,22 @@ export class RegistrationComponent implements OnInit {
 
   validateForm: FormGroup;
   isValid: boolean;
+  htmlTagRegExp = '^(?!<.+?>).*$';
 
   constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isValid = true;
     this.validateForm = this.fb.group({
-      username: ['', [Validators.email, Validators.required, Validators.minLength(8)]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]],
-      rePassword: ['', [Validators.required, this.confirmationValidator]],
-      firstName: ['', [Validators.required, Validators.minLength(4)]],
-      lastName: ['', [Validators.required]],
-      address: ['', [Validators.required, Validators.minLength(4)]],
-      city: ['', [Validators.required, Validators.minLength(4)]],
-      country: ['', [Validators.required, Validators.minLength(4)]],
-      ssn: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+      username: ['', [Validators.email, Validators.required, Validators.minLength(8), Validators.pattern(this.htmlTagRegExp)]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'), Validators.pattern(this.htmlTagRegExp)]],
+      rePassword: ['', [Validators.required, this.confirmationValidator, Validators.pattern(this.htmlTagRegExp)]],
+      firstName: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      lastName: ['', [Validators.required, Validators.pattern(this.htmlTagRegExp)]],
+      address: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      city: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      country: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      ssn: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern(this.htmlTagRegExp)]],
     });
   }
 
@@ -49,6 +50,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   backToLogin(): void {
+    console.log(this.validateForm);
     this.router.navigateByUrl('auth/login');
   }
 
