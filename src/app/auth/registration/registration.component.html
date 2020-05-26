@@ -74,6 +74,10 @@
       <nz-form-item nz-row style="margin-bottom:8px;">
         <nz-form-control>
           <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Register</button>
+          <br/>
+          <br/>
+          or back to 
+          <b><a (click)="backToLogin()" style="color:#001529; font-style: oblique;">log in!</a></b>
         </nz-form-control>
       </nz-form-item>
     </form>
