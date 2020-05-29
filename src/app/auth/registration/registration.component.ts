@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { NzMessageService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +18,11 @@ export class RegistrationComponent implements OnInit {
   isValid: boolean;
   htmlTagRegExp = '^(?!<.+?>).*$';
 
-  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private authService: AuthService) {}
+  constructor(private message: NzMessageService,
+              private fb: FormBuilder,
+              private router: Router,
+              private authService: AuthService,
+              private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
     this.isValid = true;

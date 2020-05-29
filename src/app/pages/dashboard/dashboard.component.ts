@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as fromApp from '../../store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,14 +11,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
   }
 
   logout(): void {
-    localStorage.clear();
-    this.router.navigateByUrl('auth/login');
+    this.store.dispatch(new AuthActions.Logout());
   }
 
 }
