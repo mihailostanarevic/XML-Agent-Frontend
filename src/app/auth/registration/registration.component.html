@@ -12,46 +12,46 @@
       <form nz-form [formGroup]="validateForm" class="registrationForm">
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input id="firstName" formControlName="firstName" placeholder="Name"/>
+            <input nz-input id="firstName" formControlName="firstName" placeholder="Name" #firstName/>
           </nz-form-control>
         </nz-form-item>
-        
+
         <nz-form-item>
         <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input id="lastName" formControlName="lastName" placeholder="Last name" />
+            <input nz-input id="lastName" formControlName="lastName" placeholder="Last name" #lastName/>
             </nz-form-control>
         </nz-form-item>
-      
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input id="address" formControlName="address" placeholder="Address" />
+            <input nz-input id="address" formControlName="address" placeholder="Address" #address/>
             </nz-form-control>
         </nz-form-item>
-      
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input id="city" formControlName="city" placeholder="City" />
+            <input nz-input id="city" formControlName="city" placeholder="City" #city/>
             </nz-form-control>
         </nz-form-item>
-      
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input id="country" formControlName="country" placeholder="Country" />
+            <input nz-input id="country" formControlName="country" placeholder="Country" #country/>
             </nz-form-control>
         </nz-form-item>
-        
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input id="ssn" formControlName="ssn" placeholder="Social security number" />
+            <input nz-input id="ssn" formControlName="ssn" placeholder="Social security number" #ssn/>
             </nz-form-control>
         </nz-form-item>
-        
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input formControlName="username" id="username" placeholder="E-mail" />
+            <input nz-input formControlName="username" id="username" placeholder="E-mail" #username/>
             </nz-form-control>
         </nz-form-item>
-      
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
             <input
@@ -61,11 +61,12 @@
               id="password"
               placeholder="Password"
               formControlName="password"
+              #password
               (ngModelChange)="updateConfirmValidator()"
             />
           </nz-form-control>
         </nz-form-item>
-      
+
         <nz-form-item>
           <nz-form-control [nzSm]="14" [nzXs]="24">
             <input nz-input type="password" formControlName="rePassword" id="rePassword" placeholder="Password" style="width: 350px;" />
@@ -74,14 +75,14 @@
               </ng-container> -->
           </nz-form-control>
         </nz-form-item>
-      
+
         <nz-form-item nz-row style="margin-bottom:8px;">
           <nz-form-control>
             <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Register</button>
             <br/>
             <br/>
             <label style="color: white;">
-            or go back to 
+            or go back to
             </label>
             <b><a (click)="backToLogin()">log in!</a></b>
           </nz-form-control>

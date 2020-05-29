@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as moment from 'moment';
+import { NzMessageService } from 'ng-zorro-antd';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { User } from '../../shared/user.model';
 import * as AuthActions from './auth.actions';
-import * as moment from 'moment';
-import { AuthService } from 'src/app/services/auth.service';
 
 export interface AuthResponseData {
   id: string
@@ -54,7 +55,34 @@ export class AuthEffects {
             return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token);
           }),
           catchError(responseError => {
+            this.message.warning(responseError.error);
             return of(new AuthActions.LoginFail(responseError.error));
+          })
+      );
+    })
+  );
+
+  @Effect()
+  authSignup = this.actions$.pipe(
+    ofType(AuthActions.SIGNUP_START),
+    switchMap((authData: AuthActions.SignupStart) => {
+      return this.http.post<AuthResponseData>(
+        environment.baseUrl + 'auth/create-simple-user',
+        {
+          username: authData.payload.username,
+          password: authData.payload.password,
+          rePassword: authData.payload.password,
+          firstName: authData.payload.firstName,
+          lastName: authData.payload.lastName,
+          ssn: authData.payload.ssn,
+          address: authData.payload.address,
+          city: authData.payload.city,
+          country: authData.payload.country
+        })
+      .pipe(
+          catchError(responseError => {
+            this.message.warning(responseError.error);
+            return of(new AuthActions.SignupFail(responseError.error));
           })
       );
     })
@@ -92,7 +120,7 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   authLogout = this.actions$.pipe(
     ofType(AuthActions.LOGOUT),
-    tap((authSuccessAction: AuthActions.Logout) => {
+    tap(() => {
       localStorage.clear();
       this.router.navigate(['/auth/login']);
     })
@@ -136,5 +164,6 @@ export class AuthEffects {
    constructor(private actions$: Actions,
                private http: HttpClient,
                private router: Router,
-               private authService: AuthService) {}
+               private authService: AuthService,
+               private message: NzMessageService) {}
 }

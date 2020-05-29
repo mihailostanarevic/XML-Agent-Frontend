@@ -10,19 +10,9 @@ import * as AuthActions from '../auth/store/auth.actions';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.baseUrl;
   private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient,
-              private store: Store<fromApp.AppState>) { }
-
-  public login(body): Observable<any> {
-    return this.http.put(this.baseUrl + 'auth/login', body);
-  }
-
-  public registerSimpleUser(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'auth/create-simple-user', body);
-  }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
@@ -36,5 +26,4 @@ export class AuthService {
       this.tokenExpirationTimer = null;
     }
   }
-
 }

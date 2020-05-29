@@ -33,6 +33,8 @@ export function authReducer(state: State = initiaState, action: AuthActions.Auth
                user: user
             };
         case AuthActions.LOGIN_FAIL:
+        case AuthActions.SIGNUP_FAIL:
+          console.log(action.payload);
           return {
             ...state,
             user: null,
