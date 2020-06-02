@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       var array = currentTime.split(':');
       // if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) == 0){
       if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) > 2 || Number(array[1]) - Number(localStorage.getItem('minutes')) < 0){
-        localStorage.clear();
+        localStorage.setItem('attempts', '0');
       }
     }
     if(isNaN(parseFloat(localStorage.getItem('attempts')))){

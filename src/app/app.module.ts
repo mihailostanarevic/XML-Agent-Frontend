@@ -23,6 +23,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { ErrorComponent } from './pages/error/acces-denied/error.component';
 
 registerLocaleData(en);
 
@@ -38,6 +39,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     LoginComponent,
     LimitRedirectComponent,
     DashboardComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
