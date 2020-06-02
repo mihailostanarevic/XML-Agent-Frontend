@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'app-agent-registration',
+  templateUrl: './agent-registration.component.html',
+  styleUrls: ['./agent-registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class AgentRegistrationComponent implements OnInit {
 
   validateForm: FormGroup;
   isValid: boolean;
@@ -23,12 +23,9 @@ export class RegistrationComponent implements OnInit {
       username: ['', [Validators.email, Validators.required, Validators.minLength(8), Validators.pattern(this.htmlTagRegExp)]],
       password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'), Validators.pattern(this.htmlTagRegExp)]],
       rePassword: ['', [Validators.required, this.confirmationValidator, Validators.pattern(this.htmlTagRegExp)]],
-      firstName: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
-      lastName: ['', [Validators.required, Validators.pattern(this.htmlTagRegExp)]],
-      address: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
-      city: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
-      country: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
-      ssn: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern(this.htmlTagRegExp)]],
+      name: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      bankAccountNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.pattern(this.htmlTagRegExp)]],
+      tin: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.pattern(this.htmlTagRegExp)]],
     });
   }
 
@@ -39,7 +36,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     {
-      this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
+      this.authService.registerAgent(this.validateForm.value).subscribe(() => {
         console.log(this.validateForm.value);
       }
         , error => {
@@ -47,10 +44,6 @@ export class RegistrationComponent implements OnInit {
       }
       );
     }
-  }
-
-  agentRegister(): void {
-    this.router.navigateByUrl(`auth/agent-registration`);
   }
 
   backToLogin(): void {

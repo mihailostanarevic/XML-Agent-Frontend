@@ -6,12 +6,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AgentRegistrationComponent } from './auth/agent-registration/agent-registration.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/registration', component: RegistrationComponent},
+  { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
 
   {
