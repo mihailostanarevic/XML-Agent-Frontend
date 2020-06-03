@@ -18,4 +18,8 @@ export class AuthService {
   public registerSimpleUser(body): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/create-simple-user', body);
   }
+
+  public registerAgent(body): Observable<any> {
+    return this.http.post(this.baseUrl + 'auth/create-agent', body);
+  }
 }
