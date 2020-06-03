@@ -41,6 +41,7 @@ export class RegistrationComponent implements OnInit {
     {
       this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
         this.message.info('You have successfully sent your registration request.');
+        this.router.navigateByUrl('auth/login');
       }
         , error => {
         this.message.info('Please check your data again. You have entered pre-existing data.');

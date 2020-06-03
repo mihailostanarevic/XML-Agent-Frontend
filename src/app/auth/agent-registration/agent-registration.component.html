@@ -58,12 +58,6 @@
       <nz-form-item nz-row style="margin-bottom:8px;">
         <nz-form-control>
           <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Register</button>
-          <br/>
-          <br/>
-          <label style="color: white;">
-          or go back to 
-          </label>
-          <b><a (click)="backToLogin()">log in!</a></b>
         </nz-form-control>
       </nz-form-item>
     </form>
