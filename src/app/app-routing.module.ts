@@ -7,6 +7,7 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AgentRegistrationComponent } from './auth/agent-registration/agent-registration.component';
+import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent, children: [
       { path: 'agent-registration', component: AgentRegistrationComponent},
+      { path: 'registration-requests', component: RegistrationRequestComponent},
     ],
   
   },
