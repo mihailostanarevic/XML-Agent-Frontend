@@ -7,7 +7,9 @@
         </label>
       </div>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-        <li nz-menu-item (click)="logout()" style="margin-left: 85%;">Log out</li>
+        <li *ngIf="isAdmin" nz-menu-item (click)="registerNewAgent()">Register new agent</li>
+        <li *ngIf="isAdmin" nz-menu-item (click)="registrationRequests()">Registration requests</li>
+        <li nz-menu-item (click)="logout()">Log out</li>
       </ul>
     </nz-header>
     <nz-layout>
@@ -17,6 +19,7 @@
       </nz-sider>
       <nz-layout class="inner-layout">
         <nz-content>
+          <router-outlet></router-outlet>
         </nz-content>
       </nz-layout>
     </nz-layout>
