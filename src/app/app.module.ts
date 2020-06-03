@@ -24,6 +24,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AgentRegistrationComponent } from './auth/agent-registration/agent-registration.component';
+import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
 
 registerLocaleData(en);
 
@@ -41,6 +42,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     LimitRedirectComponent,
     DashboardComponent,
     AgentRegistrationComponent,
+    RegistrationRequestComponent,
   ],
   imports: [
     BrowserModule,

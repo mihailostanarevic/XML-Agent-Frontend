@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   }
 
   registrationRequests(): void {
-
+    this.router.navigateByUrl('dashboard/registration-requests');
   }
 
   logout(): void {
