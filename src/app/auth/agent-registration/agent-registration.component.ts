@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-agent-registration',
@@ -37,8 +38,16 @@ export class AgentRegistrationComponent implements OnInit {
     }
 
     {
-      console.log(this.validateForm.value);
-      this.authService.registerAgent(this.validateForm.value).subscribe(() => {
+      const body = {
+        username: this.validateForm.value.username,
+        password: this.validateForm.value.password,
+        rePassword: this.validateForm.value.rePassword,
+        name: this.validateForm.value.name,
+        bankAccountNumber: this.validateForm.value.bankAccountNumber,
+        tin: this.validateForm.value.tin,
+        dateFounded: moment(this.validateForm.value.dateFoundend).format('YYYY/MM/DD')
+      }
+      this.authService.registerAgent(body).subscribe(() => {
         this.message.info('You have successfully sent your registration request.');
       }
         , error => {
