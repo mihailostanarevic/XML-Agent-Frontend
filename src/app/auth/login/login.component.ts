@@ -55,7 +55,8 @@ export class LoginComponent implements OnInit {
     }
 
     {
-      this.authService.login(this.validateForm.value).subscribe(() => {
+      this.authService.login(this.validateForm.value).subscribe(data => {
+        localStorage.setItem('user', JSON.stringify(data));
         this.router.navigateByUrl(`dashboard`);
       }, error => {
         this.message.info('Bad credentials.');

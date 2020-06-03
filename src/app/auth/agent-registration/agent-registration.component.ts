@@ -21,11 +21,12 @@ export class AgentRegistrationComponent implements OnInit {
     this.isValid = true;
     this.validateForm = this.fb.group({
       username: ['', [Validators.email, Validators.required, Validators.minLength(8), Validators.pattern(this.htmlTagRegExp)]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'), Validators.pattern(this.htmlTagRegExp)]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{9,}'), Validators.pattern(this.htmlTagRegExp)]],
       rePassword: ['', [Validators.required, this.confirmationValidator, Validators.pattern(this.htmlTagRegExp)]],
       name: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
-      bankAccountNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.pattern(this.htmlTagRegExp)]],
-      tin: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.pattern(this.htmlTagRegExp)]],
+      bankAccountNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(18), Validators.pattern(this.htmlTagRegExp)]],
+      tin: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(this.htmlTagRegExp)]],
+      dateFoundend: ['', [Validators.required]],
     });
   }
 
@@ -36,8 +37,9 @@ export class AgentRegistrationComponent implements OnInit {
     }
 
     {
+      console.log(this.validateForm.value);
       this.authService.registerAgent(this.validateForm.value).subscribe(() => {
-        console.log(this.validateForm.value);
+        this.message.info('You have successfully sent your registration request.');
       }
         , error => {
         this.message.info('Please check your data again. You have entered pre-existing data.');

@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
     this.isValid = true;
     this.validateForm = this.fb.group({
       username: ['', [Validators.email, Validators.required, Validators.minLength(8), Validators.pattern(this.htmlTagRegExp)]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'), Validators.pattern(this.htmlTagRegExp)]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{9,}'), Validators.pattern(this.htmlTagRegExp)]],
       rePassword: ['', [Validators.required, this.confirmationValidator, Validators.pattern(this.htmlTagRegExp)]],
       firstName: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
       lastName: ['', [Validators.required, Validators.pattern(this.htmlTagRegExp)]],
@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit {
 
     {
       this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
-        console.log(this.validateForm.value);
+        this.message.info('You have successfully sent your registration request.');
       }
         , error => {
         this.message.info('Please check your data again. You have entered pre-existing data.');

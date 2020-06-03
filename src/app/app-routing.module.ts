@@ -13,12 +13,12 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/registration', component: RegistrationComponent},
-  { path: 'auth/agent-registration', component: AgentRegistrationComponent},
+  // { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
 
   {
     path: 'dashboard', component: DashboardComponent, children: [
-    
+      { path: 'agent-registration', component: AgentRegistrationComponent},
     ],
   
   },
