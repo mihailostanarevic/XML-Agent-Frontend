@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  
   private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }

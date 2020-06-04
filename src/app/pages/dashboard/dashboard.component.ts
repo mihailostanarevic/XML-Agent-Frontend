@@ -44,6 +44,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('dashboard/agent-registration');
   }
 
+  carBrands(): void {
+    this.router.navigateByUrl('dashboard/car-brands');
+  }
+
+  carClasses(): void {
+    this.router.navigateByUrl('dashboard/car-classes');
+  }
+
   registrationRequests(): void {
     this.router.navigateByUrl('dashboard/registration-requests');
   }

@@ -17,10 +17,10 @@ export class RegistrationRequestService {
   }
 
   public approveRegistrationRequest(body): Observable<any> {
-    return this.http.put(this.baseUrl + `auth/approve-registration-requests`, body);
+    return this.http.put(this.baseUrl + `auth/approve-registration-request`, body);
   }
 
   public denyRegistrationRequest(body): Observable<any> {
-    return this.http.put(this.baseUrl + `auth/deny-registration-requests`, body);
+    return this.http.put(this.baseUrl + `auth/deny-registration-request`, body);
   }
 }
