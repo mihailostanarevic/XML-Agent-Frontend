@@ -21,6 +21,9 @@ export class RegistrationRequestComponent implements OnInit {
   private setupData(): void {
     this.registrationRequestService.getRegistrationRequests().subscribe(data => {
       this.listOfData = data;
+    }, error => {
+      this.message.info(error.error.message);
+      this.router.navigateByUrl('dashboard');
     })
   }
 
@@ -30,6 +33,7 @@ export class RegistrationRequestComponent implements OnInit {
     }
     this.registrationRequestService.approveRegistrationRequest(body).subscribe(data => {
       this.message.info('You have successfully approved registration request.');
+      this.setupData();
     })
   }
 
@@ -39,6 +43,7 @@ export class RegistrationRequestComponent implements OnInit {
     }
     this.registrationRequestService.denyRegistrationRequest(body).subscribe(data => {
       this.message.info('You have successfully denied registration request.');
+      this.setupData();
     })
   }
 }

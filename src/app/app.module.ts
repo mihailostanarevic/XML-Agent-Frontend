@@ -25,6 +25,11 @@ import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.com
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AgentRegistrationComponent } from './auth/agent-registration/agent-registration.component';
 import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
+import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
+import { CarClassesComponent } from './pages/lists/car-classes/car-classes.component';
+import { CarModelsComponent } from './pages/lists/car-models/car-models.component';
+import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
+import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
 
 registerLocaleData(en);
 
@@ -43,6 +48,11 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     DashboardComponent,
     AgentRegistrationComponent,
     RegistrationRequestComponent,
+    CarBrandsComponent,
+    CarClassesComponent,
+    CarModelsComponent,
+    GearshiftTypesComponent,
+    FuelTypesComponent,
   ],
   imports: [
     BrowserModule,
