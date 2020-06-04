@@ -9,17 +9,37 @@
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
         <li *ngIf="isAdmin" nz-menu-item (click)="registerNewAgent()">Register new agent</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="registrationRequests()">Registration requests</li>
-        <li *ngIf="isAdmin" nz-menu-item (click)="carBrands()">Brands</li>
+        <!-- <li *ngIf="isAdmin" nz-menu-item (click)="carBrands()">Brands</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carClasses()">Classes</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carModels()">Models</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="gearshiftTypes()">Gearshift types</li>
-        <li *ngIf="isAdmin" nz-menu-item (click)="fuelTypes()">Fuel types</li>
+        <li *ngIf="isAdmin" nz-menu-item (click)="fuelTypes()">Fuel types</li> -->
         <li nz-menu-item (click)="logout()">Log out</li>
       </ul>
     </nz-header>
     <nz-layout>
       <nz-sider nzWidth="200px" nzTheme="light">
         <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
+          <li *ngIf="isAdmin" nz-submenu>
+            <span title>Lists</span>
+            <ul>
+              <li (click)="carBrands()" nz-menu-item>Brands</li>
+              <li (click)="carClasses()" nz-menu-item>Classes</li>
+              <li (click)="carModels()" nz-menu-item>Models</li>
+              <li (click)="gearshiftTypes()" nz-menu-item>Gearshift types</li>
+              <li (click)="fuelTypes()" nz-menu-item>Fuel types</li>
+            </ul>
+          </li>
+          <li *ngIf="isAdmin" nz-submenu>
+            <span title>Create</span>
+            <ul>
+              <li (click)="createCarBrand()" nz-menu-item>Brand</li>
+              <li (click)="createCarClass()" nz-menu-item>Class</li>
+              <li (click)="createCarModel()" nz-menu-item>Model</li>
+              <li (click)="createGearshiftType()" nz-menu-item>Gearshift type</li>
+              <li (click)="createFuelType()" nz-menu-item>Fuel type</li>
+            </ul>
+          </li>
         </ul>
       </nz-sider>
       <nz-layout class="inner-layout">

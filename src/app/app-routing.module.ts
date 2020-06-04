@@ -13,6 +13,11 @@ import { CarClassesComponent } from './pages/lists/car-classes/car-classes.compo
 import { CarModelsComponent } from './pages/lists/car-models/car-models.component';
 import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
 import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
+import { CarBrandComponent } from './pages/create-forms/car-brand/car-brand.component';
+import { CarClassComponent } from './pages/create-forms/car-class/car-class.component';
+import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
+import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
+import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
 
 
 const routes: Routes = [
@@ -31,6 +36,11 @@ const routes: Routes = [
       { path: 'car-models', component: CarModelsComponent},
       { path: 'gearshift-types', component: GearshiftTypesComponent},
       { path: 'fuel-types', component: FuelTypesComponent},
+      { path: 'car-brand', component: CarBrandComponent},
+      { path: 'car-class', component: CarClassComponent},
+      { path: 'car-model', component: CarModelComponent},
+      { path: 'gearshift-type', component: GearshiftTypeComponent},
+      { path: 'fuel-type', component: FuelTypeComponent},
     ],
   
   },

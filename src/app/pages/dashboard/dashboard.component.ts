@@ -44,6 +44,15 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('dashboard/agent-registration');
   }
 
+  registrationRequests(): void {
+    this.router.navigateByUrl('dashboard/registration-requests');
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigateByUrl('auth/login');
+  }
+
   carBrands(): void {
     this.router.navigateByUrl('dashboard/car-brands');
   }
@@ -64,13 +73,23 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('dashboard/fuel-types');
   }
 
-  registrationRequests(): void {
-    this.router.navigateByUrl('dashboard/registration-requests');
+  createCarBrand(): void {
+    this.router.navigateByUrl('dashboard/car-brand');
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.router.navigateByUrl('auth/login');
+  createCarClass(): void {
+    this.router.navigateByUrl('dashboard/car-class');
   }
 
+  createCarModel(): void {
+    this.router.navigateByUrl('dashboard/car-model');
+  }
+
+  createGearshiftType(): void {
+    this.router.navigateByUrl('dashboard/gearshift-type');
+  }
+
+  createFuelType(): void {
+    this.router.navigateByUrl('dashboard/fuel-type');
+  }
 }
