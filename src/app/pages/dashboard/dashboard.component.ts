@@ -52,6 +52,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('dashboard/car-classes');
   }
 
+  carModels(): void {
+    this.router.navigateByUrl('dashboard/car-models');
+  }
+
   registrationRequests(): void {
     this.router.navigateByUrl('dashboard/registration-requests');
   }
