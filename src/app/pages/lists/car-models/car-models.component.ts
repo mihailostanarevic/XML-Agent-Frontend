@@ -11,11 +11,18 @@ import { NzMessageService } from 'ng-zorro-antd';
 export class CarModelsComponent implements OnInit {
 
   listOfData = [];
+  isAdmin: boolean;
+  isAgent: boolean;
+  isSimpleUser: boolean;
+
+  private user: any;
 
   constructor(private carModelService: CarModelService, private router: Router, private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.setupData();
+    this.setupUser();
+    this.setupUserRole();
   }
 
   private setupData(): void {
@@ -25,6 +32,26 @@ export class CarModelsComponent implements OnInit {
       this.message.info(error.error.message);
       this.router.navigateByUrl('dashboard');
     })
+  }
+
+  private setupUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+  }
+  
+  private setupUserRole(): void {
+    if(this.user.userRole === 'ADMIN_ROLE'){
+        this.isAdmin = true;
+        this.isAgent = false;
+        this.isSimpleUser = false;
+    }else if(this.user.userRole === 'AGENT_ROLE'){
+      this.isAdmin = false;
+      this.isAgent = true;
+      this.isSimpleUser = false;
+    }else if(this.user.userRole === 'SIMPLE_USER_ROLE'){
+      this.isAdmin = false;
+      this.isAgent = false;
+      this.isSimpleUser = true;
+    }
   }
 
   delete(id): void {

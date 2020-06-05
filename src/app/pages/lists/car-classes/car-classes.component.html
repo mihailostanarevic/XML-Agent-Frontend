@@ -7,14 +7,18 @@
         <th>
             Description
         </th>
-        <th></th>
+        <th *ngIf="isAdmin"></th>
+        <th *ngIf="isAdmin"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of nzTable.data">
         <td>{{ data.name }}</td>
         <td>{{ data.description }}</td>
-        <td>
+        <td *ngIf="isAdmin">
+          <button (click)="update(data.id)" nz-button nzType="primary">Update</button>
+        </td>
+        <td *ngIf="isAdmin">
             <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
         </td>
       </tr>

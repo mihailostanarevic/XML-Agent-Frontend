@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CarClassService } from 'src/app/services/car-class.service';
 
 @Component({
@@ -13,8 +13,9 @@ export class CarClassComponent implements OnInit {
 
   validateForm: FormGroup;
   isValid: boolean;
+  isUpdate: boolean;
 
-  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private carClassService: CarClassService) {}
+  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private carClassService: CarClassService) {}
 
   ngOnInit(): void {
     this.isValid = true;
@@ -22,6 +23,10 @@ export class CarClassComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
     });
+    this.isUpdate = false;
+    if(this.route.snapshot.params.id !== null){
+      this.getDetails();
+    }
   }
 
   submitForm(): void {
@@ -31,14 +36,31 @@ export class CarClassComponent implements OnInit {
     }
 
     {
-      this.carClassService.createCarClass(this.validateForm.value).subscribe(() => {
-        this.message.info('You have successfully created car class.');
+      if(!this.isUpdate){
+        this.carClassService.createCarClass(this.validateForm.value).subscribe(() => {
+          this.message.info('You have successfully created car class.');
+        }, error => {
+          this.message.info('Please check your data again. You have entered pre-existing data.');
+        });
+      }else if(this.isUpdate){
+        this.carClassService.updateCarClass(this.validateForm.value, this.route.snapshot.params.id).subscribe(() => {
+          this.message.info('You have successfully updated car class.');
+        }, error => {
+          this.message.info('Please check your data again. You have entered pre-existing data.');
+        });
       }
-        , error => {
-        this.message.info('Please check your data again. You have entered pre-existing data.');
-      }
-      );
     }
+  }
+
+  public getDetails(): void {
+    this.isUpdate = true;
+    this.carClassService.getCarClass(this.route.snapshot.params.id).subscribe(data =>{
+      const formValues = {
+        name: data.name,
+        description: data.description
+      }
+      this.validateForm.setValue(formValues);
+    })
   }
 
 
