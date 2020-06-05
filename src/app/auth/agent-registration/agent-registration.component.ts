@@ -4,6 +4,8 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'moment';
+import {differenceInCalendarDays} from 'date-fns';
+
 
 @Component({
   selector: 'app-agent-registration',
@@ -78,5 +80,9 @@ export class AgentRegistrationComponent implements OnInit {
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
   }
+
+  disabledDate = (current: Date): boolean => {
+    return differenceInCalendarDays(new Date(), current) > 0;
+  };
 
 }
