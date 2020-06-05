@@ -7,14 +7,14 @@
         <th>
             Gears number
         </th>
-        <th></th>
+        <th *ngIf="isAdmin"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of nzTable.data">
         <td>{{ data.type }}</td>
         <td>{{ data.numberOfGears }}</td>
-        <td>
+        <td *ngIf="isAdmin">
             <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
         </td>
       </tr>

@@ -41,6 +41,9 @@ const routes: Routes = [
       { path: 'car-model', component: CarModelComponent},
       { path: 'gearshift-type', component: GearshiftTypeComponent},
       { path: 'fuel-type', component: FuelTypeComponent},
+
+      { path: ':id/car-brand', component: CarBrandComponent},
+      { path: ':id/car-class', component: CarClassComponent},
     ],
   
   },

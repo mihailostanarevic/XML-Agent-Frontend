@@ -10,7 +10,7 @@
         <th>
             Gas
         </th>
-        <th></th>
+        <th *ngIf="isAdmin"></th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         <td>{{ data.type }}</td>
         <td>{{ data.tankCapacity }}</td>
         <td>{{ gas(data.gas) }}</td>
-        <td>
+        <td *ngIf="isAdmin">
             <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
         </td>
       </tr>

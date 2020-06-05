@@ -10,7 +10,7 @@
         <th>
             Class
         </th>
-        <th></th>
+        <th *ngIf="isAdmin"></th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         <td>{{ data.name }}</td>
         <td>{{ data.brandName }}</td>
         <td>{{ data.className }}</td>
-        <td>
+        <td *ngIf="isAdmin">
             <button (click)="delete(data.id)" nz-button nzType="danger">Delete</button>
         </td>
       </tr>

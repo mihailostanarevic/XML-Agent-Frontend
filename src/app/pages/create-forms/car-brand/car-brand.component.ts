@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CarBrandService } from 'src/app/services/car-brand.service';
 
 @Component({
@@ -13,8 +13,11 @@ export class CarBrandComponent implements OnInit {
 
   validateForm: FormGroup;
   isValid: boolean;
+  isUpdate: boolean;
 
-  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private carBrandService: CarBrandService) {}
+  private id: any;
+
+  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private carBrandService: CarBrandService) {}
 
   ngOnInit(): void {
     this.isValid = true;
@@ -22,6 +25,10 @@ export class CarBrandComponent implements OnInit {
       name: ['', [Validators.required]],
       country: ['', [Validators.required]],
     });
+    this.isUpdate = false;
+    if(this.route.snapshot.params.id !== null){
+      this.getDetails();
+    }
   }
 
   submitForm(): void {
@@ -31,14 +38,31 @@ export class CarBrandComponent implements OnInit {
     }
 
     {
-      this.carBrandService.createCarBrand(this.validateForm.value).subscribe(() => {
-        this.message.info('You have successfully created car brand.');
+      if(!this.isUpdate){
+        this.carBrandService.createCarBrand(this.validateForm.value).subscribe(() => {
+          this.message.info('You have successfully created car brand.');
+        }, error => {
+          this.message.info('Please check your data again. You have entered pre-existing data.');
+        });
+      }else if(this.isUpdate){
+        this.carBrandService.updateCarBrand(this.validateForm.value, this.route.snapshot.params.id).subscribe(() => {
+          this.message.info('You have successfully updated car brand.');
+        }, error => {
+          this.message.info('Please check your data again. You have entered pre-existing data.');
+        });
       }
-        , error => {
-        this.message.info('Please check your data again. You have entered pre-existing data.');
-      }
-      );
     }
+  }
+
+  public getDetails(): void {
+    this.isUpdate = true;
+    this.carBrandService.getCarBrand(this.route.snapshot.params.id).subscribe(data =>{
+      const formValues = {
+        name: data.name,
+        country: data.country
+      }
+      this.validateForm.setValue(formValues);
+    })
   }
 
 

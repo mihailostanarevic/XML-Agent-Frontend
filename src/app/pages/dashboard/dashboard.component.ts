@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
       this.isAdmin = false;
       this.isAgent = false;
       this.isSimpleUser = true;
-  }
+    }
   }
 
   registerNewAgent(): void {
