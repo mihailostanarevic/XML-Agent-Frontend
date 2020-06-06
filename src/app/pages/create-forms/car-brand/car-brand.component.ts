@@ -26,7 +26,7 @@ export class CarBrandComponent implements OnInit {
       country: ['', [Validators.required]],
     });
     this.isUpdate = false;
-    if(this.route.snapshot.params.id !== null){
+    if(this.route.snapshot.params.id != undefined){
       this.getDetails();
     }
   }

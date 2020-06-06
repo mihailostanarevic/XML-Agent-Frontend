@@ -24,7 +24,7 @@ export class CarClassComponent implements OnInit {
       description: ['', [Validators.required]],
     });
     this.isUpdate = false;
-    if(this.route.snapshot.params.id !== null){
+    if(this.route.snapshot.params.id != undefined){
       this.getDetails();
     }
   }
