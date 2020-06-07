@@ -14,6 +14,8 @@ export class GearshiftTypesComponent implements OnInit {
   isAdmin: boolean;
   isAgent: boolean;
   isSimpleUser: boolean;
+  gearshiftType: any = '';
+  numberOfGears: any = '';
 
   private user: any;
 
@@ -58,7 +60,18 @@ export class GearshiftTypesComponent implements OnInit {
     this.gearshiftTypeService.deleteGearshiftType(id).subscribe(() => {
       this.setupData();
       this.message.info('You have successfully deleted car class.');
-    })
+    });
+    this.gearshiftType = '';
+    this.numberOfGears = '';
   }
 
+  search(): void {
+    const filteredObject = {
+      type: this.gearshiftType,
+      numberOfGears: this.numberOfGears
+    }
+    this.gearshiftTypeService.getGearshiftTypessWithFilter(filteredObject).subscribe(data => {
+      this.listOfData = data;
+    })
+  }
 }
