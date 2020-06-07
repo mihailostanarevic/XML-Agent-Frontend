@@ -24,3 +24,13 @@
       </tr>
     </tbody>
   </nz-table>
+  
+  <div class="filterInputs">
+    <input nz-input placeholder="Brand name" [(ngModel)]="brandName" />
+    <br/>
+    <br/>
+    <input nz-input placeholder="Brand country" [(ngModel)]="brandCountry" />
+  </div>
+  <br/>
+  <br/>
+  <button (click)="search()" nz-button nzType="primary">Search</button>
