@@ -24,3 +24,10 @@
       </tr>
     </tbody>
   </nz-table>
+
+  <div class="filterInputs">
+    <input nz-input placeholder="Class name" [(ngModel)]="className" />
+  </div>
+  <br/>
+  <br/>
+  <button (click)="search()" nz-button nzType="primary">Search</button>

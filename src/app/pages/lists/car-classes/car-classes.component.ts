@@ -14,6 +14,7 @@ export class CarClassesComponent implements OnInit {
   isAdmin: boolean;
   isAgent: boolean;
   isSimpleUser: boolean;
+  className: any = '';
 
   private user: any;
 
@@ -62,7 +63,16 @@ export class CarClassesComponent implements OnInit {
     this.carClassService.deleteCarClass(id).subscribe(() => {
       this.setupData();
       this.message.info('You have successfully deleted car class.');
-    })
+    });
+    this.className = '';
   }
 
+  search(): void {
+    const filteredObject = {
+      className: this.className
+    }
+    this.carClassService.getCarClassesWithFilter(filteredObject).subscribe(data => {
+      this.listOfData = data;
+    })
+  }
 }
