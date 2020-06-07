@@ -14,6 +14,8 @@ export class FuelTypesComponent implements OnInit {
   isAdmin: boolean;
   isAgent: boolean;
   isSimpleUser: boolean;
+  fuelType: any = '';
+  tankCapacity: any = '';
 
   private user: any;
 
@@ -54,12 +56,6 @@ export class FuelTypesComponent implements OnInit {
     }
   }
 
-  delete(id): void {
-    this.fuelTypeService.deleteFuelType(id).subscribe(() => {
-      this.setupData();
-      this.message.info('You have successfully deleted car class.');
-    })
-  }
   gas(gas): String {
     if(gas){
       return "has";
@@ -67,4 +63,22 @@ export class FuelTypesComponent implements OnInit {
     return "doesn't have";
   }
 
+  delete(id): void {
+    this.fuelTypeService.deleteFuelType(id).subscribe(() => {
+      this.setupData();
+      this.message.info('You have successfully deleted car class.');
+    });
+    this.fuelType = '';
+    this.tankCapacity = '';
+  }
+
+  search(): void {
+    const filteredObject = {
+      type: this.fuelType,
+      tankCapacity: this.tankCapacity
+    }
+    this.fuelTypeService.getFuelTypessWithFilter(filteredObject).subscribe(data => {
+      this.listOfData = data;
+    })
+  }
 }

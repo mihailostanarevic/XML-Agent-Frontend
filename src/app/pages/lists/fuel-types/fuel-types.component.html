@@ -24,3 +24,13 @@
       </tr>
     </tbody>
   </nz-table>
+
+  <div class="filterInputs">
+    <input nz-input placeholder="Fuel type" [(ngModel)]="fuelType" />
+    <br/>
+    <br/>
+    <input nz-input placeholder="Tank capatity" [(ngModel)]="tankCapacity" />
+  </div>
+  <br/>
+  <br/>
+  <button (click)="search()" nz-button nzType="primary">Search</button>
