@@ -72,7 +72,6 @@ export class CarModelsComponent implements OnInit {
     }
     this.carModelService.getCarModelsWithFilter(filteredObject).subscribe(data => {
       this.listOfData = data;
-      // this.setupData();
     })
   }
 }
