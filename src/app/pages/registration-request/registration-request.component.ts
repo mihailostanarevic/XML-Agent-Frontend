@@ -27,11 +27,11 @@ export class RegistrationRequestComponent implements OnInit {
     })
   }
 
-  approve(id): void {
+  confirm(id): void {
     const body = {
       id
     }
-    this.registrationRequestService.approveRegistrationRequest(body).subscribe(data => {
+    this.registrationRequestService.confirmRegistrationRequest(body).subscribe(data => {
       this.message.info('You have successfully approved registration request.');
       this.setupData();
     })

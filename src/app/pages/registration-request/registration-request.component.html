@@ -12,7 +12,7 @@
       <tr *ngFor="let data of nzTable.data">
         <td>{{ data.username }}</td>
         <td>
-            <button (click)="approve(data.id)" nz-button nzType="primary">Approve</button>
+            <button (click)="confirm(data.id)" nz-button nzType="primary">Approve</button>
           </td>
           <td>
             <button (click)="deny(data.id)" nz-button nzType="danger">Deny</button>
