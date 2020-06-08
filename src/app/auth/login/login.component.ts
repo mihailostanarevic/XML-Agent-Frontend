@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.message.info('You have registred successfully!');
       },
       error => {
-        this.message.info(error.error.message);
+        this.message.info('Your activation link has expired.');
       });
     }
 
