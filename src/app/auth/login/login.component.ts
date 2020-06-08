@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'moment';
+import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +17,27 @@ export class LoginComponent implements OnInit {
 
   private attempts: number;
 
-  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, private registrationRequestService: RegistrationRequestService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required, Validators.email, Validators.minLength(8)]],
       password: [null, [Validators.required, ]]
     });
+
+    const id = this.route.snapshot.params.id;
+    if(id != undefined){
+      const body = {
+        id: id
+      }
+      this.registrationRequestService.approveRegistrationRequest(body).subscribe(() => {
+        this.message.info('You have registred successfully!');
+      },
+      error => {
+        this.message.info(error.error.message);
+      });
+    }
+
     if(!isNaN(parseFloat(localStorage.getItem('hours')))){
       const currentTime = moment().format('HH:mm:ss');
       var array = currentTime.split(':');

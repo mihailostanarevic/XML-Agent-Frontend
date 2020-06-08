@@ -16,6 +16,10 @@ export class RegistrationRequestService {
     return this.http.get(this.baseUrl + 'auth/registration-requests');
   }
 
+  public confirmRegistrationRequest(body): Observable<any> {
+    return this.http.put(this.baseUrl + `auth/confirm-registration-request`, body);
+  }
+
   public approveRegistrationRequest(body): Observable<any> {
     return this.http.put(this.baseUrl + `auth/approve-registration-request`, body);
   }

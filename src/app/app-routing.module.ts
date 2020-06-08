@@ -23,6 +23,7 @@ import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.comp
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
   { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/login/:id/simple-user', component: LoginComponent },
   { path: 'auth/registration', component: RegistrationComponent},
   // { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
