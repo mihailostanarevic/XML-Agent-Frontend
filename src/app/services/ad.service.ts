@@ -14,4 +14,8 @@ export class CreateAdService {
   public getAllCarModels(body): Observable<any> {
     return this.http.post(this.baseUrl + 'car-models', body);
   }
+
+  public postAd(body): Observable<any> {
+    return this.http.post(this.baseUrl + 'ads', body);
+  }
 }
