@@ -1,0 +1,62 @@
+<div class="inputWrapper2" *ngIf="!showResults">
+    <form nz-form [formGroup]="validateForm" class="login-form" >
+        <nz-form-control>
+            <nz-input-group>
+                <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup" [(ngModel)]="city" />
+            </nz-input-group>
+        </nz-form-control>
+    
+
+    <br/>
+    <br/>
+    <nz-form-control>
+        <nz-input-group>
+            <nz-form-item>
+                <nz-range-picker
+                    [nzShowTime]="{ nzFormat: 'hh:mm' }"
+                    nzFormat="hh:mm dd-MM-yyyy"
+                    [nzPlaceHolder]="['Start Time', 'End Time']"
+                    ngModel 
+                    (ngModelChange)="onChange($event)"
+                    style="width: 300px;"
+                    formControlName="dates"
+                ></nz-range-picker>
+            </nz-form-item>
+        </nz-input-group>
+    </nz-form-control>
+    </form>
+  
+    <button nz-button (click)="submitSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button>
+  </div>
+
+  <div *ngIf="showResults">
+    <div><i nz-icon nzType="arrow-left" nzTheme="outline" (click)="backToSearch()"></i>  <span style="padding-top: 2px;"><strong>  Go back to search</strong></span></div>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
+        <nz-card [nzActions]="[actionEdit, actionInfo, actionShopping]" [nzHoverable]="true">
+          <nz-descriptions nzLayout="horizontal">
+            <nz-descriptions-item nzTitle="Name of issuer">{{result.agentName}}</nz-descriptions-item>
+          </nz-descriptions>
+          <nz-descriptions nzLayout="horizontal">
+            <nz-descriptions-item style="margin-left: 20px;" nzTitle="Car details">{{result.carBrand}}&nbsp;{{result.carModel}}, {{result.carClass}}</nz-descriptions-item>
+          </nz-descriptions>
+          <nz-descriptions nzLayout="horizontal">
+            <nz-descriptions-item nzTitle="Location">{{result.location}}</nz-descriptions-item>
+          </nz-descriptions>
+          <nz-descriptions nzLayout="horizontal">
+            <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.formattedDate}}</nz-descriptions-item>
+          </nz-descriptions>
+        </nz-card>
+        <ng-template #actionEdit>
+          <i nz-icon nz-tooltip nzTooltipTitle="Edit ad" nzType="edit"></i>
+        </ng-template>
+        <ng-template #actionInfo>
+          <i nz-icon nz-tooltip nzTooltipTitle="See informations" nzType="info-circle" nzTheme="outline"></i>
+        </ng-template>
+        <ng-template #actionShopping>
+          <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" nzType="carry-out" nzTheme="fill"></i>
+        </ng-template>
+      </div>
+    </div>
+    
+  </div>

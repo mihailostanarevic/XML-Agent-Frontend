@@ -18,6 +18,7 @@ import { CarClassComponent } from './pages/create-forms/car-class/car-class.comp
 import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
+import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,8 @@ const routes: Routes = [
 
       { path: ':id/car-brand', component: CarBrandComponent},
       { path: ':id/car-class', component: CarClassComponent},
+      { path: 'search', component: LightSearchFormComponent},
+      //{ path: 'details', component: AdDetailsComponent},
     ],
   
   },
