@@ -1,0 +1,17 @@
+.numeric-input .ant-tooltip-inner {
+  min-width: 32px;
+  min-height: 37px;
+}
+.numeric-input .numeric-input-title {
+  font-size: 14px;
+}
+[nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+#main-div {
+  text-align: center;
+}
+hr {
+  width: 40%;
+}

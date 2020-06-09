@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
   }
 
   private setupUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-  } 
+    this.user = JSON.parse(localStorage.getItem('userData'));
+  }
 
   private setupUserRole(): void {
     if(this.user.userRole === 'ADMIN_ROLE'){
@@ -97,5 +97,13 @@ export class DashboardComponent implements OnInit {
 
   lightSearch(): void {
     this.router.navigateByUrl('dashboard/search');
+  }
+
+  createAd(): void {
+    this.router.navigateByUrl('dashboard/create-ad');
+  }
+
+  changeAvailability(): void {
+    this.router.navigateByUrl('dashboard/agent-rent');
   }
 }

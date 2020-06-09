@@ -37,9 +37,9 @@ export class CarModelsComponent implements OnInit {
   }
 
   private setupUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user = JSON.parse(localStorage.getItem('userData'));
   }
-  
+
   private setupUserRole(): void {
     if(this.user.userRole === 'ADMIN_ROLE'){
         this.isAdmin = true;

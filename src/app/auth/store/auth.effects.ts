@@ -16,16 +16,18 @@ export interface AuthResponseData {
   token: string;
   username: string;
   tokenExpiresIn: string;
+  userRole: string;
 }
 
 const handleAuthentication = (
   expiresIn: number,
   email: string,
   userId: string,
-  token: string
+  token: string,
+  userRole: string
 ) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-  const user = new User(userId, email, token, expirationDate);
+  const user = new User(userId, email, token, expirationDate, userRole);
   localStorage.setItem('userData', JSON.stringify(user));
 
   return new AuthActions.LoginSuccess ({
@@ -33,6 +35,7 @@ const handleAuthentication = (
     userId: userId,
     token: token,
     expirationDate: expirationDate,
+    userRole: userRole,
     redirect: false
   });
 };
@@ -52,7 +55,7 @@ export class AuthEffects {
         })
       .pipe(
           map(responseData => {
-            return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token);
+            return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole);
           }),
           catchError(responseError => {
             this.message.warning(responseError.error);
@@ -135,6 +138,7 @@ export class AuthEffects {
         id: string;
         _token: string;
         _tokenExpirationDate: string;
+        userRole: string
       } = JSON.parse(localStorage.getItem('userData'));
 
       if(userData !== null) {
@@ -142,7 +146,8 @@ export class AuthEffects {
           userData.email,
           userData.id,
           userData._token,
-          new Date(userData._tokenExpirationDate)
+          new Date(userData._tokenExpirationDate),
+          userData.userRole
         );
 
         if(loadedUser.token){
@@ -154,6 +159,7 @@ export class AuthEffects {
             userId: userData.id,
             token: userData._token,
             expirationDate: new Date(userData._tokenExpirationDate),
+            userRole: userData.userRole,
             redirect: false
           });
         }

@@ -18,13 +18,13 @@ import { NzMessageService } from 'ng-zorro-antd';
 export class LightSearchFormComponent implements OnInit {
   city: String;
   dateFrom : Date;
-  dateTo : Date; 
+  dateTo : Date;
   dates: Object;
   validateForm: FormGroup;
   showResults: Boolean;
   searchResults: Object[];
 
-  constructor(private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {} 
+  constructor(private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.dates = {

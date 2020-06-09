@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+import { NzMessageService } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
-import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +22,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   private attempts: number;
   private storeSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, 
-              private registrationRequestService: RegistrationRequestService, private authService: AuthService, private store: Store<fromApp.AppState>) { }
+  constructor(private route: ActivatedRoute,
+              private message: NzMessageService,
+              private fb: FormBuilder,
+              private router: Router,
+              private registrationRequestService: RegistrationRequestService,
+              private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

@@ -25,6 +25,7 @@ export class LoginSuccess implements Action {
     userId: string;
     token: string;
     expirationDate: Date;
+    userRole: string
     redirect: boolean;
   }) {}
 }

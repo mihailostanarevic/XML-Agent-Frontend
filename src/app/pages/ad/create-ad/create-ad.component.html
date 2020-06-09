@@ -1,0 +1,61 @@
+<!-- dropdown list -->
+<div id="main-div">
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+  Car Model
+  <i nz-icon nzType="down"></i>
+</a>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu *ngFor="let carModel of carModelList">
+    <li nz-menu-item> {{ carModel.name }} </li>
+  </ul>
+</nz-dropdown-menu>
+<hr>
+<!-- dropdown list -->
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+  Gearshift Type
+  <i nz-icon nzType="down"></i>
+</a>
+<nz-dropdown-menu #menu1="nzDropdownMenu">
+  <ul nz-menu *ngFor="let gearshiftType of gearshiftTypeList">
+    <li nz-menu-item> {{ gearshiftType.type }} </li>
+  </ul>
+</nz-dropdown-menu>
+<hr>
+<!-- dropdown list -->
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+  Fuel Type
+  <i nz-icon nzType="down"></i>
+</a>
+<nz-dropdown-menu #menu2="nzDropdownMenu">
+  <ul nz-menu *ngFor="let fuelType of fuelTypeList">
+    <li nz-menu-item> {{ fuelType.type }} </li>
+  </ul>
+</nz-dropdown-menu>
+<hr>
+<h2>Ubaci slike</h2>
+<hr>
+<label nz-checkbox [(ngModel)]="checked">Limited Distance</label>
+<hr>
+<input nz-input placeholder="Available Kilometers Per Rent" [(ngModel)]="value1" style="width: 320px;" />
+<hr>
+<input nz-input placeholder="Kilometers Traveled" [(ngModel)]="value2" style="width: 320px;" />
+<hr>
+<input
+      #inputElement
+      style="width: 120px"
+      nz-input
+      nz-tooltip
+      nzTooltipTrigger="focus"
+      nzTooltipPlacement="topLeft"
+      nzOverlayClassName="numeric-input"
+      [ngModel]="value"
+      [nzTooltipTitle]="title"
+      placeholder="Number of Child Seats"
+      (ngModelChange)="onChange($event)"
+      (blur)="onBlur()"
+    />
+<hr>
+<label nz-checkbox [(ngModel)]="checked1" style="background-color: white;padding: 5px;">Collision Damage Waiver</label>
+<hr>
+<button nz-button nzType="default" nzGhost>Create Ad</button>
+</div>
