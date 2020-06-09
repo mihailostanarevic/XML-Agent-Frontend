@@ -92,4 +92,8 @@ export class DashboardComponent implements OnInit {
   createFuelType(): void {
     this.router.navigateByUrl('dashboard/fuel-type');
   }
+
+  lightSearch(): void {
+    this.router.navigateByUrl('dashboard/search');
+  }
 }
