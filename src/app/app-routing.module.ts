@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
-import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ErrorComponent } from './pages/error/acces-denied/error.component';
 import { AgentRegistrationComponent } from './auth/agent-registration/agent-registration.component';
 import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
 import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
@@ -20,9 +20,9 @@ import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gear
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 
-
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
+  { path: 'error-page', component: ErrorComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/login/:id/simple-user', component: LoginComponent },
   { path: 'auth/registration', component: RegistrationComponent},
@@ -49,7 +49,7 @@ const routes: Routes = [
       { path: 'search', component: LightSearchFormComponent},
       //{ path: 'details', component: AdDetailsComponent},
     ],
-  
+
   },
 
  ];
@@ -57,7 +57,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [],
     imports: [
-      CommonModule,
+  CommonModule,
       RouterModule.forRoot(routes)
     ],
     exports: [RouterModule]

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
+import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
 import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 
 @Component({
@@ -11,13 +13,15 @@ import { RegistrationRequestService } from 'src/app/services/registration-reques
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   validateForm: FormGroup;
 
   private attempts: number;
+  private storeSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, private registrationRequestService: RegistrationRequestService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, 
+              private registrationRequestService: RegistrationRequestService, private authService: AuthService, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -43,11 +47,12 @@ export class LoginComponent implements OnInit {
       var array = currentTime.split(':');
       // if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) == 0){
       if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) > 2 || Number(array[1]) - Number(localStorage.getItem('minutes')) < 0){
-        localStorage.clear();
+        localStorage.setItem('attempts', '0');
       }
     }
     if(isNaN(parseFloat(localStorage.getItem('attempts')))){
       this.attempts = 0;
+      localStorage.setItem('attempts', this.attempts.toString());
     }else{
       this.attempts = Number(localStorage.getItem('attempts'));
     }
@@ -57,31 +62,45 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    if(Number(localStorage.getItem('attempts')) >=3){
-      const currentTime = moment().format('HH:mm:ss');
-      var array = currentTime.split(':');
-      localStorage.setItem('hours', array[0]);
-      localStorage.setItem('minutes', array[1]);
-      this.router.navigateByUrl('auth/limit-redirect');
-    }
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
+      for (const i in this.validateForm.controls) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+      this.store.dispatch(new AuthActions.LoginStart({
+        email: this.validateForm.value.username,
+        password: this.validateForm.value.password
+      }));
+//     if(Number(localStorage.getItem('attempts')) >=3){
+//       const currentTime = moment().format('HH:mm:ss');
+//       var array = currentTime.split(':');
+//       localStorage.setItem('hours', array[0]);
+//       localStorage.setItem('minutes', array[1]);
+//       this.router.navigateByUrl('auth/limit-redirect');
+//     }
+//     for (const i in this.validateForm.controls) {
+//       this.validateForm.controls[i].markAsDirty();
+//       this.validateForm.controls[i].updateValueAndValidity();
+//     }
 
-    {
-      this.authService.login(this.validateForm.value).subscribe(data => {
-        localStorage.setItem('user', JSON.stringify(data));
-        this.router.navigateByUrl(`dashboard`);
-      }, error => {
-        this.message.info('Bad credentials.');
-        this.attempts = this.attempts + 1;
-        localStorage.setItem('attempts', this.attempts.toString());
-      });
-    }
+//     {
+//       this.authService.login(this.validateForm.value).subscribe(data => {
+//         localStorage.setItem('user', JSON.stringify(data));
+//         this.router.navigateByUrl(`dashboard`);
+//       }, error => {
+//         this.message.info('Bad credentials.');
+//         this.attempts = this.attempts + 1;
+//         localStorage.setItem('attempts', this.attempts.toString());
+//       });
+//     }
   }
 
   onRegistration() {
     this.router.navigateByUrl('auth/registration');
+  }
+
+  ngOnDestroy() {
+    if(this.storeSubscription){
+      this.storeSubscription.unsubscribe();
+    }
   }
 }
