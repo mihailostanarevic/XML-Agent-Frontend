@@ -1,0 +1,65 @@
+<div>
+    <form nz-form [formGroup]="validateForm" class="registrationForm">
+      <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input id="name" formControlName="name" placeholder="Name"/>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input id="tin" formControlName="tin" placeholder="Taxpayer identification number" />
+          </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input id="bankAccountNumber" formControlName="bankAccountNumber" placeholder="Bank account number" />
+          </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="username" id="username" placeholder="E-mail" />
+          </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input
+          style="width: 350px;"
+            nz-input
+            type="password"
+            id="password"
+            placeholder="Password"
+            formControlName="password"
+            (ngModelChange)="updateConfirmValidator()"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input type="password" formControlName="rePassword" id="rePassword" placeholder="Password" style="width: 350px;" />
+            <!-- <ng-container *ngIf="validateForm.get('rePassword')?.hasError('confirm')">
+              The passwords you have entered do not match!
+            </ng-container> -->
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+          <nz-date-picker
+              nzFormat="yyyy/MM/dd"
+              formControlName="dateFoundend"
+              [nzDisabledDate]="disabledDate"    
+          >
+          </nz-date-picker>
+      </nz-form-item>
+    
+      <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control>
+          <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Register</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+</div>

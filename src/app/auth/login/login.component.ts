@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
+import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 
 @Component({
   selector: 'app-login',
@@ -19,15 +20,28 @@ export class LoginComponent implements OnInit, OnDestroy {
   private attempts: number;
   private storeSubscription: Subscription;
 
-  constructor(private fb: FormBuilder,
-              private router: Router,
-              private store: Store<fromApp.AppState>) { }
+  constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, 
+              private registrationRequestService: RegistrationRequestService, private authService: AuthService, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required, Validators.email, Validators.minLength(8)]],
       password: [null, [Validators.required, ]]
     });
+
+    const id = this.route.snapshot.params.id;
+    if(id != undefined){
+      const body = {
+        id: id
+      }
+      this.registrationRequestService.approveRegistrationRequest(body).subscribe(() => {
+        this.message.info('You have registred successfully!');
+      },
+      error => {
+        this.message.info('Your activation link has expired.');
+      });
+    }
+
     if(!isNaN(parseFloat(localStorage.getItem('hours')))){
       const currentTime = moment().format('HH:mm:ss');
       var array = currentTime.split(':');
@@ -56,6 +70,28 @@ export class LoginComponent implements OnInit, OnDestroy {
         email: this.validateForm.value.username,
         password: this.validateForm.value.password
       }));
+//     if(Number(localStorage.getItem('attempts')) >=3){
+//       const currentTime = moment().format('HH:mm:ss');
+//       var array = currentTime.split(':');
+//       localStorage.setItem('hours', array[0]);
+//       localStorage.setItem('minutes', array[1]);
+//       this.router.navigateByUrl('auth/limit-redirect');
+//     }
+//     for (const i in this.validateForm.controls) {
+//       this.validateForm.controls[i].markAsDirty();
+//       this.validateForm.controls[i].updateValueAndValidity();
+//     }
+
+//     {
+//       this.authService.login(this.validateForm.value).subscribe(data => {
+//         localStorage.setItem('user', JSON.stringify(data));
+//         this.router.navigateByUrl(`dashboard`);
+//       }, error => {
+//         this.message.info('Bad credentials.');
+//         this.attempts = this.attempts + 1;
+//         localStorage.setItem('attempts', this.attempts.toString());
+//       });
+//     }
   }
 
   onRegistration() {

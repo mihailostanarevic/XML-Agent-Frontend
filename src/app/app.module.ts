@@ -24,6 +24,19 @@ import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { ErrorComponent } from './pages/error/acces-denied/error.component';
+import { AgentRegistrationComponent } from './auth/agent-registration/agent-registration.component';
+import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
+import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
+import { CarClassesComponent } from './pages/lists/car-classes/car-classes.component';
+import { CarModelsComponent } from './pages/lists/car-models/car-models.component';
+import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
+import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
+import { CarBrandComponent } from './pages/create-forms/car-brand/car-brand.component';
+import { CarClassComponent } from './pages/create-forms/car-class/car-class.component';
+import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
+import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
+import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
+import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 
 registerLocaleData(en);
 
@@ -35,11 +48,23 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent,
     LoginComponent,
     LimitRedirectComponent,
     DashboardComponent,
     ErrorComponent,
+    AgentRegistrationComponent,
+    RegistrationRequestComponent,
+    CarBrandsComponent,
+    CarClassesComponent,
+    CarModelsComponent,
+    GearshiftTypesComponent,
+    FuelTypesComponent,
+    CarBrandComponent,
+    CarClassComponent,
+    CarModelComponent,
+    GearshiftTypeComponent,
+    FuelTypeComponent,
+    LightSearchFormComponent,
   ],
   imports: [
     BrowserModule,

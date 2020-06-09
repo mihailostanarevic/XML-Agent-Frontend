@@ -12,4 +12,19 @@ export class RegistrationRequestService {
 
   constructor(private http: HttpClient) { }
 
+  public getRegistrationRequests(): Observable<any> {
+    return this.http.get(this.baseUrl + 'auth/registration-requests');
+  }
+
+  public confirmRegistrationRequest(body): Observable<any> {
+    return this.http.put(this.baseUrl + `auth/confirm-registration-request`, body);
+  }
+
+  public approveRegistrationRequest(body): Observable<any> {
+    return this.http.put(this.baseUrl + `auth/approve-registration-request`, body);
+  }
+
+  public denyRegistrationRequest(body): Observable<any> {
+    return this.http.put(this.baseUrl + `auth/deny-registration-request`, body);
+  }
 }

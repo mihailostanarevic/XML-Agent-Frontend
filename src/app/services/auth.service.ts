@@ -11,6 +11,7 @@ import * as AuthActions from '../auth/store/auth.actions';
 })
 export class AuthService {
   private tokenExpirationTimer: any;
+  private baseUrl = environment.baseUrl;
 
   constructor(private store: Store<fromApp.AppState>) { }
 
@@ -25,5 +26,9 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
+  }
+
+  public registerAgent(body): Observable<any> {
+    return this.http.post(this.baseUrl + 'auth/create-agent', body);
   }
 }

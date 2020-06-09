@@ -1,0 +1,26 @@
+<div>
+    <form nz-form [formGroup]="validateForm" class="form">
+      <nz-form-item>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input id="name" formControlName="name" placeholder="Name"/>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input id="description" formControlName="description" placeholder="Description" />
+          </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item *ngIf="!isUpdate" nz-row style="margin-bottom:8px;">
+        <nz-form-control>
+          <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Create</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *ngIf="isUpdate" nz-row style="margin-bottom:8px;">
+        <nz-form-control>
+          <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Update</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+</div>

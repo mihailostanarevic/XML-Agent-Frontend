@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
     this.isValid = true;
     this.validateForm = this.fb.group({
       username: ['', [Validators.email, Validators.required, Validators.minLength(8), Validators.pattern(this.htmlTagRegExp)]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'), Validators.pattern(this.htmlTagRegExp)]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{9,}'), Validators.pattern(this.htmlTagRegExp)]],
       rePassword: ['', [Validators.required, this.confirmationValidator, Validators.pattern(this.htmlTagRegExp)]],
       firstName: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
       lastName: ['', [Validators.required, Validators.pattern(this.htmlTagRegExp)]],
@@ -59,10 +59,23 @@ export class RegistrationComponent implements OnInit {
       country: this.country.nativeElement.value,
       ssn: this.ssn.nativeElement.value
     }));
+//     {
+//       this.authService.registerSimpleUser(this.validateForm.value).subscribe(() => {
+//         this.message.info('You have successfully sent your registration request.');
+//         this.router.navigateByUrl('auth/login');
+//       }
+//         , error => {
+//         this.message.info('Please check your data again. You have entered pre-existing data.');
+//       }
+//       );
+//     }
+  }
+
+  agentRegister(): void {
+    this.router.navigateByUrl(`auth/agent-registration`);
   }
 
   backToLogin(): void {
-    console.log(this.validateForm);
     this.router.navigateByUrl('auth/login');
   }
 

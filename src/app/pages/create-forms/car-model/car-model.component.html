@@ -1,0 +1,36 @@
+<div class="inputWrapper2">
+    <!-- <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>
+      <span>Lekari</span>
+    </nz-form-label> -->
+    <input style="width: 260px;" nz-input placeholder="Name" [(ngModel)]="name" />
+    
+    <br/>
+    <br/>
+
+    <nz-select
+      style="width: 260px;"
+      nzShowSearchselectedType
+      nzAllowClear
+      nzPlaceHolder="Choose brand"
+      [(ngModel)]="brandId">  
+    <nz-option *ngFor="let item of listOfData" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+    </nz-select>
+    
+    <br/>
+    <br/>
+
+    <nz-select
+      style="width: 260px;"
+      nzShowSearchselectedType
+      nzAllowClear
+      nzPlaceHolder="Choose class"
+      [(ngModel)]="classId">  
+    <nz-option *ngFor="let item of listOfData2" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+    </nz-select>
+
+    <br/>
+    <br/>
+    <br/>
+  
+    <button (click)="create()" nz-button nzType="primary">Create</button>
+  </div>
