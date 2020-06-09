@@ -21,6 +21,8 @@ import { AgentRegistrationComponent } from './auth/agent-registration/agent-regi
 import { LimitRedirectComponent } from './auth/limit-redirect/limit-redirect.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthEffects } from './auth/store/auth.effects';
+import { AgentRentComponent } from './pages/ad/agent-rent/agent-rent.component';
+import { CreateAdComponent } from './pages/ad/create-ad/create-ad.component';
 import { CarBrandComponent } from './pages/create-forms/car-brand/car-brand.component';
 import { CarClassComponent } from './pages/create-forms/car-class/car-class.component';
 import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
@@ -36,8 +38,7 @@ import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift
 import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 import * as fromApp from './store/app.reducer';
-import { CreateAdComponent } from './pages/ad/create-ad/create-ad.component';
-import { AgentRentComponent } from './pages/ad/agent-rent/agent-rent.component';
+import { RegistrationComponent } from './auth/registration/registration.component';
 
 registerLocaleData(en);
 
@@ -68,6 +69,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     LightSearchFormComponent,
     CreateAdComponent,
     AgentRentComponent,
+    RegistrationComponent,
+    CreateAdComponent
   ],
   imports: [
     BrowserModule,

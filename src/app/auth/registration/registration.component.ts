@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
 
@@ -27,6 +27,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private message: NzMessageService,
               private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
