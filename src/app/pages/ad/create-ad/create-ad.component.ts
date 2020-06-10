@@ -2,6 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CarModelService } from './../../../services/car-model.service';
 import { GearshiftTypeService } from './../../../services/gearshift-type.service';
 import { FuelTypeService } from './../../../services/fuel-type.service';
+import { NzMessageService, UploadFile, NgZorroAntdModule } from 'ng-zorro-antd';
+import { CreateAdService } from './../../../services/ad.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from "../../../store/app.reducer";
+import { environment } from './../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-ad',
@@ -10,45 +16,121 @@ import { FuelTypeService } from './../../../services/fuel-type.service';
 })
 export class CreateAdComponent implements OnInit {
 
-  checked = true;     // limitedDistance
-  checked1 = true;     // cdw
-  value1?: string;    //Basic usage1
-  value2?: string;    //Basic usage2
+  isLimitedDistance = true;     // limitedDistance
+  isCDW = true;     // cdw
+  availableKilometers?: string;    //Basic usage1
+  kilometersTraveled?: string;    //Basic usage2
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
-  value = '';   // input number
+  value = '';         // number of seats
   title = 'Input a number of child seats';
-  carModelList: [];
-  gearshiftTypeList: [];
-  fuelTypeList: [];
+
+  inputCarModel?: string;
+  filteredCarModelOptions: string[] = [];
+  carModelOptions = [];
+
+  defaultFileList: UploadFile[] = [
+    // {
+    //   uid: '-1',
+    //   name: 'xxx.png',
+    //   status: 'done',
+    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    //   thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    // }
+  ];
+
+  fileList2 = [...this.defaultFileList];
 
   constructor(private carModelService: CarModelService,
               private gearshiftTypeService: GearshiftTypeService,
-              private fuelTypeService: FuelTypeService) { }
+              private fuelTypeService: FuelTypeService,
+              private message: NzMessageService,
+              private adService: CreateAdService,
+              private store: Store<fromApp.AppState>,
+              private http: HttpClient) {
+
+   }
 
   ngOnInit(): void {
+    this.setupCarModelList();
+    this.setupGearshiftType();
+    this.setupFuelTypeList();
+  }
+
+  selectedHandle = 'Manuel';
+  selectedGearNumber = 'Five';
+  handleData = [];
+  gearNumberData: { [place: string]: string[] } = {
+    Manuel: [],
+    Automatic: [],
+    Semiautomatic: []
+  };
+
+  gearChange(value: string): void {
+    this.selectedGearNumber = this.gearNumberData[value][0];
+  }
+
+  selectedFuelType = 'Diesel';
+  selectedTankCapacity = '60L';
+  fuelData = [ ];
+  tankData: { [place: string]: string[] } = {
+    Diesel: [],
+    Benzine: []
+  };
+
+  fuelChange(value: string): void {
+    this.selectedTankCapacity = this.tankData[value][0];
+  }
+
+  setupCarModelList(): void {
     this.carModelService.getAllCarModels().subscribe(data => {
-      this.carModelList = data;
+      data.forEach(element => {
+        this.carModelOptions.push(element.brandName + ", " + element.name + ", " + element.className);
+      });
+      this.filteredCarModelOptions = this.carModelOptions;
     }, error => {
       console.log(error.error.message);
     });
+  }
 
-    this.fuelTypeService.getAllFuelTypes().subscribe(data => {
-      this.fuelTypeList = data;
-    }, error => {
-      console.log(error.error.message);
-    });
-
+  setupGearshiftType(): void {
     this.gearshiftTypeService.getAllGearshiftTypes().subscribe(data => {
-      this.gearshiftTypeList = data;
+      data.forEach(element => {
+        if(!this.handleData.some(x => x === element.type)) {
+          this.handleData.push(element.type);
+        }
+        if(element.type === 'Manuel'){
+          this.gearNumberData.Manuel.push(element.numberOfGears);
+        } else if(element.type === 'Automatic') {
+          this.gearNumberData.Automatic.push(element.numberOfGears);
+        } else if(element.type === 'Semiautomatic') {
+          this.gearNumberData.Semiautomatic.push(element.numberOfGears);
+        }
+      });
     }, error => {
       console.log(error.error.message);
     })
   }
 
-  log(data: string): void {
-    console.log(data);
+  setupFuelTypeList(): void {
+    this.fuelTypeService.getAllFuelTypes().subscribe(data => {
+      data.forEach(element => {
+        if(!this.fuelData.some(x => x === element.type)) {
+          this.fuelData.push(element.type);
+        }
+        if(element.type === 'Diesel'){
+          this.tankData.Diesel.push(element.tankCapacity);
+        } else if(element.type === 'Benzine'){
+          this.tankData.Benzine.push(element.tankCapacity);
+        }
+      });
+    }, error => {
+      console.log(error.error.message);
+    });
   }
 
+  onChangeCarModel(value: string): void {
+    this.filteredCarModelOptions = this.carModelOptions.filter(option => option.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+  }
 
   onChange(value: string): void {
     this.updateValue(value);
@@ -88,5 +170,41 @@ export class CreateAdComponent implements OnInit {
       result = num + result;
     }
     return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`;
+  }
+
+  createAd(): void {
+    if( !this.availableKilometers || !this.kilometersTraveled || !this.value || !this.inputCarModel) {
+        this.message.warning("Input fields is required");
+        return;
+    }
+
+    let agentId;
+    this.store.select("auth").subscribe(authData => {
+        agentId = authData.user.id;
+    });
+
+    // image & user
+    var formData = new FormData();
+    this.fileList2.forEach(element => {
+      formData.append('imageFile', element.originFileObj, element.originFileObj.name);
+    });
+    formData.append('request', new Blob([JSON.stringify({
+      'carModel': this.inputCarModel,
+      'gearshifType': this.selectedHandle + ", " + this.selectedGearNumber,
+      'fuelType': this.selectedFuelType + ", " + this.selectedTankCapacity,
+      'agentId': agentId,
+      'limitedDistance': this.isLimitedDistance,
+      'availableKilometersPerRent': this.availableKilometers,
+      'kilometersTraveled': this.kilometersTraveled,
+      'seats': this.value,
+      'cdw': this.isCDW
+    })], {
+        type: "application/json"
+    }));
+    this.adService.postAd(formData).subscribe(() => {
+      this.message.info('Successfully created!');
+    }, error => {
+        this.message.info('Something was wrong.');
+    });
   }
 }
