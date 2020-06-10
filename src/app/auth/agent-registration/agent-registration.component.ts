@@ -18,7 +18,10 @@ export class AgentRegistrationComponent implements OnInit {
   isValid: boolean;
   htmlTagRegExp = '^(?!<.+?>).*$';
 
-  constructor(private message: NzMessageService, private fb: FormBuilder, private router: Router, private authService: AuthService) {}
+  constructor(private message: NzMessageService,
+              private fb: FormBuilder,
+              private router: Router,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isValid = true;

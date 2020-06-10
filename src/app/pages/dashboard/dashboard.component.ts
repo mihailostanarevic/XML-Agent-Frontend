@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as fromApp from '../../store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +16,7 @@ export class DashboardComponent implements OnInit {
   public isAgent: boolean;
   public isSimpleUser: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.setupUser();
@@ -21,8 +24,8 @@ export class DashboardComponent implements OnInit {
   }
 
   private setupUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-  } 
+    this.user = JSON.parse(localStorage.getItem('userData'));
+  }
 
   private setupUserRole(): void {
     if(this.user.userRole === 'ADMIN_ROLE'){
@@ -49,8 +52,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.clear();
-    this.router.navigateByUrl('auth/login');
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   carBrands(): void {
@@ -95,5 +97,13 @@ export class DashboardComponent implements OnInit {
 
   lightSearch(): void {
     this.router.navigateByUrl('dashboard/search');
+  }
+
+  createAd(): void {
+    this.router.navigateByUrl('dashboard/create-ad');
+  }
+
+  changeAvailability(): void {
+    this.router.navigateByUrl('dashboard/agent-rent');
   }
 }

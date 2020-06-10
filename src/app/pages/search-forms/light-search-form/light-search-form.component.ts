@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 export class LightSearchFormComponent implements OnInit {
   city: String;
   dateFrom : Date;
-  dateTo : Date; 
+  dateTo : Date;
   dates: Object;
   validateForm: FormGroup;
   showResults: Boolean;

@@ -47,6 +47,13 @@
               <li nz-menu-item>Advanced search</li>
             </ul>
           </li>
+          <li *ngIf="isAgent" nz-submenu>
+            <span title>Ad</span>
+            <ul>
+              <li (click)="createAd()" nz-menu-item>Create</li>
+              <li (click)="changeAvailability()" nz-menu-item>Agent rent</li>
+            </ul>
+          </li>
         </ul>
       </nz-sider>
       <nz-layout class="inner-layout">
