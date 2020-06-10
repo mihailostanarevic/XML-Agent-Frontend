@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CarModelService } from './../../../services/car-model.service';
 import { GearshiftTypeService } from './../../../services/gearshift-type.service';
 import { FuelTypeService } from './../../../services/fuel-type.service';
-import { NzMessageService, UploadFile } from 'ng-zorro-antd';
+import { NzMessageService, UploadFile, NgZorroAntdModule } from 'ng-zorro-antd';
 import { CreateAdService } from './../../../services/ad.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from "../../../store/app.reducer";
+import { environment } from './../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-ad',
@@ -27,13 +29,13 @@ export class CreateAdComponent implements OnInit {
   carModelOptions = [];
 
   defaultFileList: UploadFile[] = [
-    {
-      uid: '-1',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }
+    // {
+    //   uid: '-1',
+    //   name: 'xxx.png',
+    //   status: 'done',
+    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    //   thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    // }
   ];
 
   fileList2 = [...this.defaultFileList];
@@ -43,7 +45,8 @@ export class CreateAdComponent implements OnInit {
               private fuelTypeService: FuelTypeService,
               private message: NzMessageService,
               private adService: CreateAdService,
-              private store: Store<fromApp.AppState>) {
+              private store: Store<fromApp.AppState>,
+              private http: HttpClient) {
 
    }
 
@@ -170,11 +173,6 @@ export class CreateAdComponent implements OnInit {
   }
 
   createAd(): void {
-    console.log('submit form');
-    this.fileList2.forEach(element => {
-      console.log(element);
-    });
-    // TODO resiti problem za autoLogin (refresh) i state
     if( !this.availableKilometers || !this.kilometersTraveled || !this.value || !this.inputCarModel) {
         this.message.warning("Input fields is required");
         return;
@@ -184,19 +182,26 @@ export class CreateAdComponent implements OnInit {
     this.store.select("auth").subscribe(authData => {
         agentId = authData.user.id;
     });
-    const body = {
+
+    // image & user
+    var formData = new FormData();
+    this.fileList2.forEach(element => {
+      formData.append('imageFile', element.originFileObj, element.originFileObj.name);
+    });
+    formData.append('request', new Blob([JSON.stringify({
       'carModel': this.inputCarModel,
       'gearshifType': this.selectedHandle + ", " + this.selectedGearNumber,
       'fuelType': this.selectedFuelType + ", " + this.selectedTankCapacity,
-      'photoUrls': [],
       'agentId': agentId,
       'limitedDistance': this.isLimitedDistance,
       'availableKilometersPerRent': this.availableKilometers,
       'kilometersTraveled': this.kilometersTraveled,
       'seats': this.value,
       'cdw': this.isCDW
-    }
-    this.adService.postAd(body).subscribe(() => {
+    })], {
+        type: "application/json"
+    }));
+    this.adService.postAd(formData).subscribe(() => {
       this.message.info('Successfully created!');
     }, error => {
         this.message.info('Something was wrong.');
