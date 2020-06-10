@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-light-search-form',
@@ -24,7 +25,7 @@ export class LightSearchFormComponent implements OnInit {
   showResults: Boolean;
   searchResults: Object[];
 
-  constructor(private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {} 
+  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {} 
 
   ngOnInit(): void {
     this.dates = {
@@ -73,9 +74,8 @@ export class LightSearchFormComponent implements OnInit {
       this.searchResults = data;
       if(data.length > 0){
         for(let result of data){
-          let date = new Date(result.date[0],result.date[1],result.date[2]);
-          result["formattedDate"] = date.toString().substring(0,15);
-          console.log(result);
+          let date = new Date(result.ad.creationDate[0],result.ad.creationDate[1],result.ad.creationDate[2]);
+          result.ad["formattedDate"]= date.toString().substring(0,15);
         }
         this.message.info('Your search came back with ' + data.length + ' results');
       }else {
@@ -85,7 +85,12 @@ export class LightSearchFormComponent implements OnInit {
   }
 
   backToSearch() : void {
-    this.city = "";
+    //this.city = "";
     this.showResults = false;
+  }
+
+  seeInfo(ad: any) : void {
+    this.router.navigateByUrl('dashboard/' + ad.adID + "/ad-details");
+    localStorage.setItem("ad-detail", JSON.stringify(ad));
   }
 }

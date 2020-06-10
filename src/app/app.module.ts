@@ -36,6 +36,7 @@ import { CarModelComponent } from './pages/create-forms/car-model/car-model.comp
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
+import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
 
 registerLocaleData(en);
 
@@ -65,6 +66,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     GearshiftTypeComponent,
     FuelTypeComponent,
     LightSearchFormComponent,
+    AdDetailsComponent,
   ],
   imports: [
     BrowserModule,

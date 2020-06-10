@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12" style="width: 100%;">
+        <h2><strong>Ad details</strong></h2>
+        <form nz-form class="form" style="width: 100%; margin: 0 auto;">
+            <div class="row">
+                <div class="col col-lg-3" style="width: 30%; padding: 0 15px;">
+                    <label for="firstname">Fiafasf</label>
+                    <input type="text" class="form-control" name="firstname">
+                </div>
+                <div class="col col-lg-3" style="width: 30%; padding: 0 15px;">
+                    <label for="lastname">123123</label>
+                    <input type="text" class="form-control" placeholder="Last name" name="lastname">
+                </div>
+                <div class="col col-lg-3" style="width: 50%; padding: 0 15px;">
+                    <label for="lastname1">123123</label>
+                    <input type="text" class="form-control" placeholder="Last name" name="lastname1">
+                </div>
+            </div>
+            <div class="row">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5">MinLength</nz-form-label>
+                            <input nz-input [ngModel]="'MinLength is 6'" [disabled]="true" name="minlength" minlength="6" />
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5">Email</nz-form-label>
+                            <input nz-input [ngModel]="'Input Email'" [disabled]="true" name="email" email />
+                    </nz-form-item>
+            </div>
+            <div class="row">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="5">Pattern</nz-form-label>
+                    <input nz-input [ngModel]="'Match pattern'" [disabled]="true"/>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label [nzSpan]="5">Mix</nz-form-label>
+                    <input nz-input [ngModel]="'MaxLength is 12 and MinLength is 6'"/>
+                  </nz-form-item>
+            </div>
+            <nz-form-item>
+            <div class="cdwDiv" style="float:right;" *ngIf="currentAd.ad.cdw">
+                <img src="../../../../assets/images/collisionDamageWaiver.png" alt="Collision Damage Waiver" style="width: 250px; height: 153px;"/>
+            </div>
+        </nz-form-item>
+          </form>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <h2> <strong>Photos</strong></h2>
+        <nz-carousel nzAutoPlay>
+            <div nz-carousel-content *ngFor="let index of array">
+                <h3>{{ index }}</h3>
+            </div>
+        </nz-carousel>
+    </div>
+</div>
+
+
+
