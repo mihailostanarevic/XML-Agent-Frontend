@@ -1,5 +1,7 @@
 import { User } from '../../shared/user.model';
 import * as AuthActions from './auth.actions';
+import { Attempts } from './../../shared/attempts.model';
+import * as moment from 'moment';
 
 export interface State {
    user: User;
@@ -8,7 +10,7 @@ export interface State {
 
 const initiaState: State = {
    user: null,
-   authError: null,
+   authError: null
 }
 
 export function authReducer(state: State = initiaState, action: AuthActions.AuthActions) {
@@ -31,11 +33,16 @@ export function authReducer(state: State = initiaState, action: AuthActions.Auth
             );
             return {
                ...state,
-               user: user
+               user: user,
+               authError: "Success login."
             };
         case AuthActions.LOGIN_FAIL:
+          return {
+            ...state,
+            user: null,
+            authError: action.payload.message
+          };
         case AuthActions.SIGNUP_FAIL:
-          console.log(action.payload);
           return {
             ...state,
             user: null,
@@ -50,7 +57,8 @@ export function authReducer(state: State = initiaState, action: AuthActions.Auth
         case AuthActions.LOGOUT:
            return {
               ...state,
-              user: null
+              user: null,
+              authError: "Success logout."
            };
         default:
            return state;
