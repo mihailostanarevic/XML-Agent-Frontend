@@ -59,7 +59,10 @@ export class AuthEffects {
           }),
           catchError(responseError => {
             this.message.warning(responseError.error);
-            return of(new AuthActions.LoginFail(responseError.error));
+            return of(new AuthActions.LoginFail({
+              message: responseError.error,
+              autoLogin: false
+            }));
           })
       );
     })

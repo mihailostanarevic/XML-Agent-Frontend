@@ -76,28 +76,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         email: this.validateForm.value.username,
         password: this.validateForm.value.password
       }));
-//     if(Number(localStorage.getItem('attempts')) >=3){
-//       const currentTime = moment().format('HH:mm:ss');
-//       var array = currentTime.split(':');
-//       localStorage.setItem('hours', array[0]);
-//       localStorage.setItem('minutes', array[1]);
-//       this.router.navigateByUrl('auth/limit-redirect');
-//     }
-//     for (const i in this.validateForm.controls) {
-//       this.validateForm.controls[i].markAsDirty();
-//       this.validateForm.controls[i].updateValueAndValidity();
-//     }
-
-//     {
-//       this.authService.login(this.validateForm.value).subscribe(data => {
-//         localStorage.setItem('user', JSON.stringify(data));
-//         this.router.navigateByUrl(`dashboard`);
-//       }, error => {
-//         this.message.info('Bad credentials.');
-//         this.attempts = this.attempts + 1;
-//         localStorage.setItem('attempts', this.attempts.toString());
-//       });
-//     }
   }
 
   onRegistration() {

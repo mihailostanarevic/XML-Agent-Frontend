@@ -35,7 +35,7 @@ export class LoginFail implements Action {
   constructor(public payload: {
     message: string,
     autoLogin: boolean
-  }) {}    // error message
+  }) {}
 }
 
 export class SignupFail implements Action {
