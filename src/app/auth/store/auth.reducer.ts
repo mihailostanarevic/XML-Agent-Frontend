@@ -1,7 +1,5 @@
 import { User } from '../../shared/user.model';
 import * as AuthActions from './auth.actions';
-import { Attempts } from './../../shared/attempts.model';
-import * as moment from 'moment';
 
 export interface State {
    user: User;
