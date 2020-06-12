@@ -31,11 +31,11 @@ export function authReducer(state: State = initiaState, action: AuthActions.Auth
             );
             return {
                ...state,
-               user: user
+               user: user,
+               authError: "Success login."
             };
         case AuthActions.LOGIN_FAIL:
         case AuthActions.SIGNUP_FAIL:
-          console.log(action.payload);
           return {
             ...state,
             user: null,

@@ -32,7 +32,10 @@ export class LoginSuccess implements Action {
 
 export class LoginFail implements Action {
   readonly type = LOGIN_FAIL;
-  constructor(public payload: string) {}    // error message
+  constructor(public payload: {
+    message: string,
+    autoLogin: boolean
+  }) {}    // error message
 }
 
 export class SignupFail implements Action {

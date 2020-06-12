@@ -94,17 +94,19 @@ export class AuthEffects {
   @Effect({dispatch: false})
   authLoginFail = this.actions$.pipe(
     ofType(AuthActions.LOGIN_FAIL),
-    tap(() => {
-      if(Number(localStorage.getItem('attempts')) >=3) {
-        const currentTime = moment().format('HH:mm:ss');
-        var array = currentTime.split(':');
-        localStorage.setItem('hours', array[0]);
-        localStorage.setItem('minutes', array[1]);
+    tap((authFailAction: AuthActions.LoginFail) => {
+      if(!authFailAction.payload.autoLogin) {
+        if(Number(localStorage.getItem('attempts')) >=3) {
+          const currentTime = moment().format('HH:mm:ss');
+          var array = currentTime.split(':');
+          localStorage.setItem('hours', array[0]);
+          localStorage.setItem('minutes', array[1]);
 
-        this.router.navigate(['/auth/limit-redirect']);
-      } else {
-        const attempts: number = Number(localStorage.getItem('attempts'));
-        localStorage.setItem('attempts', (attempts + 1).toString());
+          this.router.navigate(['/auth/limit-redirect']);
+        } else {
+          const attempts: number = Number(localStorage.getItem('attempts'));
+          localStorage.setItem('attempts', (attempts + 1).toString());
+        }
       }
     })
   );
@@ -133,36 +135,43 @@ export class AuthEffects {
   autoLogin = this.actions$.pipe(
     ofType(AuthActions.AUTO_LOGIN),
     map(() => {
-      const userData: {
-        email: string;
-        id: string;
-        _token: string;
-        _tokenExpirationDate: string;
-        userRole: string
-      } = JSON.parse(localStorage.getItem('userData'));
+      if(localStorage.getItem('userData') !== null) {
+        const userData: {
+          email: string;
+          id: string;
+          _token: string;
+          _tokenExpirationDate: string;
+          userRole: string
+        } = JSON.parse(localStorage.getItem('userData'));
 
-      if(userData !== null) {
-        const loadedUser = new User(
-          userData.email,
-          userData.id,
-          userData._token,
-          new Date(userData._tokenExpirationDate),
-          userData.userRole
-        );
+        if(userData !== null) {
+          const loadedUser = new User(
+            userData.email,
+            userData.id,
+            userData._token,
+            new Date(userData._tokenExpirationDate),
+            userData.userRole
+          );
 
-        if(loadedUser.token){
-          const remainingDuration =
-              new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-          this.authService.setLogoutTimer(remainingDuration);
-          return new AuthActions.LoginSuccess({
-            email: userData.email,
-            userId: userData.id,
-            token: userData._token,
-            expirationDate: new Date(userData._tokenExpirationDate),
-            userRole: userData.userRole,
-            redirect: false
-          });
+          if(loadedUser.token){
+            const remainingDuration =
+                new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+            this.authService.setLogoutTimer(remainingDuration);
+            return new AuthActions.LoginSuccess({
+              email: userData.email,
+              userId: userData.id,
+              token: userData._token,
+              expirationDate: new Date(userData._tokenExpirationDate),
+              userRole: userData.userRole,
+              redirect: false
+            });
+          }
         }
+      } else {
+        return new AuthActions.LoginFail({
+          message: "User is not logged in.",
+          autoLogin: true
+        });
       }
     })
   );
