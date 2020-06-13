@@ -5,7 +5,7 @@
                 <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup" [(ngModel)]="city" />
             </nz-input-group>
         </nz-form-control>
-    
+
 
     <br/>
     <br/>
@@ -16,7 +16,7 @@
                     [nzShowTime]="{ nzFormat: 'hh:mm' }"
                     nzFormat="hh:mm dd-MM-yyyy"
                     [nzPlaceHolder]="['Start Time', 'End Time']"
-                    ngModel 
+                    ngModel
                     (ngModelChange)="onChange($event)"
                     style="width: 300px;"
                     formControlName="dates"
@@ -25,7 +25,7 @@
         </nz-input-group>
     </nz-form-control>
     </form>
-  
+
     <button nz-button (click)="submitSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button>
   </div>
 
@@ -58,5 +58,5 @@
         </ng-template>
       </div>
     </div>
-    
+
   </div>

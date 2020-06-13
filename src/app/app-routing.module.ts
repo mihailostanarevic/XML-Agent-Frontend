@@ -22,6 +22,7 @@ import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift
 import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -31,7 +32,6 @@ const routes: Routes = [
   { path: 'auth/registration', component: RegistrationComponent},
   // { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
-
   {
     path: 'dashboard', component: DashboardComponent, children: [
       { path: 'agent-registration', component: AgentRegistrationComponent},
@@ -52,6 +52,7 @@ const routes: Routes = [
       { path: ':id/ad-details', component: AdDetailsComponent},
       { path: 'agent-rent', component: AgentRentComponent},
       { path: 'create-ad', component: CreateAdComponent},
+      { path: 'cart', component: CartComponent},
     ],
 
   },

@@ -40,6 +40,8 @@ import { LightSearchFormComponent } from './pages/search-forms/light-search-form
 import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
 import * as fromApp from './store/app.reducer';
 import { RegistrationComponent } from './auth/registration/registration.component';
+import { CartEffects } from './cart/store/cart.effects';
+import { CartComponent } from './pages/cart/cart.component';
 
 registerLocaleData(en);
 
@@ -72,7 +74,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     CreateAdComponent,
     AgentRentComponent,
     RegistrationComponent,
-    CreateAdComponent
+    CreateAdComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     CommonModule,
     StoreModule.forRoot(fromApp.appReducer),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, CartEffects])
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#00ff00' },
   { provide: NZ_ICONS, useValue: icons }],

@@ -25,7 +25,7 @@ export class LightSearchFormComponent implements OnInit {
   showResults: Boolean;
   searchResults: Object[];
 
-  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {} 
+  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.dates = {
