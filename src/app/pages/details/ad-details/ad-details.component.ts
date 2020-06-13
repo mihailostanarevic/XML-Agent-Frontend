@@ -25,6 +25,10 @@ import { Component, OnInit } from '@angular/core';
 export class AdDetailsComponent implements OnInit {
   array = [1, 2, 3, 4];
   currentAd: any;
+  visible = false;
+  childrenVisible = false;
+
+  vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
 
   constructor() {}
 
@@ -32,5 +36,23 @@ export class AdDetailsComponent implements OnInit {
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     console.log(this.currentAd);
   }
+  
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+
+  openChildren(): void {
+    this.childrenVisible = true;
+  }
+
+  closeChildren(): void {
+    this.childrenVisible = false;
+  }
+
+ 
 
 }
