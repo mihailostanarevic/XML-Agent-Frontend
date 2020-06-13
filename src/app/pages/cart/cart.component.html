@@ -68,7 +68,11 @@
         </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu nzSelectable *ngFor="let address of cart.agent.locations">
-            <li (click)="changeAddress($event, cart.ad.id)" nz-menu-item id="{{ address.id }}">{{ address.city }}, {{ address.street }} {{ address.number }}</li>
+            <li
+              (click)="changeAddress($event, cart.ad.id)"
+              nz-menu-item id="{{ address.id }}">{{ address.city }}, {{ address.street }} {{ address.number }}
+
+            </li>
           </ul>
         </nz-dropdown-menu>
       </nz-card>

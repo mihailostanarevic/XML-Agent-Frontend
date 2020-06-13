@@ -70,7 +70,7 @@ export class AdDetailsComponent implements OnInit {
       dateTo: "",
       timeFrom: "",
       timeTo: "",
-      pickUpAddress: ""
+      pickUpAddressID: ""
     }
     this.store.dispatch(new CartActions.AddToCart({
        car: car,
