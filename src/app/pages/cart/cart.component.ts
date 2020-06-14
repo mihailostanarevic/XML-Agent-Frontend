@@ -167,7 +167,7 @@ export class CartComponent implements OnInit {
       // baca error, jer ne saljem bas taj objekat (vec prosiren) koji se na beku ocekuje
       console.log('sending request, len:' + requestBody.length);
       this.requestService.sendRequest(requestBody).subscribe(response => {
-        this.message.info('Request is successfully created!');
+        this.message.info(response.message);
       });
     }
 
