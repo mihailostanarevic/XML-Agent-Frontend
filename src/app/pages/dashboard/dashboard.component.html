@@ -13,8 +13,17 @@
         <li *ngIf="isAdmin" nz-menu-item (click)="carClasses()">Classes</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carModels()">Models</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="gearshiftTypes()">Gearshift types</li>
-        <li *ngIf="isAdmin" nz-menu-item (click)="fuelTypes()">Fuel types</li> -->
-        <li nz-menu-item (click)="logout()">Log out</li>
+        <li *ngIf="isAdmin" nz-menu-item (click)="fuelTypes()">Fuel  types</li> -->
+        <li *ngIf="isSimpleUser" nz-menu-item style="float: left;">
+          <img
+            src="https://image.flaticon.com/icons/svg/2897/2897951.svg"
+            width="32"
+            height="32"
+            alt="Cart"
+            title="Shopping Cart"
+            (click)="showCart()">
+        </li>
+        <li nz-menu-item (click)="logout()" style="float: right;">Log out</li>
       </ul>
     </nz-header>
     <nz-layout>
@@ -52,6 +61,13 @@
             <ul>
               <li (click)="createAd()" nz-menu-item>Create</li>
               <li (click)="changeAvailability()" nz-menu-item>Agent rent</li>
+            </ul>
+          </li>
+          <li nz-submenu>
+            <span title>Reservations</span>
+            <ul>
+              <li (click)="successfulReservations()" nz-menu-item>Successful reservations</li>
+              <li nz-menu-item>Advanced search</li>
             </ul>
           </li>
         </ul>

@@ -5,7 +5,7 @@
                 <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup" [(ngModel)]="city" />
             </nz-input-group>
         </nz-form-control>
-    
+
 
     <br/>
     <br/>
@@ -16,7 +16,7 @@
                     [nzShowTime]="{ nzFormat: 'hh:mm' }"
                     nzFormat="hh:mm dd-MM-yyyy"
                     [nzPlaceHolder]="['Start Time', 'End Time']"
-                    ngModel 
+                    ngModel
                     (ngModelChange)="onChange($event)"
                     style="width: 300px;"
                     formControlName="dates"
@@ -25,7 +25,7 @@
         </nz-input-group>
     </nz-form-control>
     </form>
-  
+
     <button nz-button (click)="submitSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button>
   </div>
 
@@ -33,6 +33,7 @@
     <div><i nz-icon nzType="arrow-left" nzTheme="outline" (click)="backToSearch()"></i>  <span style="padding-top: 2px;"><strong>  Go back to search</strong></span></div>
     <div class="row" style="margin-top: 20px;">
       <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
+
         <nz-card [nzActions]="[actionEdit, actionInfo, actionShopping]" [nzHoverable]="true">
           <nz-descriptions nzLayout="horizontal">
             <nz-descriptions-item nzTitle="Name of issuer">{{result.agent.agentName}}</nz-descriptions-item>
@@ -73,9 +74,8 @@
               </nz-table>
              </div>
           </nz-modal> 
-         
-
+       
       </div>
     </div>
-    
+
   </div>

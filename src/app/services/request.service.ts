@@ -18,4 +18,3 @@ export class RequestService {
      return this.http.post(this.requestUrl, body);
   }
 
-}

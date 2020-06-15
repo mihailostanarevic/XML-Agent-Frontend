@@ -106,4 +106,12 @@ export class DashboardComponent implements OnInit {
   changeAvailability(): void {
     this.router.navigateByUrl('dashboard/agent-rent');
   }
+
+  showCart(): void {
+    this.router.navigateByUrl('dashboard/cart');
+  }
+
+  successfulReservations(): void{
+    this.router.navigateByUrl('dashboard/' + this.user.id + "/reservations");
+  }
 }
