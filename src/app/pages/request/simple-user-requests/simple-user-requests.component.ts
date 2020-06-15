@@ -1,0 +1,64 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RequestService } from './../../../services/request.service';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../store/app.reducer';
+
+interface DataItem {
+  agent: string;
+  ad: string;
+  receptionDate: string;
+  pickUpAddress: string;
+}
+@Component({
+  selector: 'app-simple-user-requests',
+  templateUrl: './simple-user-requests.component.html',
+  styleUrls: ['./simple-user-requests.component.css']
+})
+export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
+  subscriptionUser: Subscription;
+  activeUserID: string;
+
+  constructor(private requestService: RequestService,
+              private store: Store<fromApp.AppState>) { }
+
+  ngOnInit(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserID = userData.user.id;
+
+      this.getUserRequest('PENDING');
+    });
+  }
+
+  searchValue = '';
+  visible = false;
+  listOfData: DataItem[] = [];
+  listOfDisplayData = [...this.listOfData];
+
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.ad.indexOf(this.searchValue) !== -1);
+  }
+
+  getUserRequest(reqStatus): void {
+    this.requestService.getRequests({
+      "id": this.activeUserID,
+      "requestStatus": reqStatus
+    }).subscribe(response => {
+      this.listOfData = response;
+      this.listOfDisplayData = [...this.listOfData];
+    })
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscriptionUser) {
+      this.subscriptionUser.unsubscribe();
+    }
+  }
+
+}

@@ -7,12 +7,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AgentRentComponent } from './pages/ad/agent-rent/agent-rent.component';
 import { CreateAdComponent } from './pages/ad/create-ad/create-ad.component';
+import { CartComponent } from './pages/cart/cart.component';
 import { CarBrandComponent } from './pages/create-forms/car-brand/car-brand.component';
 import { CarClassComponent } from './pages/create-forms/car-class/car-class.component';
 import { CarModelComponent } from './pages/create-forms/car-model/car-model.component';
 import { FuelTypeComponent } from './pages/create-forms/fuel-type/fuel-type.component';
 import { GearshiftTypeComponent } from './pages/create-forms/gearshift-type/gearshift-type.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
 import { ErrorComponent } from './pages/error/acces-denied/error.component';
 import { CarBrandsComponent } from './pages/lists/car-brands/car-brands.component';
 import { CarClassesComponent } from './pages/lists/car-classes/car-classes.component';
@@ -20,10 +22,10 @@ import { CarModelsComponent } from './pages/lists/car-models/car-models.componen
 import { FuelTypesComponent } from './pages/lists/fuel-types/fuel-types.component';
 import { GearshiftTypesComponent } from './pages/lists/gearshift-types/gearshift-types.component';
 import { RegistrationRequestComponent } from './pages/registration-request/registration-request.component';
-import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
-import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
-import { CartComponent } from './pages/cart/cart.component';
+import { AgentRequestsComponent } from './pages/request/agent-requests/agent-requests.component';
+import { SimpleUserRequestsComponent } from './pages/request/simple-user-requests/simple-user-requests.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
+import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -54,6 +56,8 @@ const routes: Routes = [
       { path: 'agent-rent', component: AgentRentComponent},
       { path: 'create-ad', component: CreateAdComponent},
       { path: 'cart', component: CartComponent},
+      { path: 'agent/requests', component: AgentRequestsComponent},
+      { path: 'user/requests', component: SimpleUserRequestsComponent},
       { path: ':id/reservations', component:ReservationsComponent},
     ],
 
