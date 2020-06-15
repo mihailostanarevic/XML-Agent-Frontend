@@ -23,6 +23,7 @@ import { RegistrationRequestComponent } from './pages/registration-request/regis
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 import { AdDetailsComponent } from './pages/details/ad-details/ad-details.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { ReservationsComponent } from './pages/reservations/reservations.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'agent-rent', component: AgentRentComponent},
       { path: 'create-ad', component: CreateAdComponent},
       { path: 'cart', component: CartComponent},
+      { path: ':id/reservations', component:ReservationsComponent},
     ],
 
   },

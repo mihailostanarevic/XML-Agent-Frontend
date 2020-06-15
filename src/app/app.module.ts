@@ -42,6 +42,8 @@ import * as fromApp from './store/app.reducer';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { CartEffects } from './cart/store/cart.effects';
 import { CartComponent } from './pages/cart/cart.component';
+import { AdCardComponent } from './pages/ad-card/ad-card.component';
+import { ReservationsComponent } from './pages/reservations/reservations.component';
 
 registerLocaleData(en);
 
@@ -76,6 +78,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     RegistrationComponent,
     CreateAdComponent,
     CartComponent
+    AdCardComponent,
+    ReservationsComponent
   ],
   imports: [
     BrowserModule,

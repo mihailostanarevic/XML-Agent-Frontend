@@ -32,6 +32,10 @@ import { Address } from 'src/app/shared/address.model';
 export class AdDetailsComponent implements OnInit {
   array = [1, 2, 3, 4];
   currentAd: any;
+  visible = false;
+  childrenVisible = false;
+
+  vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
 
   constructor(private store: Store<fromApp.AppState>) {}
 
@@ -39,6 +43,24 @@ export class AdDetailsComponent implements OnInit {
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     console.log(this.currentAd);
   }
+  
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+
+  openChildren(): void {
+    this.childrenVisible = true;
+  }
+
+  closeChildren(): void {
+    this.childrenVisible = false;
+  }
+
+ 
 
   addToCart(): void {
     const car: Car = {
