@@ -27,7 +27,7 @@ export class LightSearchFormComponent implements OnInit {
   searchResults: Object[];
   page:string;
 
-  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {} 
+  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.page = "search";

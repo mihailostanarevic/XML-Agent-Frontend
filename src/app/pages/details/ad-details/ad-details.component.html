@@ -37,9 +37,9 @@
                     <h3>{{ index }}</h3>
                 </div>
             </nz-carousel>
-            
+
             <div style="margin-top:20px; float:right;" >
-                <button nz-button nzType="primary" style="width: 120px; height:45px;"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add to cart</button>
+                <button nz-button nzType="primary" style="width: 120px; height:45px;" (click)="addToCart()"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add To Cart</button>
             </div>
             <div style="margin-top:20px;" >
                 <button nz-button nzType="primary" (click)="open()" style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Message</button>
