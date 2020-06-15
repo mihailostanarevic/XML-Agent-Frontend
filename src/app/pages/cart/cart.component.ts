@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { NzButtonSize, NzMessageService, NzModalService, NzModalRef } from 'ng-zorro-antd';
+import { NzButtonSize, NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
-import * as fromApp from "../../store/app.reducer";
-import { Cart } from './../../shared/cart.model';
-import * as CartActions from '../../cart/store/cart.actions';
-import { reduce } from 'rxjs/operators';
 import { Ad } from 'src/app/shared/ad.model';
+import * as CartActions from '../../cart/store/cart.actions';
+import * as fromApp from "../../store/app.reducer";
 import { RequestService } from './../../services/request.service';
+import { Cart } from './../../shared/cart.model';
 
 export interface RequestDTO {
   adID: string;
@@ -71,7 +70,7 @@ export class CartComponent implements OnInit {
       const timeTo:string = this.dates["to"].split(" ")[0];
       const dateFrom:string =this.dates["from"].split(" ")[1];
       const dateTo:string = this.dates["to"].split(" ")[1];
-      console.log(timeFrom + "-" +timeTo + ", " +dateFrom + "-" +dateTo);
+      // console.log(timeFrom + "-" +timeTo + ", " +dateFrom + "-" +dateTo);
       let index: number;
       this.store.select('cart').subscribe(content => {
         index = content.cartContent.findIndex(x => x.ad.id === adID);
@@ -85,6 +84,9 @@ export class CartComponent implements OnInit {
         timeTo: timeTo,
         index: index
       }));
+
+      this.message.info("Pick Up Time: " + dateFrom + " at " + timeFrom +
+                  ", Return time: " + dateTo + " at " + timeTo);
     }
 
     formatDatesCorrectly(date1 : string, date2 : string) : void {
@@ -98,13 +100,10 @@ export class CartComponent implements OnInit {
       }
     }
 
-    onOkDate(result: Date | Date[] | null, adID?: string): void {
-      // console.log('onOk'+ result + ", id: " + adID);
-    }
-
     sendRequest(): void {
       let requestBody: RequestDTO[] = [];
       let customerID: string;
+      let isOk: boolean[] = [];
       this.store.select('auth').subscribe(authData => {
         customerID = authData.user.id;
       });
@@ -112,6 +111,7 @@ export class CartComponent implements OnInit {
         cart.cartContent.forEach(cart => {
           let requestDTO: RequestDTO;
           if(this.checkInputFields(cart)) {
+            isOk.push(true);
             const ad: Ad = {...cart.ad};
             requestDTO = {
               adID: ad.id,
@@ -129,46 +129,48 @@ export class CartComponent implements OnInit {
 
             requestBody.push(requestDTO);
           } else {
-            this.message.warning('Please fill all input fields.');
-            return;
+            isOk.push(false);
           }
         });
       });
 
-
-      let processedList: RequestDTO[] = [];
-      requestBody.forEach(request => {
-        if(processedList.indexOf(request) === -1) {
-          let bundleList: RequestDTO[] = [];
-          requestBody.forEach(requestInside => {
-            if(request.agentID === requestInside.agentID) {
-              processedList.push(requestInside);
-              bundleList.push(requestInside);
-            }
-          });
-
-          if(bundleList.length > 1) {
-            let bundleQ = "";
-            bundleList.forEach(element => {
-              bundleQ += element.carBrand + " " + element.carModel + ", ";
+      if(isOk.indexOf(false) === -1) {
+        let processedList: RequestDTO[] = [];
+        requestBody.forEach(request => {
+          if(processedList.indexOf(request) === -1) {
+            let bundleList: RequestDTO[] = [];
+            requestBody.forEach(requestInside => {
+              if(request.agentID === requestInside.agentID) {
+                processedList.push(requestInside);
+                bundleList.push(requestInside);
+              }
             });
-            if(confirm('Do you want to create one bundle request for ads: '+ bundleQ)) {
+
+            if(bundleList.length > 1) {
+              let bundleQ = "";
               bundleList.forEach(element => {
-                const isInRequestBody: number = requestBody.indexOf(element);
-                if(isInRequestBody !== -1) {
-                  requestBody[isInRequestBody].bundle = true;
-                }
+                bundleQ += element.carBrand + " " + element.carModel + ", ";
               });
+              if(confirm('Do you want to create one bundle request for ads: '+ bundleQ)) {
+                bundleList.forEach(element => {
+                  const isInRequestBody: number = requestBody.indexOf(element);
+                  if(isInRequestBody !== -1) {
+                    requestBody[isInRequestBody].bundle = true;
+                  }
+                });
+              }
             }
           }
-        }
-      });
+        });
 
-      // baca error, jer ne saljem bas taj objekat (vec prosiren) koji se na beku ocekuje
-      console.log('sending request, len:' + requestBody.length);
-      this.requestService.sendRequest(requestBody).subscribe(response => {
-        this.message.info(response.message);
-      });
+        console.log('sending request, len:' + requestBody.length);
+        this.requestService.sendRequest(requestBody).subscribe(response => {
+          this.message.info(response.message);
+          this.store.dispatch(new CartActions.ClearCart());
+        });
+      } else {
+        this.message.warning('Please fill all input fields.');
+      }
     }
 
     // check whether input fields(date & address) is filled
@@ -181,6 +183,7 @@ export class CartComponent implements OnInit {
 
     changeAddress(event, adID: string): void {
       const addresClicked: string = event.srcElement.attributes[2].nodeValue;
+      this.message.info("You pick address: " + event.srcElement.innerText);
       let index: number;
       this.store.select('cart').subscribe(content => {
         index = content.cartContent.findIndex(x => x.ad.id === adID);
