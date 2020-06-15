@@ -54,8 +54,27 @@
           <i nz-icon nz-tooltip nzTooltipTitle="See informations" (click)="seeInfo(result)" nzType="info-circle" nzTheme="outline"></i>
         </ng-template>
         <ng-template #actionShopping>
-          <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" nzType="carry-out" nzTheme="fill"></i>
+          <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" (click)="reserveAdNow(result)" nzType="carry-out" nzTheme="fill"></i>
         </ng-template>
+           <!--MODALNI DIJALOG ZA REZERVACIJU OGLASA-->
+           <nz-modal [(nzVisible)]="isVisible"  nzTitle="CHOOSE PICK UP ADDRESS" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(result)">
+            <div>
+              <nz-table #nzTable [nzData]="addressList">
+                <thead>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of nzTable.data" (click)="RowSelected(data)" >
+                    <td>{{ data.street + " "+ data.number + ", "+data.city}}</td>
+                    <td>
+                      <button nz-button nzType="primary">Choose</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+             </div>
+          </nz-modal> 
+         
+
       </div>
     </div>
     

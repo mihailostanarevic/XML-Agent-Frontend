@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
+import { RequestService } from 'src/app/services/request.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
@@ -24,8 +25,11 @@ export class LightSearchFormComponent implements OnInit {
   validateForm: FormGroup;
   showResults: Boolean;
   searchResults: Object[];
+  isVisible : Boolean;
+  addressList : Object[];
+  pickUpAddress: String;
 
-  constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {} 
+  constructor(private router: Router, private searchService: SearchService, private requestService: RequestService, private message: NzMessageService, private fb: FormBuilder) {} 
 
   ngOnInit(): void {
     this.dates = {
@@ -38,6 +42,9 @@ export class LightSearchFormComponent implements OnInit {
       dates: [null, [Validators.required]]
     });
     this.searchResults = [];
+    this.isVisible = false;   //modalni dijalog za izbor pickup adrese
+    this.addressList = [];
+    this.pickUpAddress ="";
   }
 
   onChange(result: Date[]): void {
@@ -93,4 +100,62 @@ export class LightSearchFormComponent implements OnInit {
     this.router.navigateByUrl('dashboard/' + ad.adID + "/ad-details");
     localStorage.setItem("ad-detail", JSON.stringify(ad));
   }
+
+  reserveAdNow(ad :any) :void {  //agent rezervise oglas->otvara mu se modalni dijalog za izbor tacne adrese
+        console.log(ad.agent.fullLocations);
+        this.isVisible = true;
+        this.addressList = ad.agent.fullLocations;  
+ }
+
+  RowSelected(selectAddress){
+        console.log(selectAddress.id);
+        this.pickUpAddress = selectAddress.id;
+  }
+
+
+  handleOk(ad:any): void {
+        console.log('Button ok clicked!');
+
+        if(this.pickUpAddress === ""){
+            this.message.info('You must choose address.');
+        }else{
+            let dateAndTimeFrom = this.dates["from"];
+            let dateAndTimeTo = this.dates["to"];
+
+            let data = {                 //RequestDAO
+              adID : ad.ad.adID,
+              customerID : ad.agent.agentID,
+              pickUpDate : dateAndTimeFrom.split(" ")[1],
+              pickUpTime : dateAndTimeFrom.split(" ")[0],
+              returnDate : dateAndTimeTo.split(" ")[1],
+              returnTime :  dateAndTimeTo.split(" ")[0],
+              pickUpAddress : this.pickUpAddress,
+              bundle : false
+            }
+
+            console.log(data);
+            this.isVisible = false;
+
+            this.requestService.updateCarAvailability(data).subscribe(data =>{
+                    console.log(data);
+                    this.message.info('You have successfully reserved ad.');
+            })
+        }
+      
+  }
+
+
+  handleCancel(): void {
+        console.log('Button cancel clicked!');
+        this.isVisible = false;
+  }
+
+
+
+
+
+
+
 }
+
+
