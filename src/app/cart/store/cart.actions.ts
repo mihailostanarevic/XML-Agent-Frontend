@@ -5,6 +5,7 @@ import { Ad } from 'src/app/shared/ad.model';
 export const ADD_TO_CART = '[Cart] Add an Ad in Cart';
 export const CHANGE_DATE_TIME = '[Cart] Change Date&Time';
 export const CHANGE_ADDRESS = '[Cart] Change Address';
+export const CLEAR_CART = '[Cart] Clear Cart';
 
 export class AddToCart implements Action {
   readonly type = ADD_TO_CART;
@@ -31,6 +32,11 @@ export class ChangeAddress implements Action {
   }) {}
 }
 
+export class ClearCart implements Action {
+  readonly type = CLEAR_CART;
+}
+
 export type CartActions = AddToCart
                         | ChangeDateTime
-                        | ChangeAddress;
+                        | ChangeAddress
+                        | ClearCart;

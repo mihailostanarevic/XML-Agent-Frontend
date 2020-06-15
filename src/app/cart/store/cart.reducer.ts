@@ -69,6 +69,12 @@ export function cartReducer(state: State = initiaState, action: CartActions.Cart
           ...state,
           cartContent: updatedCartListAddr
         };
+      case CartActions.CLEAR_CART:
+        let clearedCart: Cart[] = [];
+        return {
+          ...state,
+          cartContent: clearedCart
+        }
       default:
         return state;
   }
