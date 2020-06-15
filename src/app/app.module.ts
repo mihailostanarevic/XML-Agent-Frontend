@@ -76,7 +76,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     RegistrationComponent,
     CreateAdComponent,
     AdCardComponent,
-    ReservationsComponent
+    ReservationsComponent,
   ],
   imports: [
     BrowserModule,
