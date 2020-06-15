@@ -4,6 +4,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { CarBrandComponent } from '../../create-forms/car-brand/car-brand.component';
 
 @Component({
   selector: 'app-light-search-form',
@@ -32,6 +33,7 @@ export class LightSearchFormComponent implements OnInit {
   constructor(private router: Router, private searchService: SearchService, private requestService: RequestService, private message: NzMessageService, private fb: FormBuilder) {} 
 
   ngOnInit(): void {
+    this.page = "search";
     this.dates = {
       from : "",
       to: ""
@@ -149,10 +151,6 @@ export class LightSearchFormComponent implements OnInit {
         console.log('Button cancel clicked!');
         this.isVisible = false;
   }
-
-
-
-
 
 
 

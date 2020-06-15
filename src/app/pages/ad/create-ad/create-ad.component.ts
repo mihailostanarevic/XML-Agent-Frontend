@@ -70,7 +70,7 @@ export class CreateAdComponent implements OnInit {
   }
 
   selectedFuelType = 'Diesel';
-  selectedTankCapacity = '60L';
+  selectedTankCapacity = '50L, no gas';
   fuelData = [ ];
   tankData: { [place: string]: string[] } = {
     Diesel: [],
@@ -118,9 +118,9 @@ export class CreateAdComponent implements OnInit {
           this.fuelData.push(element.type);
         }
         if(element.type === 'Diesel'){
-          this.tankData.Diesel.push(element.tankCapacity);
+          this.tankData.Diesel.push(element.tankCapacity + ", " + (element.gas === true ? 'gas' : 'no gas'));
         } else if(element.type === 'Benzine'){
-          this.tankData.Benzine.push(element.tankCapacity);
+          this.tankData.Benzine.push(element.tankCapacity + ", " + (element.gas === true ? 'gas' : 'no gas'));
         }
       });
     }, error => {
