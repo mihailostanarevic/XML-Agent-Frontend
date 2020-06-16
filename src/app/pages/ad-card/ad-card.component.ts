@@ -13,10 +13,11 @@ export class AdCardComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
+    console.log(this.result);
   }
 
   seeInfo(ad: any) : void {
-    this.router.navigateByUrl('dashboard/' + ad.adID + "/ad-details");
     localStorage.setItem("ad-detail", JSON.stringify(ad));
+    this.router.navigateByUrl('dashboard/' + this.result.ad.adID + "/ad-details");
   }
 }

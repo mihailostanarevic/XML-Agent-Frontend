@@ -25,6 +25,7 @@ import { RegistrationRequestComponent } from './pages/registration-request/regis
 import { AgentRequestsComponent } from './pages/request/agent-requests/agent-requests.component';
 import { SimpleUserRequestsComponent } from './pages/request/simple-user-requests/simple-user-requests.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 
 const routes: Routes = [
@@ -55,10 +56,11 @@ const routes: Routes = [
       { path: ':id/ad-details', component: AdDetailsComponent},
       { path: 'agent-rent', component: AgentRentComponent},
       { path: 'create-ad', component: CreateAdComponent},
+      { path: 'reservations', component:ReservationsComponent},
+      { path: 'messages', component: MessagesComponent},
       { path: 'cart', component: CartComponent},
       { path: 'agent/requests', component: AgentRequestsComponent},
       { path: 'user/requests', component: SimpleUserRequestsComponent},
-      { path: ':id/reservations', component:ReservationsComponent},
     ],
 
   },
