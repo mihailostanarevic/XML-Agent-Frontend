@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { Cart } from 'src/app/shared/cart.model';
-import { Ad } from 'src/app/shared/ad.model';
 
 export const ADD_TO_CART = '[Cart] Add an Ad in Cart';
 export const CHANGE_DATE_TIME = '[Cart] Change Date&Time';

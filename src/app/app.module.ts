@@ -45,6 +45,8 @@ import { CartComponent } from './pages/cart/cart.component';
 import { AdCardComponent } from './pages/ad-card/ad-card.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { AgentRequestsComponent } from './pages/request/agent-requests/agent-requests.component';
+import { SimpleUserRequestsComponent } from './pages/request/simple-user-requests/simple-user-requests.component';
 
 registerLocaleData(en);
 
@@ -82,6 +84,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AdCardComponent,
     ReservationsComponent,
     MessagesComponent,
+    AgentRequestsComponent,
+    SimpleUserRequestsComponent
   ],
   imports: [
     BrowserModule,

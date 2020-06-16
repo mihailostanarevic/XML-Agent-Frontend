@@ -118,4 +118,12 @@ export class DashboardComponent implements OnInit {
   inbox(): void{
     this.router.navigateByUrl('dashboard/messages');
   }
+
+  agentRequests(): void {
+    this.router.navigateByUrl('dashboard/agent/requests');
+  }
+
+  simpleUserRequests(): void {
+    this.router.navigateByUrl('dashboard/user/requests');
+  }
 }

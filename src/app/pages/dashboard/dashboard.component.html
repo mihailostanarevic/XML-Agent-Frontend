@@ -63,7 +63,10 @@
               <li (click)="changeAvailability()" nz-menu-item>Agent rent</li>
             </ul>
           </li>
-          <li nz-submenu *ngIf="isSimpleUser">
+          <li *ngIf="isAgent" (click)="agentRequests()" nz-menu-item>Requests</li>
+          <li *ngIf="isSimpleUser" (click)="simpleUserRequests()" nz-menu-item>Requests</li>
+          <li nz-submenu>
+           <li nz-submenu *ngIf="isSimpleUser">
             <span title>Reservations</span>
             <ul>
               <li (click)="successfulReservations()" nz-menu-item>Successful reservations</li>

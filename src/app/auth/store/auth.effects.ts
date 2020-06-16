@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, isInteger } from 'ng-zorro-antd';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
@@ -157,7 +157,7 @@ export class AuthEffects {
           );
 
           if(loadedUser.token){
-            const remainingDuration =
+            const remainingDuration:number =
                 new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.authService.setLogoutTimer(remainingDuration);
             return new AuthActions.LoginSuccess({
