@@ -6,6 +6,7 @@ import * as fromApp from '../../../store/app.reducer';
 import { NzMessageService } from 'ng-zorro-antd';
 
 interface DataItem {
+  id: string,
   agent: string;
   ad: string;
   receptionDate: string;
@@ -30,6 +31,15 @@ export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
       this.activeUserID = userData.user.id;
       this.getUserRequest('PENDING');
     });
+  }
+
+  expandSet = new Set<number>();
+  onExpandChange(id: number, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
+    } else {
+      this.expandSet.delete(id);
+    }
   }
 
   searchValue = '';

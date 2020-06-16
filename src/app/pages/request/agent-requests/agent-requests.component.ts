@@ -6,6 +6,7 @@ import { RequestService } from 'src/app/services/request.service';
 import * as fromApp from '../../../store/app.reducer';
 
 interface DataItem {
+  id: string;
   customer: string;
   ad: string;
   receptionDate: string;
@@ -30,6 +31,15 @@ export class AgentRequestsComponent implements OnInit {
         this.activeUserID = userData.user.id;
         this.getAgentRequest('PENDING');
     });
+  }
+
+  expandSet = new Set<number>();
+  onExpandChange(id: number, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
+    } else {
+      this.expandSet.delete(id);
+    }
   }
 
   searchValue = '';

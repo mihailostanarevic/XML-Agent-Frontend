@@ -19,6 +19,7 @@
 <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" style="margin-top: 5%;">
   <thead>
     <tr>
+      <th nzWidth="60px"></th>
       <th>Agent</th>
       <th nzCustomFilter>
         Ad
@@ -32,16 +33,22 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of nzTable.data">
-      <td>{{ data.agent }}</td>
-      <td>{{ data.ad }}</td>
-      <td>{{ data.receptionDate }}</td>
-      <td>{{ data.pickUpAddress }}</td>
-      <td><button
-            nz-button nzType="primary" nzGhost
-            *ngIf="data.requestStatus === 'RESERVED'"
-            (click)="payRequest(data.id)">Pay</button></td>
-    </tr>
+    <ng-container *ngFor="let data of nzTable.data">
+      <tr>
+        <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+        <td>{{ data.agent }}</td>
+        <td>{{ data.ad }}</td>
+        <td>{{ data.receptionDate }}</td>
+        <td>{{ data.pickUpAddress }}</td>
+        <td><button
+              nz-button nzType="primary" nzGhost
+              *ngIf="data.requestStatus === 'RESERVED'"
+              (click)="payRequest(data.id)">Pay</button></td>
+      </tr>
+      <tr [nzExpand]="expandSet.has(data.id)">
+        <span> {{ data.description }} </span>
+      </tr>
+    </ng-container>
   </tbody>
 </nz-table>
 <nz-dropdown-menu #menu="nzDropdownMenu">
