@@ -4,7 +4,6 @@ import { CarAccessoriesService } from 'src/app/services/car-accessories.service'
 import { CarAccessory } from 'src/app/shared/carAccessory.model';
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageService } from 'src/app/services/message.service';
-import { User } from 'src/app/shared/user.model';
 import { Store } from '@ngrx/store';
 import * as fromApp from "../../../store/app.reducer";
 
@@ -33,7 +32,7 @@ import * as fromApp from "../../../store/app.reducer";
 export class AdDetailsComponent implements OnInit {
   array = [1, 2, 3, 4];
   currentAd: any;
-  page: string;
+  previousPage: string;
   visible:boolean;
   childrenVisible: boolean;
   possibleAccessories: CarAccessory[] = [];
@@ -45,8 +44,10 @@ export class AdDetailsComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>,private carAccessoriesService:CarAccessoriesService, private carService:CarService, private message:NzMessageService, private messageService: MessageService) {}
 
   ngOnInit(): void {
-    this.page = 'ad-detail-reservation';
+    this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
+    console.log(this.previousPage);
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
+    console.log(this.currentAd);
     this.visible = false;
     this.childrenVisible = false;
     this.carService.getCarAccessories(this.currentAd.car.carID).subscribe( data => {
@@ -63,7 +64,7 @@ export class AdDetailsComponent implements OnInit {
         })
 
         if(!found){
-          let ca:CarAccessory = new CarAccessory(item["id"], item["description"]);
+          let ca:CarAccessory = new CarAccessory(item["id"], null, item["description"]);
           this.possibleAccessories.push(ca);
         }
       }
@@ -131,9 +132,7 @@ export class AdDetailsComponent implements OnInit {
       ad: this.currentAd.ad.adID,
       accessories: list
     }
-    //console.log(body);
-    this.messageService.sendMessage(body).subscribe(data => {
 
-    });
+    this.messageService.sendMessage(body).subscribe(data => {});
   }
 }

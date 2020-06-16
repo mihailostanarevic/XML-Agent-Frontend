@@ -40,10 +40,10 @@
               <li (click)="createFuelType()" nz-menu-item>Fuel type</li>
             </ul>
           </li>
-          <li nz-submenu>
+          <li nz-submenu *ngIf="isSimpleUser">
             <span title>Search</span>
             <ul>
-              <li (click)="lightSearch()" nz-menu-item>Search</li>
+              <li (click)="lightSearch()" nz-menu-item>Small search</li>
               <li nz-menu-item>Advanced search</li>
             </ul>
           </li>
@@ -54,12 +54,14 @@
               <li (click)="changeAvailability()" nz-menu-item>Agent rent</li>
             </ul>
           </li>
-          <li nz-submenu>
+          <li nz-submenu *ngIf="isSimpleUser">
             <span title>Reservations</span>
             <ul>
               <li (click)="successfulReservations()" nz-menu-item>Successful reservations</li>
-              <li nz-menu-item>Advanced search</li>
             </ul>
+          </li>
+          <li nz-submenu *ngIf="!isAdmin" (click)=inbox()>
+            <span title>Inbox</span>
           </li>
         </ul>
       </nz-sider>

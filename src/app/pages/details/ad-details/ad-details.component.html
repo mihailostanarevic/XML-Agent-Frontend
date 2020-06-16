@@ -39,10 +39,10 @@
             </nz-carousel>
             
             <div style="margin-top:20px; float:right;" >
-                <button nz-button nzType="primary" style="width: 120px; height:45px;"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add to cart</button>
+                <button nz-button nzType="primary" style="width: 120px; height:45px;" *ngIf="previousPage !== 'reservations'"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add to cart</button>
             </div>
             <div style="margin-top:20px;" >
-              <button nz-button nzType="primary" (click)="open()" style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Message</button>
+              <button nz-button nzType="primary" (click)="open()" *ngIf="previousPage === 'reservations'" style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Message</button>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
           </nz-form-item>
         </div>
       </div>
-      <div nz-row *ngIf="page === 'ad-detail-reservation'" >
+      <div nz-row *ngIf="previousPage === 'reservations'" >
         <div nz-col nzSpan="24">
           <nz-form-item>
             <nz-form-label>Existing additional equipment</nz-form-label>
@@ -79,10 +79,10 @@
         </div>
       </div>
       <div>
-        <button nz-button nzType="primary" (click)="sendMessage()" style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Send</button>
+        <button nz-button nzType="primary" (click)="sendMessage()" style="width: 120px; height:45px;"><i nz-icon nzType="send" nzTheme="outline"></i>Send</button>
       </div>
     </form>
-    <nz-drawer [nzClosable]="false" *ngIf="page === 'ad-detail-reservation'" [nzVisible]="childrenVisible" nzTitle="Send a request for one of these" (nzOnClose)="closeChildren()">
+    <nz-drawer [nzClosable]="false" *ngIf="previousPage === 'reservations'" [nzVisible]="childrenVisible" nzTitle="Send a request for one of these" (nzOnClose)="closeChildren()">
       <div nz-row>
         <div nz-col nzSpan="24">
           <nz-form-item>
@@ -96,8 +96,6 @@
       </div>
     </nz-drawer>
   </nz-drawer>
-
-
 </div>
 
 
