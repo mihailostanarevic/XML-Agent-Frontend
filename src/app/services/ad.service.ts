@@ -18,4 +18,8 @@ export class CreateAdService {
   public postAd(body): Observable<any> {
     return this.http.post(this.baseUrl + 'ads', body);
   }
+
+  public getAdImage(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'ads/'+id+'/image');
+  }
 }

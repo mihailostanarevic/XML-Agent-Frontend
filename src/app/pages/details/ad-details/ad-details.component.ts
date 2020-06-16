@@ -6,6 +6,7 @@ import { Car } from 'src/app/shared/car.model';
 import { Ad } from 'src/app/shared/ad.model';
 import { Agent } from 'src/app/shared/agent.model';
 import { Address } from 'src/app/shared/address.model';
+import { CreateAdService } from 'src/app/services/ad.service';
 
 @Component({
   selector: 'app-ad-details',
@@ -34,16 +35,28 @@ export class AdDetailsComponent implements OnInit {
   currentAd: any;
   visible = false;
   childrenVisible = false;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
 
   vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store<fromApp.AppState>,
+              private adService: CreateAdService) {}
 
   ngOnInit(): void {
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     console.log(this.currentAd);
+
+    this.adService.getAdImage(this.currentAd.ad.adID)
+    .subscribe(
+      res => {
+        this.retrieveResonse = res;
+        this.base64Data = this.retrieveResonse.picByte;
+        this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+    });
   }
-  
+
   open(): void {
     this.visible = true;
   }
@@ -59,8 +72,6 @@ export class AdDetailsComponent implements OnInit {
   closeChildren(): void {
     this.childrenVisible = false;
   }
-
- 
 
   addToCart(): void {
     const car: Car = {
@@ -87,7 +98,7 @@ export class AdDetailsComponent implements OnInit {
     }
     const ad: Ad = {
       id: this.currentAd.ad.adID,
-      photos: [],
+      photos: this.retrievedImage,
       dateFrom: "",
       dateTo: "",
       timeFrom: "",
