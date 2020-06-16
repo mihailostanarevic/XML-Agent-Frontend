@@ -12,7 +12,7 @@
     <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}</nz-descriptions-item>
     </nz-descriptions>
     <nz-descriptions nzLayout="horizontal" *ngIf="page === 'reservations'">
-        <nz-descriptions-item style="margin-left: 20px;" nzTitle="Your reservation date">{{result.ad.formattedDate}}</nz-descriptions-item>
+        <nz-descriptions-item style="margin-left: 20px;" nzTitle="Your reservation date">From {{result.dateFrom}} {{result.timeFrom}} - to {{result.dateTo}} {{result.timeTo}}</nz-descriptions-item>
     </nz-descriptions>  
 </nz-card>
 <ng-template #actionEdit>
@@ -24,3 +24,5 @@
 <ng-template #actionShopping>
     <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" nzType="carry-out" nzTheme="fill"></i>
 </ng-template>
+
+

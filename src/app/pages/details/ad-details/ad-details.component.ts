@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CarService } from 'src/app/services/car.service';
+import { CarAccessoriesService } from 'src/app/services/car-accessories.service';
+import { CarAccessory } from 'src/app/shared/carAccessory.model';
+import { NzMessageService } from 'ng-zorro-antd';
+import { MessageService } from 'src/app/services/message.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
 import * as CartActions from '../../../cart/store/cart.actions';
@@ -38,13 +43,23 @@ export class AdDetailsComponent implements OnInit {
   retrievedImage: any;
   base64Data: any;
   retrieveResonse: any;
+  previousPage: string;
+  visible:boolean;
+  childrenVisible: boolean;
+  possibleAccessories: CarAccessory[] = [];
+  carAccessories: CarAccessory[] = [];
+  selectedCarAccessories: CarAccessory[] = [];
+  text: string;
+  userID: string;
 
-  vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
+  constructor(private store: Store<fromApp.AppState>,private carAccessoriesService:CarAccessoriesService, private carService:CarService, private message:NzMessageService, private messageService: MessageService) {}
 
   constructor(private store: Store<fromApp.AppState>,
               private adService: CreateAdService) {}
 
   ngOnInit(): void {
+    this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
+    console.log(this.previousPage);
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     console.log(this.currentAd);
 
@@ -55,6 +70,27 @@ export class AdDetailsComponent implements OnInit {
         this.base64Data = this.retrieveResonse.picByte;
         this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
     });
+    this.visible = false;
+    this.childrenVisible = false;
+    this.carService.getCarAccessories(this.currentAd.car.carID).subscribe( data => {
+      this.carAccessories = data;
+    })
+
+    this.carAccessoriesService.getAllAccessories().subscribe( data => {
+      for(let item of data){
+        let found = false;
+        this.carAccessories.forEach(carAccessory => {
+          if(carAccessory["id"] === item["id"]){
+            found = true;
+          }
+        })
+
+        if(!found){
+          let ca:CarAccessory = new CarAccessory(item["id"], null, item["description"]);
+          this.possibleAccessories.push(ca);
+        }
+      }
+    })
   }
 
   open(): void {
@@ -73,6 +109,55 @@ export class AdDetailsComponent implements OnInit {
     this.childrenVisible = false;
   }
 
+  addAccessory(accessory: CarAccessory){
+    console.log(accessory);
+    this.carAccessories.push(accessory);
+    this.selectedCarAccessories.push(accessory);
+    this.possibleAccessories.splice(this.possibleAccessories.indexOf(accessory), 1)
+  }
+
+  removeAccessoryAdded(accessory: CarAccessory){
+    if(this.selectedCarAccessories.length === 0){
+      this.message.info("You can only remove equipment you previously selected");
+    }
+
+    this.selectedCarAccessories.forEach(element => {
+      if(accessory.id === element.id){
+        this.selectedCarAccessories.splice(this.selectedCarAccessories.indexOf(accessory),1);
+        this.carAccessories.splice(this.carAccessories.indexOf(accessory),1);
+        this.possibleAccessories.push(accessory);
+      }else {
+        this.message.info("You can only remove equipment you previously selected");
+      }
+    })
+  }
+
+  changeText($event): void {
+    this.text = $event.target.value;
+  }
+
+  sendMessage(): void {
+
+    this.store.select("auth").subscribe(authData => {
+      console.log(authData.user.id);
+      this.userID = authData.user.id;
+    });
+
+    let list: string[] = [];
+    this.selectedCarAccessories.forEach( accessory => {
+      list.push(accessory.id);
+    })
+    const body = {
+      text: this.text,
+      sender: this.userID,
+      receiver: this.currentAd.agent.agentID,
+      ad: this.currentAd.ad.adID,
+      accessories: list
+    }
+
+    this.messageService.sendMessage(body).subscribe(data => {});
+  }
+  
   addToCart(): void {
     const car: Car = {
       id: this.currentAd.car.carID,
@@ -111,5 +196,4 @@ export class AdDetailsComponent implements OnInit {
        agent: agent
     }));
   }
-
 }

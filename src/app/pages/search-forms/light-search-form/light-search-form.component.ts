@@ -3,7 +3,8 @@ import { SearchService } from 'src/app/services/search.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-import { CarBrandComponent } from '../../create-forms/car-brand/car-brand.component';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+
 
 @Component({
   selector: 'app-light-search-form',
@@ -30,7 +31,7 @@ export class LightSearchFormComponent implements OnInit {
   constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.page = "search";
+    this.page = '"search"';
     this.dates = {
       from : "",
       to: ""
@@ -40,6 +41,7 @@ export class LightSearchFormComponent implements OnInit {
       city: [null, [Validators.required]],
       dates: [null, [Validators.required]]
     });
+    localStorage.setItem("page-leading-to-details", this.page);
     this.searchResults = [];
   }
 
@@ -60,7 +62,7 @@ export class LightSearchFormComponent implements OnInit {
     }
   }
 
-  submitSearch() : void {
+  submitSearch(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -91,4 +93,10 @@ export class LightSearchFormComponent implements OnInit {
     //this.city = "";
     this.showResults = false;
   }
+
+  disabledDate = (current: Date): boolean => {
+    // Can not select days before today and today
+    return differenceInCalendarDays(current, new Date()) < 2;
+  };
+
 }

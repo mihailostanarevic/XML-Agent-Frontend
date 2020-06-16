@@ -39,53 +39,63 @@
             </nz-carousel>
 
             <div style="margin-top:20px; float:right;" >
-                <button nz-button nzType="primary" style="width: 120px; height:45px;" (click)="addToCart()"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add To Cart</button>
+                <button nz-button nzType="primary" style="width: 120px; height:45px;" *ngIf="previousPage !== 'reservations'" (click)="addToCart()"><i nz-icon nzType="shopping-cart" nzTheme="outline"></i>Add To Cart</button>
             </div>
             <div style="margin-top:20px;" >
-                <button nz-button nzType="primary" (click)="open()" style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Message</button>
+              <button nz-button nzType="primary" (click)="open()" *ngIf="previousPage === 'reservations'" style="width: 120px; height:45px;"><i nz-icon nzType="message" nzTheme="outline"></i>Message</button>
             </div>
         </div>
     </div>
     <nz-drawer
-      [nzClosable]="false"
-      [nzOffsetX]="childrenVisible ? 180 : 0"
-      [nzWidth]="450"
-      [nzVisible]="visible"
-      nzTitle="Send a message"
-      (nzOnClose)="close()"
-    >
-      <form nz-form>
-        <div nz-row>
-          <div nz-col nzSpan="24">
-            <nz-form-item>
-              <nz-form-label>Text</nz-form-label>
-              <nz-form-control>
-                <input nz-input placeholder="Message text here" style="height: 150px;"/>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+    [nzClosable]="false"
+    [nzOffsetX]="childrenVisible ? 180 : 0"
+    [nzWidth]="450"
+    [nzVisible]="visible"
+    nzTitle="Send a message"
+    (nzOnClose)="close()"
+  >
+    <form nz-form>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>Text</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="Message text here" (change)="changeText($event)" style="height: 150px;"/>
+            </nz-form-control>
+          </nz-form-item>
         </div>
-        <div nz-row>
-          <div nz-col nzSpan="24">
-            <nz-form-item>
-              <nz-form-label>Additional equipment</nz-form-label>
-              <nz-form-control>
-                <nz-tag>potato</nz-tag>
-                <nz-tag>eggplant</nz-tag>
-                <nz-tag (click)="openChildren()">+</nz-tag>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+      </div>
+      <div nz-row *ngIf="previousPage === 'reservations'" >
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>Existing additional equipment</nz-form-label>
+            <nz-form-control>
+              <nz-tag *ngFor="let accessory of carAccessories" (click)="removeAccessoryAdded(accessory)">
+                {{accessory.description}}
+              </nz-tag>
+              <nz-tag (click)="openChildren()">+</nz-tag>
+            </nz-form-control>
+          </nz-form-item>
         </div>
-      </form>
-      <nz-drawer [nzClosable]="false" [nzVisible]="childrenVisible" nzTitle="Food" (nzOnClose)="closeChildren()">
-        <nz-list [nzDataSource]="vegetables" [nzRenderItem]="item">
-          <ng-template #item let-item>
-            <nz-list-item [nzContent]="item"></nz-list-item>
-          </ng-template>
-        </nz-list>
-      </nz-drawer>
+      </div>
+      <div>
+        <button nz-button nzType="primary" (click)="sendMessage()" style="width: 120px; height:45px;"><i nz-icon nzType="send" nzTheme="outline"></i>Send</button>
+      </div>
+    </form>
+    <nz-drawer [nzClosable]="false" *ngIf="previousPage === 'reservations'" [nzVisible]="childrenVisible" nzTitle="Send a request for one of these" (nzOnClose)="closeChildren()">
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-tag *ngFor="let accessory of possibleAccessories" style="height: 25px; width: 120px;" (click)="addAccessory(accessory)" >
+                {{accessory.description}}
+              </nz-tag>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
     </nz-drawer>
+  </nz-drawer>
 </div>
 
 

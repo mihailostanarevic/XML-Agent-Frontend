@@ -1,5 +1,6 @@
 <div class="row" style="margin-top: 20px;">
-    <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" >
-      <!--<app-ad-card [result]="reservedAd" [page]="page"></app-ad-card *ngFor="let reservedAd of reservedAds">-->
+    <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let ad of usersReservedRequests">
+      <app-ad-card [result]="ad" [page]="page"></app-ad-card >
     </div>
-  </div>
+    
+ </div>

@@ -112,7 +112,11 @@ export class DashboardComponent implements OnInit {
   }
 
   successfulReservations(): void{
-    this.router.navigateByUrl('dashboard/' + this.user.id + "/reservations");
+    this.router.navigateByUrl('dashboard/reservations');
+  }
+
+  inbox(): void{
+    this.router.navigateByUrl('dashboard/messages');
   }
 
   agentRequests(): void {
