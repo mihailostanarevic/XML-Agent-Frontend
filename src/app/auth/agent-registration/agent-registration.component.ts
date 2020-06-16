@@ -85,7 +85,7 @@ export class AgentRegistrationComponent implements OnInit {
   }
 
   disabledDate = (current: Date): boolean => {
-    return differenceInCalendarDays(new Date(), current) > 0;
+    return differenceInCalendarDays(new Date(), current) < 0;
   };
 
 }
