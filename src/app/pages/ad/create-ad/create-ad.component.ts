@@ -204,6 +204,7 @@ export class CreateAdComponent implements OnInit {
     this.adService.postAd(formData).subscribe(() => {
       this.message.info('Successfully created!');
     }, error => {
+        console.log(error.error.message);
         this.message.info('Something was wrong.');
     });
   }

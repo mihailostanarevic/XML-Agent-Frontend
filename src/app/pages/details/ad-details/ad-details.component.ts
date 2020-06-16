@@ -11,6 +11,7 @@ import { Car } from 'src/app/shared/car.model';
 import { Ad } from 'src/app/shared/ad.model';
 import { Agent } from 'src/app/shared/agent.model';
 import { Address } from 'src/app/shared/address.model';
+import { CreateAdService } from 'src/app/services/ad.service';
 
 @Component({
   selector: 'app-ad-details',
@@ -37,6 +38,11 @@ import { Address } from 'src/app/shared/address.model';
 export class AdDetailsComponent implements OnInit {
   array = [1, 2, 3, 4];
   currentAd: any;
+  visible = false;
+  childrenVisible = false;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
   previousPage: string;
   visible:boolean;
   childrenVisible: boolean;
@@ -48,12 +54,22 @@ export class AdDetailsComponent implements OnInit {
 
   constructor(private store: Store<fromApp.AppState>,private carAccessoriesService:CarAccessoriesService, private carService:CarService, private message:NzMessageService, private messageService: MessageService) {}
 
+  constructor(private store: Store<fromApp.AppState>,
+              private adService: CreateAdService) {}
 
   ngOnInit(): void {
     this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
     console.log(this.previousPage);
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     console.log(this.currentAd);
+
+    this.adService.getAdImage(this.currentAd.ad.adID)
+    .subscribe(
+      res => {
+        this.retrieveResonse = res;
+        this.base64Data = this.retrieveResonse.picByte;
+        this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+    });
     this.visible = false;
     this.childrenVisible = false;
     this.carService.getCarAccessories(this.currentAd.car.carID).subscribe( data => {
@@ -167,7 +183,7 @@ export class AdDetailsComponent implements OnInit {
     }
     const ad: Ad = {
       id: this.currentAd.ad.adID,
-      photos: [],
+      photos: this.retrievedImage,
       dateFrom: "",
       dateTo: "",
       timeFrom: "",

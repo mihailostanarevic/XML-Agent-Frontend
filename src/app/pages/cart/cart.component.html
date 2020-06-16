@@ -76,11 +76,11 @@
         </nz-dropdown-menu>
       </nz-card>
       <ng-template #coverTemplate>
-        <img
-          alt="example"
-          src="https://autorepublika.com/wp-content/uploads/2020/03/2020-audi-a3-sportback.jpg"
-          height="300px"
-          width="200px"/>
+          <div *ngIf=cart.ad.photos>
+            <img [src]="cart.ad.photos"
+              height="300px"
+              width="200px">
+          </div>
       </ng-template>
     </div>
     <button nz-button nzType="primary" [nzSize]="size" (click)="sendRequest()"><i nz-icon nzType="check" nzTheme="outline"></i> {{ cartContent.length > 1 ? "Send Requests" : "Send Request" }} </button>
