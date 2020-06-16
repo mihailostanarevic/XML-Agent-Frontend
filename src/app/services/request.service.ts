@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class RequestService {
-
+  
   private baseUrl = environment.baseUrl;
+  private requestUrl = this.baseUrl + 'ads/availability';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http : HttpClient) { }
 
-  public sendRequest(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'rent-request', body);
+  public updateCarAvailability(body): Observable<any>{
+     return this.http.post(this.requestUrl, body);
   }
+
 }
