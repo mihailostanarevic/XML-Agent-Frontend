@@ -8,10 +8,14 @@
     <li nz-menu-item (click)="getUserRequest('PENDING')">Pending</li>
     <li nz-menu-item (click)="getUserRequest('RESERVED')">Reserved</li>
     <li nz-menu-item (click)="getUserRequest('PAID')">Paid</li>
+    <li nz-menu-item (click)="getUserRequest('CHECKED')">Checked</li>
     <li nz-menu-item (click)="getUserRequest('CANCELED')">Canceled</li>
   </ul>
 </nz-dropdown-menu>
-
+<div style="float: right;">
+  <nz-page-header-subtitle>Request status</nz-page-header-subtitle>
+  <nz-page-header-title> {{ requestStatus }} </nz-page-header-title>
+</div>
 <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" style="margin-top: 5%;">
   <thead>
     <tr>

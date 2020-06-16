@@ -19,6 +19,7 @@ interface DataItem {
 export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
   subscriptionUser: Subscription;
   activeUserID: string;
+  requestStatus: string = 'PENDING';
 
   constructor(private requestService: RequestService,
               private store: Store<fromApp.AppState>,
@@ -27,7 +28,6 @@ export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserID = userData.user.id;
-
       this.getUserRequest('PENDING');
     });
   }
@@ -48,7 +48,8 @@ export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
   }
 
   getUserRequest(reqStatus): void {
-    this.message.info(reqStatus + " requests.");
+    this.requestStatus = reqStatus;
+    // this.message.info(reqStatus + " requests.");
     this.requestService.getRequests({
       "id": this.activeUserID,
       "requestStatus": reqStatus

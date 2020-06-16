@@ -19,6 +19,7 @@ interface DataItem {
 export class AgentRequestsComponent implements OnInit {
   subscriptionUser: Subscription;
   activeUserID: string;
+  requestStatus: string = 'PENDING';
 
   constructor(private requestService: RequestService,
               private store: Store<fromApp.AppState>,
@@ -26,9 +27,8 @@ export class AgentRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserID = userData.user.id;
-
-      this.getAgentRequest('PENDING');
+        this.activeUserID = userData.user.id;
+        this.getAgentRequest('PENDING');
     });
   }
 
@@ -48,7 +48,8 @@ export class AgentRequestsComponent implements OnInit {
   }
 
   getAgentRequest(reqStatus): void {
-    this.message.info(reqStatus + " requests agent.");
+    this.requestStatus = reqStatus;
+    // this.message.info(reqStatus + " requests agent.");
     this.requestService.getAgentRequests({
       "id": this.activeUserID,
       "requestStatus": reqStatus

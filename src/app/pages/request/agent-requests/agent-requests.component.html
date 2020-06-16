@@ -9,8 +9,13 @@
       <li nz-menu-item (click)="getAgentRequest('RESERVED')">Reserved</li>
       <li nz-menu-item (click)="getAgentRequest('PAID')">Paid</li>
       <li nz-menu-item (click)="getAgentRequest('CANCELED')">Canceled</li>
+      <li nz-menu-item (click)="getAgentRequest('CHECKED')">Checked</li>
     </ul>
   </nz-dropdown-menu>
+  <div style="float: right;">
+    <nz-page-header-subtitle>Request status</nz-page-header-subtitle>
+    <nz-page-header-title> {{ requestStatus }} </nz-page-header-title>
+  </div>
 
   <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" style="margin-top: 5%;">
     <thead>
