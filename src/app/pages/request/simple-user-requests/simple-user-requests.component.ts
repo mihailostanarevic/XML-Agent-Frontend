@@ -3,6 +3,7 @@ import { RequestService } from './../../../services/request.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
+import { NzMessageService } from 'ng-zorro-antd';
 
 interface DataItem {
   agent: string;
@@ -20,7 +21,8 @@ export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
   activeUserID: string;
 
   constructor(private requestService: RequestService,
-              private store: Store<fromApp.AppState>) { }
+              private store: Store<fromApp.AppState>,
+              private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
@@ -46,9 +48,20 @@ export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
   }
 
   getUserRequest(reqStatus): void {
+    this.message.info(reqStatus + " requests.");
     this.requestService.getRequests({
       "id": this.activeUserID,
       "requestStatus": reqStatus
+    }).subscribe(response => {
+      this.listOfData = response;
+      this.listOfDisplayData = [...this.listOfData];
+    })
+  }
+
+  payRequest(resID): void {
+    this.requestService.payRequest({
+      "id": this.activeUserID,
+      "requestID": resID
     }).subscribe(response => {
       this.listOfData = response;
       this.listOfDisplayData = [...this.listOfData];

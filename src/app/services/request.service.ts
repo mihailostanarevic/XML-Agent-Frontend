@@ -15,19 +15,50 @@ export class RequestService {
   subscriptionUser: Subscription;
 
   constructor(private http: HttpClient,
-              private store: Store<fromApp.AppState>) {
-      this.subscriptionUser = store.select('auth').subscribe(userData => {
-        this.activeUserToken = userData.user.token;
-      })
-  }
+              private store: Store<fromApp.AppState>) { }
 
   public sendRequest(body): Observable<any> {
     return this.http.post(this.baseUrl + 'rent-request', body);
   }
 
   public getRequests(body): Observable<any> {
-    console.log(this.activeUserToken);
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
     return this.http.get(this.baseUrl + 'users/'+body.id+'/requests/'+body.requestStatus, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  public getAgentRequests(body): Observable<any> {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+    return this.http.get(this.baseUrl + 'agent/'+body.id+'/requests/'+body.requestStatus, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  public approveRequest(body): Observable<any> {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+    return this.http.get(this.baseUrl + 'agent/'+body.id+'/requests/'+body.resID+"/approve", {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  public payRequest(body): Observable<any> {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+    return this.http.put(this.baseUrl + 'users/'+body.id+'/requests/'+body.requestID+"/pay",body ,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

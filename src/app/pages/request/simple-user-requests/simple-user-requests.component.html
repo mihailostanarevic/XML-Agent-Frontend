@@ -1,14 +1,14 @@
 <div class="main-div">
-<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu1">
   Request status
   <i nz-icon nzType="down"></i>
 </a>
-<nz-dropdown-menu #menu="nzDropdownMenu">
+<nz-dropdown-menu #menu1="nzDropdownMenu">
   <ul nz-menu>
-    <li nz-menu-item (click)="getUserRequest('PENDING')">PENDING</li>
-    <li nz-menu-item (click)="getUserRequest('PAID')">PAID</li>
-    <li nz-menu-item (click)="getUserRequest('RESERVED')">RESERVED</li>
-    <li nz-menu-item (click)="getUserRequest('CANCELED')">CANCELED</li>
+    <li nz-menu-item (click)="getUserRequest('PENDING')">Pending</li>
+    <li nz-menu-item (click)="getUserRequest('RESERVED')">Reserved</li>
+    <li nz-menu-item (click)="getUserRequest('PAID')">Paid</li>
+    <li nz-menu-item (click)="getUserRequest('CANCELED')">Canceled</li>
   </ul>
 </nz-dropdown-menu>
 
@@ -33,7 +33,10 @@
       <td>{{ data.ad }}</td>
       <td>{{ data.receptionDate }}</td>
       <td>{{ data.pickUpAddress }}</td>
-      <td><button nz-button nzType="primary" nzGhost>Pay</button></td>
+      <td><button
+            nz-button nzType="primary" nzGhost
+            *ngIf="data.requestStatus === 'RESERVED'"
+            (click)="payRequest(data.id)">Pay</button></td>
     </tr>
   </tbody>
 </nz-table>

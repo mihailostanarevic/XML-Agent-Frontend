@@ -16,10 +16,11 @@ export class AuthService {
   constructor(private store: Store<fromApp.AppState>,
               private http: HttpClient) { }
 
+  // treba koristiti parametar 'expirationDuration', a ne hardcode timer (ali iz nekog razloga ne radi setTimeout() sa tim parametrom)
   setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.store.dispatch(new AuthActions.Logout());
-    }, expirationDuration)
+    }, 3600000);
   }
 
   clearLogoutTimer() {

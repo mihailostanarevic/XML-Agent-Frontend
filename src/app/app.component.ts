@@ -1,8 +1,8 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as AuthActions from './auth/store/auth.actions';
 import * as fromApp from './store/app.reducer';
-import { Store } from '@ngrx/store';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
