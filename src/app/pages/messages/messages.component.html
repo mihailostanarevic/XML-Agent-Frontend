@@ -36,8 +36,8 @@
                         <tbody>
                           <tr *ngFor="let accessory of carAccessories">
                             <td>{{accessory.description}}</td>
-                            <td><button (click)="approveEquipment(accessory)" style="margin-left: 18px;">Approve</button></td>
-                            <td><button (click)="denyEquipment(accessory)" style="margin-left: 18px;">Deny</button></td>
+                            <td><button nz-button nzType="primary" nzGhost (click)="approveEquipment(accessory)" style="margin-left: 18px;">Approve</button></td>
+                            <td><button nz-button nzType="danger" nzGhost (click)="denyEquipment(accessory)" style="margin-left: 18px;">Deny</button></td>
                           </tr>
                         </tbody>
                       </table>
