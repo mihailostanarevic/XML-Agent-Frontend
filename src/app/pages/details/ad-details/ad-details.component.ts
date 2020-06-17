@@ -44,8 +44,6 @@ export class AdDetailsComponent implements OnInit {
   base64Data: any;
   retrieveResonse: any;
   previousPage: string;
-  // visible:boolean;
-  // childrenVisible: boolean;
   possibleAccessories: CarAccessory[] = [];
   carAccessories: CarAccessory[] = [];
   selectedCarAccessories: CarAccessory[] = [];
@@ -57,11 +55,6 @@ export class AdDetailsComponent implements OnInit {
               private carService:CarService, private message:NzMessageService,
               private messageService: MessageService,
               private adService: CreateAdService) {}
-
-  ngOnInit(): void {
-    this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
-    console.log(this.previousPage);
-    this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     console.log(this.currentAd);
 
     this.adService.getAdImage(this.currentAd.ad.adID)

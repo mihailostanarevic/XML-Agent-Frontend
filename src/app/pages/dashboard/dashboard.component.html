@@ -29,7 +29,7 @@
     <nz-layout>
       <nz-sider nzWidth="200px" nzTheme="light">
         <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
-          <li nz-submenu>
+          <li *ngIf="isAdmin" nz-submenu>
             <span title>Lists</span>
             <ul>
               <li (click)="carBrands()" nz-menu-item>Brands</li>
