@@ -64,5 +64,16 @@ export class RequestService {
       })
     });
   }
+
+  public dropRequest(body): Observable<any> {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+    return this.http.put(this.baseUrl + 'users/'+body.id+'/requests/'+body.requestID+"/drop",body ,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
 }
 

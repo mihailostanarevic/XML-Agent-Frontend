@@ -1,15 +1,137 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import * as fromApp from '../../../store/app.reducer';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { Address } from './../../../shared/address.model';
+import { NzMessageService } from 'ng-zorro-antd';
+import { CreateAdService } from 'src/app/services/ad.service';
 
+interface DataItem {
+  id: string;
+  agentID: string;
+  name: string;
+  limitedDistance: boolean;
+  availableKilometersPerRent: string;
+  seats: number;
+  cdw: boolean;
+  fullLocations: Address[];
+}
 @Component({
   selector: 'app-agent-rent',
   templateUrl: './agent-rent.component.html',
   styleUrls: ['./agent-rent.component.css']
 })
-export class AgentRentComponent implements OnInit {
+export class AgentRentComponent implements OnInit, OnDestroy {
+  agentID: string;
+  adID: string;
+  addressID: string;
+  userSubscription: Subscription;
+  searchValue = '';
+  visible = false;
+  listOfData: DataItem[] = [];
+  listOfDisplayData = [...this.listOfData];
+  dateFrom: Date;
+  dateTo: Date;
+  dates: Object;
 
-  constructor() { }
+  pickedDateFrom: string;
+  pickedDateTo: string;
+  pickedTimeFrom: string;
+  pickedTimeTo: string;
+
+  constructor(private userService: UserService,
+              private store: Store<fromApp.AppState>,
+              private message: NzMessageService,
+              private adService: CreateAdService) { }
 
   ngOnInit(): void {
+    this.userSubscription = this.store.select('auth').subscribe(userData => {
+      this.agentID = userData.user.id;
+    });
+
+    this.userService.getAgentAds({
+      'id': this.agentID
+    }).subscribe(adList => {
+      this.listOfData = adList;
+      this.listOfDisplayData = [...this.listOfData];
+    })
+  }
+
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
+  }
+
+  isVisible = false;
+
+  // send request
+  handleOk(): void {
+    if(!this.addressID || !this.pickedDateFrom || !this.pickedTimeTo || !this.pickedDateTo ||
+        !this.pickedTimeFrom) {
+      this.message.info('All input fields must be filled.');
+    } else {
+      this.isVisible = false;
+      this.adService.agentRent({
+        "adID" : this.adID,
+        "agentID" : this.agentID,
+        "customerID" : '1cfe4238-9b0c-4611-abea-ddd20b4cc415',
+        "pickUpDate" : this.pickedDateFrom,
+        "pickUpTime" : this.pickedTimeFrom,
+        "returnDate" : this.pickedDateTo,
+        "returnTime" : this.pickedTimeTo,
+        "pickUpAddress" : this.addressID,
+        "bundle" : false
+      }).subscribe(response => {
+        this.message.info('Request is successfully created!');
+      }, error => {
+        this.message.warning('Request is not well created.');
+      });
+    }
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  createRequest(id: string): void {
+    this.isVisible = true;
+    this.adID = id;
+  }
+
+  onChange(result: Date): void {
+    this.dateFrom = new Date(result[0]);
+    this.dateTo = new Date(result[1]);
+    this.formatDatesCorrectly(this.dateFrom.toISOString(),this.dateTo.toISOString());
+    this.pickedTimeFrom = this.dates["from"].split(" ")[0];
+    this.pickedTimeTo = this.dates["to"].split(" ")[0];
+    this.pickedDateFrom =this.dates["from"].split(" ")[1];
+    this.pickedDateTo = this.dates["to"].split(" ")[1];
+  }
+
+  formatDatesCorrectly(date1 : string, date2 : string) : void {
+    let timeFrom = date1.split('T')[1].substring(0,5);
+    let timeTo = date2.split('T')[1].substring(0,5);
+    let dateFrom = date1.split('T')[0];
+    let dateTo = date2.split('T')[0];
+    this.dates = {
+      from : timeFrom + " " + dateFrom,
+      to : timeTo + " " + dateTo,
+    }
+  }
+
+  pickUpAddress(event, id): void {
+    this.addressID = id;
+    this.message.info("You pick address: " + event.srcElement.innerText);
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
 }

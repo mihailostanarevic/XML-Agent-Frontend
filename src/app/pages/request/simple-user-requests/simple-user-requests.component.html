@@ -43,7 +43,13 @@
         <td><button
               nz-button nzType="primary" nzGhost
               *ngIf="data.requestStatus === 'RESERVED'"
-              (click)="payRequest(data.id)">Pay</button></td>
+              (click)="payRequest(data.id)">Pay</button>
+              <button
+                style="margin-left: 5px;"
+                nz-button nzType="default" nzDanger
+                *ngIf="data.requestStatus !== 'PAID'"
+                (click)="dropRequest(data.id)">Drop</button>
+        </td>
       </tr>
       <tr [nzExpand]="expandSet.has(data.id)">
         <span> {{ data.description }} </span>

@@ -79,6 +79,17 @@ export class SimpleUserRequestsComponent implements OnInit, OnDestroy {
     })
   }
 
+  dropRequest(resID): void {
+    this.requestService.dropRequest({
+      "id": this.activeUserID,
+      "requestID": resID
+    }).subscribe(response => {
+      this.message.info('Successfuly drop this request.');
+      this.listOfData = response;
+      this.listOfDisplayData = [...this.listOfData];
+    })
+  }
+
   ngOnDestroy(): void {
     if(this.subscriptionUser) {
       this.subscriptionUser.unsubscribe();
