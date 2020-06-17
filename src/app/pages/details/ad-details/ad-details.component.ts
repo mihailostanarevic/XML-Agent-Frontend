@@ -50,12 +50,11 @@ export class AdDetailsComponent implements OnInit {
   text: string;
   userID: string;
 
-  constructor(private store: Store<fromApp.AppState>,private carAccessoriesService:CarAccessoriesService, private carService:CarService, private message:NzMessageService, private messageService: MessageService, private adService: CreateAdService) {}
-
-  ngOnInit(): void {
-    this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
-    console.log(this.previousPage);
-    this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
+  constructor(private store: Store<fromApp.AppState>,
+              private carAccessoriesService:CarAccessoriesService,
+              private carService:CarService, private message:NzMessageService,
+              private messageService: MessageService,
+              private adService: CreateAdService) {}
     console.log(this.currentAd);
 
     this.adService.getAdImage(this.currentAd.ad.adID)
@@ -152,7 +151,7 @@ export class AdDetailsComponent implements OnInit {
 
     this.messageService.sendMessage(body).subscribe(data => {});
   }
-  
+
   addToCart(): void {
     const car: Car = {
       id: this.currentAd.car.carID,

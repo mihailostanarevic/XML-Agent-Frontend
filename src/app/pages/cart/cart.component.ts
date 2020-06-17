@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { NzButtonSize, NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { NzButtonSize, NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
 import { Ad } from 'src/app/shared/ad.model';
 import * as CartActions from '../../cart/store/cart.actions';
 import * as fromApp from "../../store/app.reducer";
 import { RequestService } from './../../services/request.service';
 import { Cart } from './../../shared/cart.model';
-import { CreateAdService } from './../../services/ad.service';
 
 export interface RequestDTO {
   adID: string;
@@ -50,9 +49,7 @@ export class CartComponent implements OnInit {
 
     constructor(private store: Store<fromApp.AppState>,
                 private message: NzMessageService,
-                private requestService: RequestService,
-                private modal: NzModalService,
-                private adService: CreateAdService) { }
+                private requestService: RequestService) { }
 
     ngOnInit(): void {
       this.dates = {
