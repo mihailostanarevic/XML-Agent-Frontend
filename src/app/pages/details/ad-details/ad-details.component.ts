@@ -51,36 +51,39 @@ export class AdDetailsComponent implements OnInit {
   userID: string;
 
   constructor(private store: Store<fromApp.AppState>,
-              private carAccessoriesService:CarAccessoriesService,
-              private carService:CarService, private message:NzMessageService,
-              private messageService: MessageService,
-              private adService: CreateAdService) {}
-    console.log(this.currentAd);
+    private carAccessoriesService: CarAccessoriesService,
+    private carService: CarService, private message: NzMessageService,
+    private messageService: MessageService,
+    private adService: CreateAdService) { }
 
+  ngOnInit(): void {
+    this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
+    console.log(this.previousPage);
+    this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
     this.adService.getAdImage(this.currentAd.ad.adID)
-    .subscribe(
-      res => {
-        this.retrieveResonse = res;
-        this.base64Data = this.retrieveResonse.picByte;
-        this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-    });
+      .subscribe(
+        res => {
+          this.retrieveResonse = res;
+          this.base64Data = this.retrieveResonse.picByte;
+          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+        });
     this.visible = false;
     this.childrenVisible = false;
-    this.carService.getCarAccessories(this.currentAd.car.carID).subscribe( data => {
+    this.carService.getCarAccessories(this.currentAd.car.carID).subscribe(data => {
       this.carAccessories = data;
     })
 
-    this.carAccessoriesService.getAllAccessories().subscribe( data => {
-      for(let item of data){
+    this.carAccessoriesService.getAllAccessories().subscribe(data => {
+      for (let item of data) {
         let found = false;
         this.carAccessories.forEach(carAccessory => {
-          if(carAccessory["id"] === item["id"]){
+          if (carAccessory["id"] === item["id"]) {
             found = true;
           }
         })
 
-        if(!found){
-          let ca:CarAccessory = new CarAccessory(item["id"], null, item["description"]);
+        if (!found) {
+          let ca: CarAccessory = new CarAccessory(item["id"], null, item["description"]);
           this.possibleAccessories.push(ca);
         }
       }
@@ -103,24 +106,24 @@ export class AdDetailsComponent implements OnInit {
     this.childrenVisible = false;
   }
 
-  addAccessory(accessory: CarAccessory){
+  addAccessory(accessory: CarAccessory) {
     console.log(accessory);
     this.carAccessories.push(accessory);
     this.selectedCarAccessories.push(accessory);
     this.possibleAccessories.splice(this.possibleAccessories.indexOf(accessory), 1)
   }
 
-  removeAccessoryAdded(accessory: CarAccessory){
-    if(this.selectedCarAccessories.length === 0){
+  removeAccessoryAdded(accessory: CarAccessory) {
+    if (this.selectedCarAccessories.length === 0) {
       this.message.info("You can only remove equipment you previously selected");
     }
 
     this.selectedCarAccessories.forEach(element => {
-      if(accessory.id === element.id){
-        this.selectedCarAccessories.splice(this.selectedCarAccessories.indexOf(accessory),1);
-        this.carAccessories.splice(this.carAccessories.indexOf(accessory),1);
+      if (accessory.id === element.id) {
+        this.selectedCarAccessories.splice(this.selectedCarAccessories.indexOf(accessory), 1);
+        this.carAccessories.splice(this.carAccessories.indexOf(accessory), 1);
         this.possibleAccessories.push(accessory);
-      }else {
+      } else {
         this.message.info("You can only remove equipment you previously selected");
       }
     })
@@ -138,7 +141,7 @@ export class AdDetailsComponent implements OnInit {
     });
 
     let list: string[] = [];
-    this.selectedCarAccessories.forEach( accessory => {
+    this.selectedCarAccessories.forEach(accessory => {
       list.push(accessory.id);
     })
     const body = {
@@ -149,18 +152,18 @@ export class AdDetailsComponent implements OnInit {
       accessories: list
     }
 
-    this.messageService.sendMessage(body).subscribe(data => {});
+    this.messageService.sendMessage(body).subscribe(data => { });
   }
 
   addToCart(): void {
     const car: Car = {
       id: this.currentAd.car.carID,
-      model : this.currentAd.car.carModelName,
-      brand : this.currentAd.car.carBrandName,
-      carClass : this.currentAd.car.carClassName,
-      fuelType : this.currentAd.car.fuelTypeType,
-      tankCapacity : this.currentAd.car.fuelTypeTankCapacity,
-      gas : this.currentAd.car.fuelTypeGas,
+      model: this.currentAd.car.carModelName,
+      brand: this.currentAd.car.carBrandName,
+      carClass: this.currentAd.car.carClassName,
+      fuelType: this.currentAd.car.fuelTypeType,
+      tankCapacity: this.currentAd.car.fuelTypeTankCapacity,
+      gas: this.currentAd.car.fuelTypeGas,
       gearshiftType: this.currentAd.car.gearshiftTypeType,
       gearshiftNumberOfGears: this.currentAd.car.getGearshiftTypeNumberOfGears
     }
@@ -185,9 +188,9 @@ export class AdDetailsComponent implements OnInit {
       pickUpAddressID: ""
     }
     this.store.dispatch(new CartActions.AddToCart({
-       car: car,
-       ad: ad,
-       agent: agent
+      car: car,
+      ad: ad,
+      agent: agent
     }));
   }
 }
