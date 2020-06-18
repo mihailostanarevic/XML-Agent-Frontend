@@ -31,8 +31,11 @@
   </div>
 
   <div *ngIf="showResults">
-    <div><i nz-icon nzType="arrow-left" nzTheme="outline" (click)="backToSearch()"></i>  <span style="padding-top: 2px;"><strong>  Go back to search</strong></span></div>
-    <div class="row" style="margin-top: 20px;">
+    <div>
+        <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i nz-icon
+            nzType="arrow-left" nzTheme="outline"></i>Go back to search</button>
+    </div>
+    <div class="row">
       <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
         <app-ad-card [result]="result" [page]="page"></app-ad-card>
       </div>

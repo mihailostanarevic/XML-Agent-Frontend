@@ -19,19 +19,18 @@ import { CreateAdService } from 'src/app/services/ad.service';
   styleUrls: ['./ad-details.component.css'],
   styles: [
     `
-      [nz-carousel-content] {
-        text-align: center;
-        height: 160px;
-        line-height: 160px;
-        background: #364d79;
-        color: #fff;
-        overflow: hidden;
-      }
-
-      h3 {
-        color: #fff;
-        margin-bottom: 0;
-      }
+    [nz-carousel-content] {
+      max-height: 350px !important;
+      max-width: 550px !important;
+      overflow: hidden;
+    }
+    
+    .carousel-img{
+      height: 300px;
+      background-position: center !Important;
+      background-size: cover !Important;
+    }
+    
     `
   ]
 })
@@ -49,6 +48,7 @@ export class AdDetailsComponent implements OnInit {
   selectedCarAccessories: CarAccessory[] = [];
   text: string;
   userID: string;
+  retrievedImages: string[] = [];
 
   constructor(private store: Store<fromApp.AppState>,
     private carAccessoriesService: CarAccessoriesService,
@@ -60,13 +60,12 @@ export class AdDetailsComponent implements OnInit {
     this.previousPage = JSON.parse(localStorage.getItem("page-leading-to-details"));
     console.log(this.previousPage);
     this.currentAd = JSON.parse(localStorage.getItem("ad-detail"));
-    this.adService.getAdImage(this.currentAd.ad.adID)
-      .subscribe(
-        res => {
-          this.retrieveResonse = res;
-          this.base64Data = this.retrieveResonse.picByte;
-          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-        });
+    for(let photo of this.currentAd.ad.photos){
+      this.base64Data = photo["picByte"];
+      this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+      this.retrievedImages.push(this.retrievedImage);
+    }
+    console.log(this.retrievedImages);
     this.visible = false;
     this.childrenVisible = false;
     this.carService.getCarAccessories(this.currentAd.car.carID).subscribe(data => {
@@ -180,7 +179,7 @@ export class AdDetailsComponent implements OnInit {
     }
     const ad: Ad = {
       id: this.currentAd.ad.adID,
-      photos: this.retrievedImage,
+      photos: this.retrievedImages,
       dateFrom: "",
       dateTo: "",
       timeFrom: "",
