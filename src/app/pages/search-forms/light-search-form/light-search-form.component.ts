@@ -26,12 +26,13 @@ export class LightSearchFormComponent implements OnInit {
   validateForm: FormGroup;
   showResults: Boolean;
   searchResults: Object[];
-  page:string;
+  page:string = '"search"';
 
   constructor(private router: Router, private searchService: SearchService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.page = '"search"';
+    localStorage.setItem("page-leading-to-details", this.page);
+    this.page = 'search';
     this.dates = {
       from : "",
       to: ""
@@ -41,7 +42,7 @@ export class LightSearchFormComponent implements OnInit {
       city: [null, [Validators.required]],
       dates: [null, [Validators.required]]
     });
-    localStorage.setItem("page-leading-to-details", this.page);
+    
     this.searchResults = [];
   }
 

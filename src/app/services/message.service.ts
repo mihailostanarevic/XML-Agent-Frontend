@@ -16,9 +16,10 @@ export class MessageService {
     return this.http.post(this.baseUrl + "message", body);
   }
 
-  getMessagesForUser(id): Observable<any>{
+  getMessagesForUser(id, idSender): Observable<any>{
+    console.log(idSender);
     let queryParams = {
-      params: new HttpParams().set("receiver", id)
+      params: new HttpParams().set("receiver", id).set("sender", idSender)
     }
     return this.http.get(this.baseUrl + "message", queryParams);
   }

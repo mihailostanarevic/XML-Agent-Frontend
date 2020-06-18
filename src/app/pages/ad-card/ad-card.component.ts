@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AdCardComponent implements OnInit {
   @Input() result: any;
   @Input() page: string;
+  @Output() messagesBoolean = new EventEmitter<any>();
 
   constructor(private router:Router) { }
 
@@ -19,5 +20,9 @@ export class AdCardComponent implements OnInit {
   seeInfo(ad: any) : void {
     localStorage.setItem("ad-detail", JSON.stringify(ad));
     this.router.navigateByUrl('dashboard/' + this.result.ad.adID + "/ad-details");
+  }
+
+  seeMessages(Ad): void {
+    this.messagesBoolean.emit(Ad.agent.agentID);
   }
 }

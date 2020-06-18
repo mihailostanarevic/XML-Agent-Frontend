@@ -28,7 +28,7 @@ export class MessagesComponent implements OnInit {
       this.user = authData.user;
     });
 
-    this.messageService.getMessagesForUser(this.user.id).subscribe( data => {
+    this.messageService.getMessagesForUser(this.user.id, '').subscribe( data => {
       this.messages = data;
       console.log(data);
     })
