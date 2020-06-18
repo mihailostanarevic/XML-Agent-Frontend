@@ -11,7 +11,11 @@
 <div class="container" *ngIf="messagesVisible">
   <div class="col col-lg-10 col-md-12 col-sm-12" *ngFor="let message of messages" style="padding-bottom: 10px;">
     <nz-card [nzActions]="[sender, timeSent, actionReply]" nzTitle="Message" [nzHoverable]="true"
-      [nzExtra]="seenIndicator" (click)="seen(message)">
+      [nzExtra]="seenIndicator" (click)="seen(message)" *ngIf="message.user.id !== user.id">
+      {{message.text}}
+    </nz-card>
+    <nz-card [nzActions]="[sender, timeSent]" nzTitle="Message" [nzHoverable]="true"
+      [nzExtra]="seenIndicator" (click)="seen(message)" *ngIf="message.user.id === user.id">
       {{message.text}}
     </nz-card>
     <ng-template #actionReply>
@@ -41,7 +45,7 @@
           </nz-form-item>
         </div>
       </div>
-      <div nz-row>
+      <div nz-row *ngIf="user.userRole !== 'SIMPLE_USER_ROLE'">
         <div nz-col nzSpan="24">
           Requested additional equipment
           <nz-form-item *ngIf="carAccessories.length > 0">

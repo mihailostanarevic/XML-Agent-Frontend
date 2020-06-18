@@ -38,7 +38,7 @@ export class ReservationsComponent implements OnInit {
     localStorage.setItem("page-leading-to-details", this.page);
     this.page = 'reservations';
     this.store.select("auth").subscribe(authData => {
-      console.log(authData.user.id);
+      console.log(authData.user);
       this.userID = authData.user.id;
     });
 
