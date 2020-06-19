@@ -24,6 +24,10 @@ export class UserService {
     return this.http.get(this.baseUrl + `users/${id}/requests`, queryParam);
   }
 
+  getUsers(): Observable<any> {
+    return this.http.get(this.baseUrl + `users/customer`);
+  }
+
   public getAgentAds(body): Observable<any> {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Address } from './../../../shared/address.model';
 import { NzMessageService } from 'ng-zorro-antd';
 import { CreateAdService } from 'src/app/services/ad.service';
+import { Router } from '@angular/router';
 
 interface DataItem {
   id: string;
@@ -40,10 +41,15 @@ export class AgentRentComponent implements OnInit, OnDestroy {
   pickedTimeFrom: string;
   pickedTimeTo: string;
 
+  inputUsername?: string;
+  filteredOptions: string[] = [];
+  options = [];
+
   constructor(private userService: UserService,
               private store: Store<fromApp.AppState>,
               private message: NzMessageService,
-              private adService: CreateAdService) { }
+              private adService: CreateAdService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select('auth').subscribe(userData => {
@@ -55,7 +61,21 @@ export class AgentRentComponent implements OnInit, OnDestroy {
     }).subscribe(adList => {
       this.listOfData = adList;
       this.listOfDisplayData = [...this.listOfData];
-    })
+    });
+
+    this.userService.getUsers().subscribe(users => {
+      let usernameList = [];
+      users.forEach(user => {
+        usernameList.push(user.username);
+      });
+      console.log(usernameList[0]);
+      this.options = usernameList;
+      this.filteredOptions = this.options;
+    });
+  }
+
+  onChangeInputUser(value: string): void {
+    this.filteredOptions = this.options.filter(option => option.toLowerCase().indexOf(value.toLowerCase()) !== -1);
   }
 
   reset(): void {
@@ -73,14 +93,14 @@ export class AgentRentComponent implements OnInit, OnDestroy {
   // send request
   handleOk(): void {
     if(!this.addressID || !this.pickedDateFrom || !this.pickedTimeTo || !this.pickedDateTo ||
-        !this.pickedTimeFrom) {
+        !this.pickedTimeFrom || !this.inputUsername) {
       this.message.info('All input fields must be filled.');
     } else {
       this.isVisible = false;
       this.adService.agentRent({
         "adID" : this.adID,
         "agentID" : this.agentID,
-        "customerID" : '1cfe4238-9b0c-4611-abea-ddd20b4cc415',
+        "customerUsername" : this.inputUsername,
         "pickUpDate" : this.pickedDateFrom,
         "pickUpTime" : this.pickedTimeFrom,
         "returnDate" : this.pickedDateTo,
@@ -128,6 +148,10 @@ export class AgentRentComponent implements OnInit, OnDestroy {
   pickUpAddress(event, id): void {
     this.addressID = id;
     this.message.info("You pick address: " + event.srcElement.innerText);
+  }
+
+  createProfile(): void {
+    this.router.navigateByUrl('auth/registration');
   }
 
   ngOnDestroy(): void {

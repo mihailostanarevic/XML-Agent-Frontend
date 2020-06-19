@@ -75,10 +75,10 @@
         </nz-dropdown-menu>
       </nz-card>
       <ng-template #coverTemplate>
-          <div *ngIf=cart.ad.photos>
-            <img [src]="cart.ad.photos"
-              height="300px"
-              width="200px">
+          <div *ngIf=cart.ad.photos[0]>
+            <img [src]="cart.ad.photos[0]"
+              height="350px"
+              width="300px">
           </div>
       </ng-template>
     </div>
