@@ -5,10 +5,10 @@
     <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" nzType="carry-out" nzTheme="fill"></i>
 </ng-template>
 <ng-template #commenting>
-    <i nz-icon nz-tooltip nzType="comment" nzTooltipTitle="Comment" nzTheme="outline"></i>
+    <i nz-icon nz-tooltip nzType="comment" (click)="comment()" nzTooltipTitle="Comment" nzTheme="outline"></i>
 </ng-template>
 <ng-template #rating>
-    <i nz-icon nz-tooltip nzType="project" nzTooltipTitle="Rate ad" nzTheme="outline"></i>
+    <i nz-icon nz-tooltip nzType="project" (click)="rate(result.ad.adID)" nzTooltipTitle="Rate ad" nzTheme="outline"></i>
 </ng-template>
 <ng-template #actionMessages>
     <i nz-icon nz-tooltip nzType="message" (click)="seeMessages(result)" nzTooltipTitle="See messages" nzTheme="outline"></i>
@@ -28,6 +28,14 @@
     <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}</nz-descriptions-item>
     </nz-descriptions>
 </nz-card>
+<br/>
+<input *ngIf="commentFlag" nz-input placeholder="Comment" [(ngModel)]="commentModel" />
+<br *ngIf="commentFlag" />
+<br *ngIf="commentFlag" />
+<button *ngIf="commentFlag" (click)="confirmComment(result.ad.adID)" nz-button nzType="primary">Confirm</button>
+<nz-rate *ngIf="rateFlag" [(ngModel)]="rateModel" [nzTooltips]="tooltips"></nz-rate>
+<button *ngIf="rateFlag" (click)="confirmRate(result.ad.adID)" style="margin-left: 25px;" nz-button nzType="primary">Confirm</button>
+
 
 <nz-card [nzActions]="[actionInfo, commenting, rating, actionMessages]" [nzHoverable]="true" *ngIf="page === 'reservations'">
     <nz-descriptions nzLayout="horizontal">

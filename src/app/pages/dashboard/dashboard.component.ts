@@ -126,4 +126,8 @@ export class DashboardComponent implements OnInit {
   simpleUserRequests(): void {
     this.router.navigateByUrl('dashboard/user/requests');
   }
+
+  adsWhichNeedReport(): void {
+    this.router.navigateByUrl('dashboard/ads-which-need-report');
+  }
 }

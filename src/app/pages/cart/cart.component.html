@@ -58,6 +58,7 @@
           [nzPlaceHolder]="['Start Time', 'End Time']"
           ngModel
           (ngModelChange)="onChangeDate($event, cart.ad.id)"
+          [nzDisabledDate]="disabledDate"    
         ></nz-range-picker>
         <br>
         <br>

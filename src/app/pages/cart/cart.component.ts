@@ -7,6 +7,7 @@ import * as CartActions from '../../cart/store/cart.actions';
 import * as fromApp from "../../store/app.reducer";
 import { RequestService } from './../../services/request.service';
 import { Cart } from './../../shared/cart.model';
+import {differenceInCalendarDays} from 'date-fns';
 
 export interface RequestDTO {
   adID: string;
@@ -192,5 +193,9 @@ export class CartComponent implements OnInit {
         address:addresClicked
       }));
     }
+
+    disabledDate = (current: Date): boolean => {
+      return differenceInCalendarDays(new Date(), current) > 0;
+    };
 
 }

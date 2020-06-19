@@ -33,4 +33,8 @@ export class AuthService {
   public registerAgent(body): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/create-agent', body);
   }
+
+  public createAddres(body): Observable<any> {
+    return this.http.post(this.baseUrl + 'addresses', body);
+  }
 }
