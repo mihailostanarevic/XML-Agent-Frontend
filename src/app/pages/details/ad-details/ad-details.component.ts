@@ -177,6 +177,7 @@ export class AdDetailsComponent implements OnInit {
       name: this.currentAd.agent.agentName,
       locations: addresses
     }
+    this.message.info('You have successfully added ad to cart.');
     const ad: Ad = {
       id: this.currentAd.ad.adID,
       photos: this.retrievedImages,

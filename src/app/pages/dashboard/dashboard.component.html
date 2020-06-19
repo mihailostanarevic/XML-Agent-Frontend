@@ -39,6 +39,7 @@
               <li (click)="fuelTypes()" nz-menu-item>Fuel types</li>
             </ul>
           </li>
+          <li *ngIf="isAgent" (click)="adsWhichNeedReport()" nz-menu-item>Ads which need report</li>
           <li *ngIf="isAdmin" nz-submenu>
             <span title>Create</span>
             <ul>
@@ -52,7 +53,7 @@
           <li nz-submenu *ngIf="isSimpleUser">
             <span title>Search</span>
             <ul>
-              <li (click)="lightSearch()" nz-menu-item>Small search</li>
+              <li (click)="lightSearch()" nz-menu-item>Regular search</li>
               <li nz-menu-item>Advanced search</li>
             </ul>
           </li>

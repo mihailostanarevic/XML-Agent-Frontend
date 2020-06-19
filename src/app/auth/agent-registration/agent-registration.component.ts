@@ -30,6 +30,10 @@ export class AgentRegistrationComponent implements OnInit {
       password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{9,}'), Validators.pattern(this.htmlTagRegExp)]],
       rePassword: ['', [Validators.required, this.confirmationValidator, Validators.pattern(this.htmlTagRegExp)]],
       name: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      country: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      city: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      street: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      number: ['', [Validators.required, Validators.minLength(1), Validators.pattern("^[0-9]*$"), Validators.pattern(this.htmlTagRegExp)]],
       bankAccountNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(18), Validators.pattern(this.htmlTagRegExp)]],
       tin: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(this.htmlTagRegExp)]],
       dateFoundend: ['', [Validators.required]],
@@ -52,13 +56,22 @@ export class AgentRegistrationComponent implements OnInit {
         tin: this.validateForm.value.tin,
         dateFounded: moment(this.validateForm.value.dateFoundend).format('YYYY/MM/DD')
       }
-      this.authService.registerAgent(body).subscribe(() => {
+      this.authService.registerAgent(body).subscribe(data => {
         this.message.info('You have successfully sent your registration request.');
+        const body2 = {
+          country: this.validateForm.value.country,
+          city: this.validateForm.value.city,
+          street: this.validateForm.value.street,
+          number: this.validateForm.value.number,
+          agentId: data.id
+        }
+        this.authService.createAddres(body2).subscribe(() => {
+
+        })
       }
         , error => {
         this.message.info('Please check your data again. You have entered pre-existing data.');
-      }
-      );
+      });
     }
   }
 

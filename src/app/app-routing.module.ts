@@ -27,6 +27,8 @@ import { SimpleUserRequestsComponent } from './pages/request/simple-user-request
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
+import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
+import { ReportComponent } from './pages/create-forms/report/report.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -45,6 +47,8 @@ const routes: Routes = [
       { path: 'car-models', component: CarModelsComponent},
       { path: 'gearshift-types', component: GearshiftTypesComponent},
       { path: 'fuel-types', component: FuelTypesComponent},
+      { path: 'ads-which-need-report', component: AdsWhichNeedReportComponent},
+      { path: 'report/:id/request-ad', component: ReportComponent},
       { path: 'car-brand', component: CarBrandComponent},
       { path: 'car-class', component: CarClassComponent},
       { path: 'car-model', component: CarModelComponent},

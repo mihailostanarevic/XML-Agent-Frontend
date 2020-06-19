@@ -5,6 +5,7 @@ import * as fromApp from "../../store/app.reducer";
 import { User } from 'src/app/shared/user.model';
 import { CarAccessory } from 'src/app/shared/carAccessory.model';
 import { MessageService } from 'src/app/services/message.service';
+import { NzMessageService } from 'ng-zorro-antd';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class ReservationsComponent implements OnInit {
   userID: string;
   page: string = '"reservations"';
 
-  constructor(private userService: UserService, private store: Store<fromApp.AppState>, private messageService: MessageService) { }
+  constructor(private userService: UserService, private store: Store<fromApp.AppState>, private messageService: MessageService, private message: NzMessageService) { }
   messages: any[] = [];
   user: User;
   text: string;
@@ -78,7 +79,9 @@ export class ReservationsComponent implements OnInit {
       accessories: []
     }
 
-    this.messageService.sendMessage(body).subscribe();
+    this.messageService.sendMessage(body).subscribe(() => {
+      
+    });
   }
 
   denyEquipment(accessory: CarAccessory): void {
