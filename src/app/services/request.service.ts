@@ -23,6 +23,7 @@ export class RequestService {
 
   public getRequests(body): Observable<any> {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+
       this.activeUserToken = userData.user.token;
     });
     return this.http.get(this.baseUrl + 'users/'+body.id+'/requests/'+body.requestStatus, {
