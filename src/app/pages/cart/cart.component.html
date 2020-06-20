@@ -44,7 +44,7 @@
 
     <div nz-col [nzSpan]="8" *ngFor="let cart of cartContent">
       <nz-card nzHoverable style="width:200px" [nzCover]="coverTemplate"  style="border: 1px solid rgb(22, 22, 100); padding: 2px;">
-        <h4> Opel Insignia, Mid-size Sedan </h4>
+        <h4> {{ cart.car.brand }} {{ cart.car.model }} </h4>
         <br>
         <h6> <u>Fuel type:</u> <i><b> {{ cart.car.fuelType }} {{ cart.car.gas  === true ? "with gas" : "without gas"}}</b></i></h6>
         <h6> <u>Tank capacity:</u> <i><b> {{ cart.car.tankCapacity }} </b></i> </h6>
