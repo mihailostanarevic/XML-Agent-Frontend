@@ -37,4 +37,8 @@ export class AuthService {
   public createAddres(body): Observable<any> {
     return this.http.post(this.baseUrl + 'addresses', body);
   }
+
+  public registerSimpleUser(body): Observable<any> {
+    return this.http.post(this.baseUrl + 'auth/create-simple-user', body);
+  }
 }
