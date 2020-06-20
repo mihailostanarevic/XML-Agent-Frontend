@@ -49,6 +49,7 @@ import { AgentRequestsComponent } from './pages/request/agent-requests/agent-req
 import { SimpleUserRequestsComponent } from './pages/request/simple-user-requests/simple-user-requests.component';
 import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
 import { ReportComponent } from './pages/create-forms/report/report.component';
+import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 
 registerLocaleData(en);
 
@@ -89,7 +90,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AgentRequestsComponent,
     SimpleUserRequestsComponent,
     AdsWhichNeedReportComponent,
-    ReportComponent
+    ReportComponent,
+    PendingCommentsComponent
   ],
   imports: [
     BrowserModule,

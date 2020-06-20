@@ -27,4 +27,8 @@ export class CommentService {
   public getAllCommentsByAd(id) : Observable<any>{
     return this.http.get(this.baseUrl + `comments/${id}/ad`);
   }
+
+  public getAllPendingComments() : Observable<any>{
+    return this.http.get(this.baseUrl + `comments/pending`);
+  }
 }

@@ -29,6 +29,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { LightSearchFormComponent } from './pages/search-forms/light-search-form/light-search-form.component';
 import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
 import { ReportComponent } from './pages/create-forms/report/report.component';
+import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -48,6 +49,7 @@ const routes: Routes = [
       { path: 'gearshift-types', component: GearshiftTypesComponent},
       { path: 'fuel-types', component: FuelTypesComponent},
       { path: 'ads-which-need-report', component: AdsWhichNeedReportComponent},
+      { path: 'pending-comments', component: PendingCommentsComponent},
       { path: 'report/:id/request-ad', component: ReportComponent},
       { path: 'car-brand', component: CarBrandComponent},
       { path: 'car-class', component: CarClassComponent},

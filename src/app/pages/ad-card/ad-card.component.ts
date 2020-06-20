@@ -21,6 +21,7 @@ export class AdCardComponent implements OnInit {
   commentModel: any;
   rateModel: any;
   tooltips = ['1', '2', '3', '4', '5'];
+  listOfData = [];
 
   constructor(private router:Router, private message: NzMessageService, private rateService: RateService, private commentService: CommentService) { }
 
@@ -34,6 +35,12 @@ export class AdCardComponent implements OnInit {
 
   private setupUser(): void {
     this.user = JSON.parse(localStorage.getItem('userData'));
+  }
+
+  private setupData(id): void {
+    this.commentService.getAllCommentsByAd(id).subscribe(data => {
+      this.listOfData = data;
+    });
   }
 
   seeInfo(ad: any) : void {
@@ -53,9 +60,10 @@ export class AdCardComponent implements OnInit {
     });
   }
 
-  comment(): void {
+  comment(id): void {
     this.commentFlag = true;
     this.rateFlag = false;
+    this.setupData(id);
   }
 
   confirmComment(id): void {
@@ -88,5 +96,9 @@ export class AdCardComponent implements OnInit {
       console.log(error);
       this.message.info('You cannot rate this ad.');
     });
+  }
+
+  customerFullName(name, surname): String {
+    return name + '' + surname;
   }
 }
