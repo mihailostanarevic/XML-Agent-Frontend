@@ -5,7 +5,7 @@
     <i nz-icon nz-tooltip nzTooltipTitle="Reserve now" nzType="carry-out" nzTheme="fill"></i>
 </ng-template>
 <ng-template #commenting>
-    <i nz-icon nz-tooltip nzType="comment" (click)="comment()" nzTooltipTitle="Comment" nzTheme="outline"></i>
+    <i nz-icon nz-tooltip nzType="comment" (click)="comment(result.ad.adID)" nzTooltipTitle="Comment" nzTheme="outline"></i>
 </ng-template>
 <ng-template #rating>
     <i nz-icon nz-tooltip nzType="project" (click)="rate(result.ad.adID)" nzTooltipTitle="Rate ad" nzTheme="outline"></i>
@@ -33,6 +33,32 @@
 <br *ngIf="commentFlag" />
 <br *ngIf="commentFlag" />
 <button *ngIf="commentFlag" (click)="confirmComment(result.ad.adID)" nz-button nzType="primary">Confirm</button>
+<br *ngIf="commentFlag" />
+<br *ngIf="commentFlag" />
+<nz-table *ngIf="commentFlag" #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Customer
+        </th>
+        <th>
+          Agent
+        </th>
+        <th>
+            Comment
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ customerFullName(data.customerFirstName, data.customerLastName) }}</td>
+        <td>{{ data.agentName }}</td>
+        <td>{{ data.comment }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+
 <nz-rate *ngIf="rateFlag" [(ngModel)]="rateModel" [nzTooltips]="tooltips"></nz-rate>
 <button *ngIf="rateFlag" (click)="confirmRate(result.ad.adID)" style="margin-left: 25px;" nz-button nzType="primary">Confirm</button>
 
