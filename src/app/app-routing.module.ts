@@ -68,7 +68,7 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent},
       { path: 'agent/requests', component: AgentRequestsComponent},
       { path: 'user/requests', component: SimpleUserRequestsComponent},
-      { path: 'statistic', component: StatisticComponent},
+      { path: 'statistic', component: StatisticComponent}
     ],
 
   },
