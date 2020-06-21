@@ -2,7 +2,7 @@
     <thead>
       <tr>
         <th nzCustomFilter>
-            Customer
+            User
         </th>
         <th>
           Agent
@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of nzTable.data">
-        <td>{{ customerFullName(data.customerFirstName, data.customerLastName) }}</td>
+        <td>{{ customerFullName(data.customerFirstName, data.customerLastName, data.agentName) }}</td>
         <td>{{ data.agentName }}</td>
         <td>{{ data.comment }}</td>
         <td>
