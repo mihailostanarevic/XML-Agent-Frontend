@@ -53,8 +53,9 @@
         <td>{{ data.comment }}</td>
       </tr>
     </tbody>
-  </nz-table>
-
+</nz-table>
+<br *ngIf="commentFlag" />
+<br *ngIf="commentFlag" />
 <input *ngIf="commentFlag" nz-input placeholder="Comment" [(ngModel)]="commentModel" />
 <br *ngIf="commentFlag" />
 <br *ngIf="commentFlag" />
