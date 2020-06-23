@@ -97,6 +97,7 @@ export class AdCardComponent implements OnInit {
     }, error => {
       console.log(error);
       this.message.info('You cannot rate this ad.');
+      this.rateModel = 0;
     });
   }
 
