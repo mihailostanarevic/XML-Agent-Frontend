@@ -137,4 +137,8 @@ export class DashboardComponent implements OnInit {
   adsWhichNeedReport(): void {
     this.router.navigateByUrl('dashboard/ads-which-need-report');
   }
+
+  getStatistic(): void {
+    this.router.navigateByUrl('dashboard/statistic');
+  }
 }

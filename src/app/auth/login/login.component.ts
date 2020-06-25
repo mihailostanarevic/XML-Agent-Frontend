@@ -47,23 +47,23 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
     }
 
-    if(!isNaN(parseFloat(localStorage.getItem('hours')))){
-      const currentTime = moment().format('HH:mm:ss');
-      var array = currentTime.split(':');
-      // if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) == 0){
-      if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) > 2 || Number(array[1]) - Number(localStorage.getItem('minutes')) < 0){
-        localStorage.setItem('attempts', '0');
-      }
-    }
-    if(isNaN(parseFloat(localStorage.getItem('attempts')))){
-      this.attempts = 0;
-      localStorage.setItem('attempts', this.attempts.toString());
-    }else{
-      this.attempts = Number(localStorage.getItem('attempts'));
-    }
-    if(Number(localStorage.getItem('attempts')) >=3){
-      this.router.navigateByUrl('auth/limit-redirect');
-    }
+    // if(!isNaN(parseFloat(localStorage.getItem('hours')))){
+    //   const currentTime = moment().format('HH:mm:ss');
+    //   var array = currentTime.split(':');
+    //   // if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) == 0){
+    //   if(Number(array[0]) - Number(localStorage.getItem('hours')) != 0 || Number(array[1]) - Number(localStorage.getItem('minutes')) > 2 || Number(array[1]) - Number(localStorage.getItem('minutes')) < 0){
+    //     localStorage.setItem('attempts', '0');
+    //   }
+    // }
+    // if(isNaN(parseFloat(localStorage.getItem('attempts')))){
+    //   this.attempts = 0;
+    //   localStorage.setItem('attempts', this.attempts.toString());
+    // }else{
+    //   this.attempts = Number(localStorage.getItem('attempts'));
+    // }
+    // if(Number(localStorage.getItem('attempts')) >=3){
+    //   this.router.navigateByUrl('auth/limit-redirect');
+    // }
   }
 
   submitForm(): void {

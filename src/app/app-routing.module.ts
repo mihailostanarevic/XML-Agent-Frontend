@@ -30,6 +30,7 @@ import { LightSearchFormComponent } from './pages/search-forms/light-search-form
 import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report/ads-which-need-report.component';
 import { ReportComponent } from './pages/create-forms/report/report.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
+import { StatisticComponent } from './pages/statistic/statistic.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -67,6 +68,7 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent},
       { path: 'agent/requests', component: AgentRequestsComponent},
       { path: 'user/requests', component: SimpleUserRequestsComponent},
+      { path: 'statistic', component: StatisticComponent}
     ],
 
   },
