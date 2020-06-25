@@ -99,17 +99,17 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_FAIL),
     tap((authFailAction: AuthActions.LoginFail) => {
       if(!authFailAction.payload.autoLogin) {
-        if(Number(localStorage.getItem('attempts')) >=3) {
-          const currentTime = moment().format('HH:mm:ss');
-          var array = currentTime.split(':');
-          localStorage.setItem('hours', array[0]);
-          localStorage.setItem('minutes', array[1]);
+        // if(Number(localStorage.getItem('attempts')) >=3) {
+        //   const currentTime = moment().format('HH:mm:ss');
+        //   var array = currentTime.split(':');
+        //   localStorage.setItem('hours', array[0]);
+        //   localStorage.setItem('minutes', array[1]);
 
-          this.router.navigate(['/auth/limit-redirect']);
-        } else {
-          const attempts: number = Number(localStorage.getItem('attempts'));
-          localStorage.setItem('attempts', (attempts + 1).toString());
-        }
+        //   this.router.navigate(['/auth/limit-redirect']);
+        // } else {
+        //   const attempts: number = Number(localStorage.getItem('attempts'));
+        //   localStorage.setItem('attempts', (attempts + 1).toString());
+        // }
       }
     })
   );
