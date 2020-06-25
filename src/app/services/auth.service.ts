@@ -41,4 +41,8 @@ export class AuthService {
   public registerSimpleUser(body): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/create-simple-user', body);
   }
+
+  public loggingLimit(): Observable<any> {
+    return this.http.get(this.baseUrl + `auth/logging-limit`);
+  }
 }

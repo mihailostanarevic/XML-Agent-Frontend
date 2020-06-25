@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   validateForm: FormGroup;
 
-  private attempts: number;
   private storeSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               private fb: FormBuilder,
               private router: Router,
               private registrationRequestService: RegistrationRequestService,
+              private authService: AuthService,
               private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
@@ -47,6 +48,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
     }
 
+    this.authService.loggingLimit().subscribe(data => {
+      if(data.message === 'LIMIT'){
+        this.router.navigateByUrl('auth/limit-redirect');
+      }
+    })
     // if(!isNaN(parseFloat(localStorage.getItem('hours')))){
     //   const currentTime = moment().format('HH:mm:ss');
     //   var array = currentTime.split(':');
