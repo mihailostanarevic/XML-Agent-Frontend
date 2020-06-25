@@ -24,13 +24,13 @@ import { CreateAdService } from 'src/app/services/ad.service';
       max-width: 550px !important;
       overflow: hidden;
     }
-    
+
     .carousel-img{
       height: 300px;
       background-position: center !Important;
       background-size: cover !Important;
     }
-    
+
     `
   ]
 })
@@ -187,10 +187,16 @@ export class AdDetailsComponent implements OnInit {
       timeTo: "",
       pickUpAddressID: ""
     }
-    this.store.dispatch(new CartActions.AddToCart({
-      car: car,
-      ad: ad,
-      agent: agent
-    }));
+    let userRole: any;
+    this.store.select('auth').subscribe(authData => {
+      userRole = authData.user.userRole;
+    });
+    if(userRole === "SIMPLE_USER_ROLE") {
+      this.store.dispatch(new CartActions.AddToCart({
+        car: car,
+        ad: ad,
+        agent: agent
+      }));
+    }
   }
 }
