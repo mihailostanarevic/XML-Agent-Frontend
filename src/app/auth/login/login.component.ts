@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { RegistrationRequestService } from 'src/app/services/registration-request.service';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';

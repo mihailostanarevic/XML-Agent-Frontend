@@ -58,11 +58,19 @@ export class AuthEffects {
             return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole);
           }),
           catchError(responseError => {
-            this.message.warning(responseError.error);
-            return of(new AuthActions.LoginFail({
-              message: responseError.error,
-              autoLogin: false
-            }));
+            if(responseError.status === 409) {
+              return of(new AuthActions.LoginFail({
+                message: responseError.error,
+                autoLogin: false,
+                redirect: true
+              }));
+            } else {
+              return of(new AuthActions.LoginFail({
+                message: responseError.error,
+                autoLogin: false,
+                redirect: false
+              }));
+            }
           })
       );
     })
@@ -98,18 +106,11 @@ export class AuthEffects {
   authLoginFail = this.actions$.pipe(
     ofType(AuthActions.LOGIN_FAIL),
     tap((authFailAction: AuthActions.LoginFail) => {
-      if(!authFailAction.payload.autoLogin) {
-        // if(Number(localStorage.getItem('attempts')) >=3) {
-        //   const currentTime = moment().format('HH:mm:ss');
-        //   var array = currentTime.split(':');
-        //   localStorage.setItem('hours', array[0]);
-        //   localStorage.setItem('minutes', array[1]);
-
-        //   this.router.navigate(['/auth/limit-redirect']);
-        // } else {
-        //   const attempts: number = Number(localStorage.getItem('attempts'));
-        //   localStorage.setItem('attempts', (attempts + 1).toString());
-        // }
+      if(!authFailAction.payload.autoLogin){
+        this.message.warning(authFailAction.payload.message);
+        if(authFailAction.payload.redirect) {
+          this.router.navigate(['/auth/limit-redirect']);
+        }
       }
     })
   );
@@ -173,7 +174,8 @@ export class AuthEffects {
       } else {
         return new AuthActions.LoginFail({
           message: "User is not logged in.",
-          autoLogin: true
+          autoLogin: true,
+          redirect: false
         });
       }
     })
