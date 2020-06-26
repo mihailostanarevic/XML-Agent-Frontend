@@ -45,4 +45,12 @@ export class AuthService {
   public loggingLimit(): Observable<any> {
     return this.http.get(this.baseUrl + `auth/logging-limit`);
   }
+
+  public temp(body): Observable<any> {
+    return this.http.put(this.baseUrl + 'auth/approve-registration-request', body);
+  }
+
+  public singleSignOn(body): Observable<any> {
+    return this.http.put('http://localhost:8080/auth/auth/single-sign-on', body);
+  }
 }

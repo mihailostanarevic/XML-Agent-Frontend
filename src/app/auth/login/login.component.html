@@ -24,14 +24,23 @@
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="primary" class="login-form-button" [disabled]="!validateForm.valid">Log In</button>
-          <br/>
-          <br/>
-        <label style="margin-left: 4%; color: white;">
-          or if you don't have an account
-        </label>
-          <b style="color: blue;"><a (click)="onRegistration()"> register!</a></b>
         </nz-form-control>
       </nz-form-item>
     </form>
+    <label style="margin-left: 10%; color: white;">
+      or if you don't have an account
+    </label>
+    <b style="color: blue;"><a (click)="onRegistration()"> register!</a></b>
+    <br/>
+    <br/>
+    <label nz-checkbox style="margin-left: 10%;color: white;" [(ngModel)]="checked">Log in with the microservice app</label>
+<!--       
+    <label style="margin-left: 10%; color: white;">
+      or if you don't have an account
+    </label>
+    <b style="color: blue;"><a (click)="onRegistration()"> register!</a></b> -->
+        <!-- </nz-form-control>
+      </nz-form-item>
+    </form> -->
   </div>
 </div>

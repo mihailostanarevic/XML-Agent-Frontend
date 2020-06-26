@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   validateForm: FormGroup;
 
   private storeSubscription: Subscription;
+  checked: boolean;
 
   constructor(private route: ActivatedRoute,
               private message: NzMessageService,
@@ -52,7 +53,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       if(data.message === 'LIMIT'){
         this.router.navigateByUrl('auth/limit-redirect');
       }
-    })
+    });
+
+    this.checked = false;
     // if(!isNaN(parseFloat(localStorage.getItem('hours')))){
     //   const currentTime = moment().format('HH:mm:ss');
     //   var array = currentTime.split(':');
@@ -77,10 +80,29 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.validateForm.controls[i].markAsDirty();
         this.validateForm.controls[i].updateValueAndValidity();
       }
-      this.store.dispatch(new AuthActions.LoginStart({
-        email: this.validateForm.value.username,
-        password: this.validateForm.value.password
-      }));
+      if(this.checked){
+        this.authService.singleSignOn(this.validateForm.value).subscribe(data => {
+          this.authService.registerSimpleUser(data).subscribe(data2 => {
+            this.message.info('Now you have an account here with the same credentials!');
+            const body = {
+              id: data2.id
+            }
+            this.authService.temp(body).subscribe(data3 => {
+              this.store.dispatch(new AuthActions.LoginStart({
+                email: this.validateForm.value.username,
+                password: this.validateForm.value.password
+              }));
+            })
+          }, error => {
+            this.message.info('Our system already possesses user with the same data.');
+          })
+        })
+      }else{
+        this.store.dispatch(new AuthActions.LoginStart({
+          email: this.validateForm.value.username,
+          password: this.validateForm.value.password
+        }));
+      }
   }
 
   onRegistration() {
