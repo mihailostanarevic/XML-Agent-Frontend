@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
@@ -12,6 +12,8 @@ import * as AuthActions from '../auth/store/auth.actions';
 export class AuthService {
   private tokenExpirationTimer: any;
   private baseUrl = environment.baseUrl;
+  subscriptionUser: Subscription;
+  activeUserToken: string;
 
   constructor(private store: Store<fromApp.AppState>,
               private http: HttpClient) { }
@@ -31,11 +33,21 @@ export class AuthService {
   }
 
   public registerAgent(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'auth/create-agent', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'auth/create-agent', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public createAddres(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'addresses', body);
+    this.getToken();
+    return this.http.post(this.baseUrl + 'addresses', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public registerSimpleUser(body): Observable<any> {
@@ -44,5 +56,11 @@ export class AuthService {
 
   public loggingLimit(): Observable<any> {
     return this.http.get(this.baseUrl + `auth/logging-limit`);
+  }
+
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
   }
 }

@@ -17,6 +17,7 @@
         <li *ngIf="isAdmin" nz-menu-item (click)="fuelTypes()">Fuel  types</li> -->
         <li *ngIf="isSimpleUser" nz-menu-item style="float: left;">
           <img
+            *ngIf="isSimpleUser"
             src="https://image.flaticon.com/icons/svg/2897/2897951.svg"
             width="32"
             height="32"
@@ -74,9 +75,7 @@
               <li (click)="successfulReservations()" nz-menu-item>Successful reservations</li>
             </ul>
           </li>
-          <li nz-submenu *ngIf="!isAdmin" (click)=inbox()>
-            <span title>Inbox</span>
-          </li>
+          <li *ngIf="!isAdmin" (click)=inbox() nz-menu-item>Inbox</li>
         </ul>
       </nz-sider>
       <nz-layout class="inner-layout">
