@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import * as fromApp from '../store/app.reducer';
 import { Store } from '@ngrx/store';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,20 +19,28 @@ export class UserService {
               private store: Store<fromApp.AppState>) { }
 
   getUsersReservedRequests(id): Observable<any> {
+    this.getToken();
     let queryParam = {
       params: new HttpParams().set("status", "RESERVED")
     }
-    return this.http.get(this.baseUrl + `users/${id}/requests`, queryParam);
+    return this.http.get(this.baseUrl + `users/${id}/requests?status=RESERVED`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   getUsers(): Observable<any> {
-    return this.http.get(this.baseUrl + `users/customer`);
+    this.getToken();
+    return this.http.get(this.baseUrl + `users/customer`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getAgentAds(body): Observable<any> {
-    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-      this.activeUserToken = userData.user.token;
-    });
+    this.getToken();
     return this.http.get(this.baseUrl + 'users/'+body.id+'/ads' ,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
@@ -39,4 +48,9 @@ export class UserService {
     });
   }
 
+  getToken(): void {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+  }
 }

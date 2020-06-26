@@ -18,12 +18,18 @@ export class RequestService {
               private store: Store<fromApp.AppState>) { }
 
   public sendRequest(body): Observable<any> {
-    return this.http.post(this.baseUrl + 'rent-request', body);
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+    return this.http.post(this.baseUrl + 'rent-request', body, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
   }
 
   public getRequests(body): Observable<any> {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
-
       this.activeUserToken = userData.user.token;
     });
     return this.http.get(this.baseUrl + 'users/'+body.id+'/requests/'+body.requestStatus, {
