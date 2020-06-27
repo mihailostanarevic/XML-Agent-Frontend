@@ -1,8 +1,6 @@
 <div class="wallpaper" style="background-image: url('https://www.subaru.com/guides/wallpapers/outback/my17/subaru.outback.2017.share.wallpaper.03.jpg');">
   <div>
       <header style="color: white; font-size: x-large; font-style: oblique; margin-left: 10%;">
-        <br/>
-        <br/>
         <b>
           Please fill the registration form:
         </b>
@@ -76,15 +74,26 @@
           </nz-form-control>
         </nz-form-item>
 
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="favoriteSportsClub" id="favoriteSportsClub" placeholder="SQ: Favorite Sports Club" #username/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="theBestChildhoodFriendsName" id="theBestChildhoodFriendsName" placeholder="SQ: The Best Childhood Friends Name" #username/>
+            </nz-form-control>
+        </nz-form-item>
+
         <nz-form-item nz-row style="margin-bottom:8px;">
           <nz-form-control>
             <button (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Register</button>
-            <br/>
-            <br/>
+            <!-- <br/>
             <label style="color: white;">
               or back to
             </label>
-            <b style="color: blue;"><a (click)="backToLogin()"> log in!</a></b>
+            <b style="color: blue;"><a (click)="backToLogin()"> log in!</a></b> -->
           </nz-form-control>
         </nz-form-item>
       </form>

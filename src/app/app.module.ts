@@ -51,6 +51,8 @@ import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report
 import { ReportComponent } from './pages/create-forms/report/report.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 import { StatisticComponent } from './pages/statistic/statistic.component';
+import { NewPasswordComponent } from './auth/new-password/new-password.component';
+import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 registerLocaleData(en);
 
 const antDesignIcons = AllIcons as {
@@ -92,7 +94,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AdsWhichNeedReportComponent,
     ReportComponent,
     PendingCommentsComponent,
-    StatisticComponent
+    StatisticComponent,
+    NewPasswordComponent,
+    ForgottenPasswordComponent
   ],
   imports: [
     BrowserModule,
