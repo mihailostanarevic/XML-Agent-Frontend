@@ -43,6 +43,8 @@ export class RegistrationComponent implements OnInit {
       address: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
       city: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
       country: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      favoriteSportsClub: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
+      theBestChildhoodFriendsName: ['', [Validators.required, Validators.minLength(4), Validators.pattern(this.htmlTagRegExp)]],
       ssn: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern(this.htmlTagRegExp)]],
     });
   }

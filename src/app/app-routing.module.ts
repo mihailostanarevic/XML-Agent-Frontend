@@ -31,6 +31,7 @@ import { AdsWhichNeedReportComponent } from './pages/lists/ads-which-need-report
 import { ReportComponent } from './pages/create-forms/report/report.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 import { StatisticComponent } from './pages/statistic/statistic.component';
+import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/login/:id/simple-user', component: LoginComponent },
   { path: 'auth/registration', component: RegistrationComponent},
+  { path: 'auth/forgotten-password', component: ForgottenPasswordComponent},
   // { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
   {

@@ -58,6 +58,10 @@ export class AuthService {
     return this.http.get(this.baseUrl + `auth/logging-limit`);
   }
 
+  public forgottenPassword(body): Observable<any> {
+    return this.http.put(this.baseUrl + `auth/forgotten-password`, body);
+  }
+
   getToken(): void {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;
