@@ -32,6 +32,7 @@ import { ReportComponent } from './pages/create-forms/report/report.component';
 import { PendingCommentsComponent } from './pages/lists/pending-comments/pending-comments.component';
 import { StatisticComponent } from './pages/statistic/statistic.component';
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -70,7 +71,8 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent},
       { path: 'agent/requests', component: AgentRequestsComponent},
       { path: 'user/requests', component: SimpleUserRequestsComponent},
-      { path: 'statistic', component: StatisticComponent}
+      { path: 'statistic', component: StatisticComponent},
+      { path: 'change-password', component: ChangePasswordComponent}
     ],
 
   },

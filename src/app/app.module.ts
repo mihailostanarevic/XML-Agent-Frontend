@@ -53,6 +53,7 @@ import { PendingCommentsComponent } from './pages/lists/pending-comments/pending
 import { StatisticComponent } from './pages/statistic/statistic.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 registerLocaleData(en);
 
 const antDesignIcons = AllIcons as {
@@ -96,7 +97,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     PendingCommentsComponent,
     StatisticComponent,
     NewPasswordComponent,
-    ForgottenPasswordComponent
+    ForgottenPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

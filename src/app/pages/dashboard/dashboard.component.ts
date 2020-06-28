@@ -141,4 +141,8 @@ export class DashboardComponent implements OnInit {
   getStatistic(): void {
     this.router.navigateByUrl('dashboard/statistic');
   }
+
+  changePassword(): void {
+    this.router.navigateByUrl('dashboard/change-password');
+  }
 }
