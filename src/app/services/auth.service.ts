@@ -10,6 +10,7 @@ import * as AuthActions from '../auth/store/auth.actions';
   providedIn: 'root'
 })
 export class AuthService {
+  
   private tokenExpirationTimer: any;
   private baseUrl = environment.baseUrl;
   subscriptionUser: Subscription;
@@ -66,5 +67,11 @@ export class AuthService {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;
     });
+  }
+
+  public changePasword(id, data) : Observable<any>{
+    console.log(id);
+    console.log(data);
+    return this.http.put(this.baseUrl + `auth/${id}/new-password`, data);
   }
 }
