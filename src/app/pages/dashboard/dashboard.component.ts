@@ -145,4 +145,8 @@ export class DashboardComponent implements OnInit {
   changePassword(): void {
     this.router.navigateByUrl('dashboard/change-password');
   }
+
+  updatePriceList(): void {
+    this.router.navigateByUrl(`dashboard/price-list/${this.user.id}/agent`);
+  }
 }

@@ -33,6 +33,7 @@ import { PendingCommentsComponent } from './pages/lists/pending-comments/pending
 import { StatisticComponent } from './pages/statistic/statistic.component';
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { PriceListComponent } from './pages/create-forms/price-list/price-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'auth/forgotten-password', component: ForgottenPasswordComponent},
   // { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
+  { path: 'create-price-list', component: PriceListComponent},
   {
     path: 'dashboard', component: DashboardComponent, children: [
       { path: 'agent-registration', component: AgentRegistrationComponent},
@@ -72,7 +74,8 @@ const routes: Routes = [
       { path: 'agent/requests', component: AgentRequestsComponent},
       { path: 'user/requests', component: SimpleUserRequestsComponent},
       { path: 'statistic', component: StatisticComponent},
-      { path: 'change-password', component: ChangePasswordComponent}
+      { path: 'change-password', component: ChangePasswordComponent},
+      { path: 'price-list/:id/agent', component: PriceListComponent},
     ],
 
   },

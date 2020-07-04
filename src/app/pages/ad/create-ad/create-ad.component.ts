@@ -27,6 +27,7 @@ export class CreateAdComponent implements OnInit {
   inputCarModel?: string;
   filteredCarModelOptions: string[] = [];
   carModelOptions = [];
+  coefficient: String;
 
   defaultFileList: UploadFile[] = [
     // {
@@ -197,7 +198,8 @@ export class CreateAdComponent implements OnInit {
       'availableKilometersPerRent': this.availableKilometers,
       'kilometersTraveled': this.kilometersTraveled,
       'seats': this.value,
-      'cdw': this.isCDW
+      'cdw': this.isCDW,
+      'coefficient': this.coefficient
     })], {
         type: "application/json"
     }));
