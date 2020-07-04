@@ -40,4 +40,8 @@ export class PriceListService {
   public getAllPriceLists(): Observable<any> {
     return this.http.get(this.baseUrl + `price-lists`);
   }
+
+  public getTotalEarningsByAgent(id): Observable<any> {
+    return this.http.get(this.baseUrl + `price-lists/total-earnings/${id}/agent`);
+  }
 }

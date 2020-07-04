@@ -18,6 +18,7 @@ export class PriceListComponent implements OnInit {
   private id: any;
 
   isUpdate: boolean;
+  isSimpleUser: boolean;
 
   constructor(private route: ActivatedRoute, private message: NzMessageService, private fb: FormBuilder, private router: Router, private priceListService: PriceListService) {}
 
@@ -31,6 +32,13 @@ export class PriceListComponent implements OnInit {
     });
     this.setupUser();
     this.isUpdate = false;
+    if(this.user.userRole === 'SIMPLE_USER_ROLE'){   
+      this.isSimpleUser = true;
+      this.id = this.route.snapshot.params.id;
+    }else{
+      this.isSimpleUser = false;
+      this.id = this.user.id;
+    }
     if(this.route.snapshot.params.id != undefined){
       this.getDetails();
     }
@@ -42,7 +50,7 @@ export class PriceListComponent implements OnInit {
 
   private getDetails(): void {
     this.isUpdate = true;
-    this.priceListService.getPriceListByAgent(this.user.id).subscribe(data =>{
+    this.priceListService.getPriceListByAgent(this.id).subscribe(data =>{
       const formValues = {
         price1day: data.price1day,
         price7days: data.price7days,
@@ -62,7 +70,7 @@ export class PriceListComponent implements OnInit {
     {
       const body = {
         ...this.validateForm.value,
-        agentId: this.user.id
+        agentId: this.id
       }
       if(!this.isUpdate){
         this.priceListService.createPriceList(body).subscribe(() => {

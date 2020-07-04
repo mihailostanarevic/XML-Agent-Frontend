@@ -75,7 +75,7 @@ const routes: Routes = [
       { path: 'user/requests', component: SimpleUserRequestsComponent},
       { path: 'statistic', component: StatisticComponent},
       { path: 'change-password', component: ChangePasswordComponent},
-      { path: 'price-list/:id/agent', component: PriceListComponent},
+      { path: 'price-list/:id/agent', component: PriceListComponent}
     ],
 
   },

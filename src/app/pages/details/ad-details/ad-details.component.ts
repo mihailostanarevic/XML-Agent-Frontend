@@ -12,6 +12,7 @@ import { Ad } from 'src/app/shared/ad.model';
 import { Agent } from 'src/app/shared/agent.model';
 import { Address } from 'src/app/shared/address.model';
 import { CreateAdService } from 'src/app/services/ad.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ad-details',
@@ -54,6 +55,7 @@ export class AdDetailsComponent implements OnInit {
     private carAccessoriesService: CarAccessoriesService,
     private carService: CarService, private message: NzMessageService,
     private messageService: MessageService,
+    private router: Router,
     private adService: CreateAdService) { }
 
   ngOnInit(): void {
@@ -198,5 +200,10 @@ export class AdDetailsComponent implements OnInit {
         agent: agent
       }));
     }
+  }
+
+  priceList(): void {
+    console.log(this.currentAd.agent.agentID);
+    this.router.navigateByUrl(`dashboard/price-list/${this.currentAd.agent.agentID}/agent`);
   }
 }
