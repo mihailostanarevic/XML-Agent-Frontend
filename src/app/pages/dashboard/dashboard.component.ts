@@ -170,4 +170,12 @@ export class DashboardComponent implements OnInit {
   customersAndAgents(): void {
     this.router.navigateByUrl('dashboard/customers-and-agents')
   }
+  
+  adminRoleList(): void {
+    this.router.navigateByUrl('dashboard/admin-role-list');
+  }
+
+  simpleUserCreateAd(): void {
+    this.router.navigateByUrl('dashboard/create-ad');
+  }
 }
