@@ -23,6 +23,7 @@ export class CreateAdComponent implements OnInit {
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
   value = '';         // number of seats
   title = 'Input a number of child seats';
+  isSimpleUser = false;
 
   inputCarModel?: string;
   filteredCarModelOptions: string[] = [];
@@ -54,6 +55,14 @@ export class CreateAdComponent implements OnInit {
     this.setupCarModelList();
     this.setupGearshiftType();
     this.setupFuelTypeList();
+
+    let userRole: string;
+    this.store.select("auth").subscribe(authData => {
+        userRole = authData.user.userRole;
+    });
+    if(userRole === "SIMPLE_USER_ROLE") {
+      this.isSimpleUser = true;
+    }
   }
 
   selectedHandle = 'Manuel';
@@ -197,7 +206,8 @@ export class CreateAdComponent implements OnInit {
       'availableKilometersPerRent': this.availableKilometers,
       'kilometersTraveled': this.kilometersTraveled,
       'seats': this.value,
-      'cdw': this.isCDW
+      'cdw': this.isCDW,
+      'simpleUser': this.isSimpleUser
     })], {
         type: "application/json"
     }));

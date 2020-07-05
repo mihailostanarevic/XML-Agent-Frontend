@@ -149,4 +149,8 @@ export class DashboardComponent implements OnInit {
   adminRoleList(): void {
     this.router.navigateByUrl('dashboard/admin-role-list');
   }
+
+  simpleUserCreateAd(): void {
+    this.router.navigateByUrl('dashboard/create-ad');
+  }
 }
