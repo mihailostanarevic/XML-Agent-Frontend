@@ -10,6 +10,9 @@
         <li *ngIf="isAdmin" nz-menu-item (click)="registerNewAgent()">Register new agent</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="registrationRequests()">Registration requests</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="commentRequests()">Comment requests</li>
+        <li *ngIf="isAdmin"
+          nz-menu-item style="float: left;"
+          (click)="adminRoleList()">Role List</li>
         <!-- <li *ngIf="isAdmin" nz-menu-item (click)="carBrands()">Brands</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carClasses()">Classes</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carModels()">Models</li>
