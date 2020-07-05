@@ -145,4 +145,12 @@ export class DashboardComponent implements OnInit {
   changePassword(): void {
     this.router.navigateByUrl('dashboard/change-password');
   }
+
+  adminRoleList(): void {
+    this.router.navigateByUrl('dashboard/admin-role-list');
+  }
+
+  simpleUserCreateAd(): void {
+    this.router.navigateByUrl('dashboard/create-ad');
+  }
 }
