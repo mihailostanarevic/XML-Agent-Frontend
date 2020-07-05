@@ -1,0 +1,41 @@
+<div style="margin-top: 1%;">
+    <div style="margin-top: 1%;">
+        <form nz-form [formGroup]="validateForm" class="form">
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price1day">Price for 1 day</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="price1day" formControlName="price1day" placeholder="Price for one day ($)" [disabled]="isSimpleUser"/>
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="discount7days">Discount for 7+ days</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input id="discount7days" formControlName="discount7days" placeholder="Discount for seven and more days  (%)" [disabled]="isSimpleUser"/>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="26" nzRequired nzFor="discount15days">Discount for 15+ days</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input id="discount15days" formControlName="discount15days" placeholder="Discount for fifteen and more days  (%)" [disabled]="isSimpleUser"/>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                 <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="discount30days">Discount for 30+ days</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input id="discount30days" formControlName="discount30days" placeholder="Discount for thirty and more days  (%)" [disabled]="isSimpleUser"/>
+                </nz-form-control>
+            </nz-form-item>
+        
+        <nz-form-item nz-row style="margin-bottom:8px;">
+            <nz-form-control>
+            <button style="margin-left: 150px;" *ngIf="!isUpdate && !isSimpleUser" (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Create</button>
+            <button style="margin-left: 150px;" *ngIf="isUpdate && !isSimpleUser" (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Update</button>
+            </nz-form-control>
+        </nz-form-item>
+        </form>
+    </div>
+</div>
+<p style="color: beige; margin-left: 45px; font-size: small;" *ngIf="isSimpleUser">*Price is in dolars, discounts are in percent</p>

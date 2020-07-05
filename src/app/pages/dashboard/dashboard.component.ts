@@ -4,6 +4,8 @@ import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../auth/store/auth.actions';
 import * as CartActions from '../../cart/store/cart.actions';
+import { NzMessageService } from 'ng-zorro-antd';
+import { PriceListService } from 'src/app/services/price-list.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +20,8 @@ export class DashboardComponent implements OnInit {
   public isSimpleUser: boolean;
 
   constructor(private router: Router,
+              private message: NzMessageService,
+              private priceListService: PriceListService,
               private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
@@ -146,6 +150,27 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('dashboard/change-password');
   }
 
+  updatePriceList(): void {
+    this.router.navigateByUrl(`dashboard/price-list/${this.user.id}/agent`);
+  }
+
+  totalEarnings(): void {
+    this.priceListService.getTotalEarningsByAgent(this.user.id).subscribe(data => {
+      if(this.isAgent){
+        this.message.info('Your firm has earnd ' + data.totalEarnings + '$ so far.');
+      }else if(this.isSimpleUser){
+        this.message.info('You have earnd ' + data.totalEarnings + '$ so far.');
+      }
+      
+    }, error => {
+      this.message.info('You do not have any earnings.');
+    });
+  }
+
+  customersAndAgents(): void {
+    this.router.navigateByUrl('dashboard/customers-and-agents')
+  }
+  
   adminRoleList(): void {
     this.router.navigateByUrl('dashboard/admin-role-list');
   }
