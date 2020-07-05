@@ -26,9 +26,9 @@ export class PriceListComponent implements OnInit {
     this.isValid = true;
     this.validateForm = this.fb.group({
       price1day: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      price7days: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      price15days: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      price30days: ['', [Validators.required, Validators.pattern("^[0-9]*$")]]
+      discount7days: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2)]],
+      discount15days: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2)]],
+      discount30days: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2)]]
     });
     this.setupUser();
     this.isUpdate = false;
@@ -53,9 +53,9 @@ export class PriceListComponent implements OnInit {
     this.priceListService.getPriceListByAgent(this.id).subscribe(data =>{
       const formValues = {
         price1day: data.price1day,
-        price7days: data.price7days,
-        price15days: data.price15days,
-        price30days: data.price30days
+        discount7days: data.discount7days,
+        discount15days: data.discount15days,
+        discount30days: data.discount30days
       }
       this.validateForm.setValue(formValues);
     })

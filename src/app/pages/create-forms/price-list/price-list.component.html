@@ -2,30 +2,30 @@
     <div style="margin-top: 1%;">
         <form nz-form [formGroup]="validateForm" class="form">
         <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price1day">One day</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price1day">Price for 1 day</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input nz-input id="price1day" formControlName="price1day" placeholder="Price for one day" [disabled]="isSimpleUser"/>
+                <input nz-input id="price1day" formControlName="price1day" placeholder="Price for one day ($)" [disabled]="isSimpleUser"/>
             </nz-form-control>
         </nz-form-item>
         
         <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price7days">Seven days</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="discount7days">Discount for 7+ days</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input nz-input id="price7days" formControlName="price7days" placeholder="Price for seven days" [disabled]="isSimpleUser"/>
+                <input nz-input id="discount7days" formControlName="discount7days" placeholder="Discount for seven and more days  (%)" [disabled]="isSimpleUser"/>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price15days">Fifteen days</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="26" nzRequired nzFor="discount15days">Discount for 15+ days</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <input nz-input id="price15days" formControlName="price15days" placeholder="Price for fifteen days" [disabled]="isSimpleUser"/>
+                    <input nz-input id="discount15days" formControlName="discount15days" placeholder="Discount for fifteen and more days  (%)" [disabled]="isSimpleUser"/>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
-                 <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price30days">Thirty days</nz-form-label>
+                 <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="discount30days">Discount for 30+ days</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <input nz-input id="price30days" formControlName="price30days" placeholder="Price for thirty days" [disabled]="isSimpleUser"/>
+                    <input nz-input id="discount30days" formControlName="discount30days" placeholder="Discount for thirty and more days  (%)" [disabled]="isSimpleUser"/>
                 </nz-form-control>
             </nz-form-item>
         
@@ -38,3 +38,4 @@
         </form>
     </div>
 </div>
+<p style="color: beige; margin-left: 45px; font-size: small;" *ngIf="isSimpleUser">*Price is in dolars, discounts are in percent</p>

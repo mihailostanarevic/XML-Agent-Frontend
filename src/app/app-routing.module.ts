@@ -34,6 +34,7 @@ import { StatisticComponent } from './pages/statistic/statistic.component';
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { PriceListComponent } from './pages/create-forms/price-list/price-list.component';
+import { CustomersAndAgentsComponent } from './pages/lists/customers-and-agents/customers-and-agents.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -75,7 +76,8 @@ const routes: Routes = [
       { path: 'user/requests', component: SimpleUserRequestsComponent},
       { path: 'statistic', component: StatisticComponent},
       { path: 'change-password', component: ChangePasswordComponent},
-      { path: 'price-list/:id/agent', component: PriceListComponent}
+      { path: 'price-list/:id/agent', component: PriceListComponent},
+      { path: 'customers-and-agents', component: CustomersAndAgentsComponent}
     ],
 
   },

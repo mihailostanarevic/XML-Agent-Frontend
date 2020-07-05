@@ -166,4 +166,8 @@ export class DashboardComponent implements OnInit {
       this.message.info('You do not have any earnings.');
     });
   }
+
+  customersAndAgents(): void {
+    this.router.navigateByUrl('dashboard/customers-and-agents')
+  }
 }
