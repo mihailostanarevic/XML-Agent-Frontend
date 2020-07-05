@@ -11,7 +11,7 @@
         <li *ngIf="isAdmin" nz-menu-item (click)="registrationRequests()">Registration requests</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="commentRequests()">Comment requests</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="customersAndAgents()">Users</li>
-        <li *ngIf="!isAdmin" nz-menu-item (click)="totalEarnings()">Total earnings</li>
+        <li *ngIf="isAgent" nz-menu-item (click)="totalEarnings()">Total earnings</li>
         <li *ngIf="isAdmin"
           nz-menu-item style="float: left;"
           (click)="adminRoleList()">Role List</li>
