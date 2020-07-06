@@ -34,6 +34,9 @@ import { StatisticComponent } from './pages/statistic/statistic.component';
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { AdvancedSearchComponent } from './pages/search-forms/advanced-search/advanced-search.component';
+import { PriceListComponent } from './pages/create-forms/price-list/price-list.component';
+import { CustomersAndAgentsComponent } from './pages/lists/customers-and-agents/customers-and-agents.component';
+import { RolesComponent } from './pages/admin/roles/roles.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -44,6 +47,7 @@ const routes: Routes = [
   { path: 'auth/forgotten-password', component: ForgottenPasswordComponent},
   // { path: 'auth/agent-registration', component: AgentRegistrationComponent},
   { path: 'auth/limit-redirect', component: LimitRedirectComponent},
+  { path: 'create-price-list', component: PriceListComponent},
   {
     path: 'dashboard', component: DashboardComponent, children: [
       { path: 'agent-registration', component: AgentRegistrationComponent},
@@ -74,7 +78,10 @@ const routes: Routes = [
       { path: 'user/requests', component: SimpleUserRequestsComponent},
       { path: 'statistic', component: StatisticComponent},
       { path: 'change-password', component: ChangePasswordComponent},
-      { path: 'search/advanced', component: AdvancedSearchComponent}
+      { path: 'search/advanced', component: AdvancedSearchComponent},
+      { path: 'price-list/:id/agent', component: PriceListComponent},
+      { path: 'customers-and-agents', component: CustomersAndAgentsComponent},
+      { path: 'admin-role-list', component: RolesComponent}
     ],
 
   },

@@ -1,0 +1,18 @@
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Username
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.username }}</td>
+        <td>
+          <button (click)="delete(data.id, data.username)" nz-button nzType="danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

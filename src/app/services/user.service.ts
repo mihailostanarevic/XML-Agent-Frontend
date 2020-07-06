@@ -39,9 +39,45 @@ export class UserService {
     });
   }
 
+  getCustomersAndAgents(): Observable<any> {
+    this.getToken();
+    return this.http.get(this.baseUrl + `users/customers-and-agents`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  deleteCustomerOrAgent(id): Observable<any> {
+    this.getToken();
+    return this.http.delete(this.baseUrl + `users/${id}`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
   public getAgentAds(body): Observable<any> {
     this.getToken();
     return this.http.get(this.baseUrl + 'users/'+body.id+'/ads' ,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  getUsersAll(): Observable<any> {
+    this.getToken();
+    return this.http.get(this.baseUrl + `users/all`,{
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
+  deleteRole(userId, roleId): Observable<any> {
+    this.getToken();
+    return this.http.delete(this.baseUrl + `users/`+userId+`/roles/`+roleId,{
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
       })

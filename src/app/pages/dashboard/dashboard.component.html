@@ -10,6 +10,11 @@
         <li *ngIf="isAdmin" nz-menu-item (click)="registerNewAgent()">Register new agent</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="registrationRequests()">Registration requests</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="commentRequests()">Comment requests</li>
+        <li *ngIf="isAdmin" nz-menu-item (click)="customersAndAgents()">Users</li>
+        <li *ngIf="isAgent" nz-menu-item (click)="totalEarnings()">Total earnings</li>
+        <li *ngIf="isAdmin"
+          nz-menu-item style="float: left;"
+          (click)="adminRoleList()">Role List</li>
         <!-- <li *ngIf="isAdmin" nz-menu-item (click)="carBrands()">Brands</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carClasses()">Classes</li>
         <li *ngIf="isAdmin" nz-menu-item (click)="carModels()">Models</li>
@@ -65,8 +70,10 @@
               <li (click)="createAd()" nz-menu-item>Create</li>
               <li (click)="changeAvailability()" nz-menu-item>Agent ads</li>
               <li (click)="getStatistic()" nz-menu-item>Statistic</li>
+              <li (click)="updatePriceList()" nz-menu-item>Price list</li>
             </ul>
           </li>
+          <li *ngIf="isSimpleUser" (click)="simpleUserCreateAd()" nz-menu-item>Create Ad</li>
           <li *ngIf="isAgent" (click)="agentRequests()" nz-menu-item>Requests</li>
           <li *ngIf="isSimpleUser" (click)="simpleUserRequests()" nz-menu-item>Requests</li>
            <li nz-submenu *ngIf="isSimpleUser">

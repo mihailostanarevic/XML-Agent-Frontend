@@ -55,7 +55,9 @@ import { NewPasswordComponent } from './auth/new-password/new-password.component
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { AdvancedSearchComponent } from './pages/search-forms/advanced-search/advanced-search.component';
-
+import { PriceListComponent } from './pages/create-forms/price-list/price-list.component';
+import { CustomersAndAgentsComponent } from './pages/lists/customers-and-agents/customers-and-agents.component';
+import { RolesComponent } from './pages/admin/roles/roles.component';
 registerLocaleData(en);
 
 const antDesignIcons = AllIcons as {
@@ -102,6 +104,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     ForgottenPasswordComponent,
     ChangePasswordComponent,
     AdvancedSearchComponent
+    PriceListComponent,
+    CustomersAndAgentsComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,
