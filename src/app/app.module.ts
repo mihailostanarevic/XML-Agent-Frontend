@@ -103,7 +103,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NewPasswordComponent,
     ForgottenPasswordComponent,
     ChangePasswordComponent,
-    AdvancedSearchComponent
+    AdvancedSearchComponent,
     PriceListComponent,
     CustomersAndAgentsComponent,
     RolesComponent

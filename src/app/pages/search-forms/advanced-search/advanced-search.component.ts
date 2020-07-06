@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { SearchService } from 'src/app/services/search.service';
-import { CarBrandService } from 'src/app/services/car-brand.service';
-import { CarModelService } from 'src/app/services/car-model.service';
-import { FuelTypeService } from 'src/app/services/fuel-type.service';
-import { GearshiftTypeService } from 'src/app/services/gearshift-type.service';
-import { CarClassService } from 'src/app/services/car-class.service';
+import { SearchService } from '../../../services/search.service';
+import { CarBrandService } from '../../../services/car-brand.service';
+import { CarModelService } from '../../../services/car-model.service';
+import { CarClassService } from '../../../services/car-class.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
