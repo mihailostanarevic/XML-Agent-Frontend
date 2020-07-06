@@ -98,4 +98,13 @@ export class CarModelService {
       this.activeUserToken = userData.user.token;
     });
   }
+
+  getCarModelsByBrand(id): Observable<any> {
+    this.getToken();
+    return this.http.get(this.baseUrl + `car-models/car-brand/${id}`, {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
 }

@@ -29,6 +29,7 @@ export class LightSearchFormComponent implements OnInit {
   showResults: Boolean;
   searchResults: Object[];
   page:string = '"search"';
+  opened: boolean;
   userID: string;
 
   constructor(private router: Router,
@@ -38,6 +39,7 @@ export class LightSearchFormComponent implements OnInit {
     private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
+    this.opened = false;
     localStorage.setItem("page-leading-to-details", this.page);
     this.page = 'search';
     this.dates = {
@@ -112,8 +114,31 @@ export class LightSearchFormComponent implements OnInit {
   }
 
   disabledDate = (current: Date): boolean => {
-    // Can not select days before today and today
     return differenceInCalendarDays(current, new Date()) < 2;
   };
 
+  sort($event){
+    let parameter: string = $event.target.value;
+    if(parameter === 'price'){
+      this.searchResults.sort(function(a:any, b:any){return b.ad.price - a.ad.price;});
+    }else if(parameter === 'rating'){
+      this.searchResults.sort(function(a:any, b:any){return b.ad.avgRating - a.ad.avgRating;});
+    }else {
+      this.searchResults.sort(function(a:any, b:any){return b.ad.kmsTraveled - a.ad.kmsTraveled;});
+    }
+  }
+
+  toggleCollapse() : void {
+    this.opened = !this.opened;
+  }
+
+  advancedSearched($event) : void {
+    this.showResults = true;
+    this.searchResults = $event;
+    if(this.searchResults.length > 0){
+      this.message.info('Your search came back with ' + this.searchResults.length + ' results');
+    }else {
+      this.message.info('Unfortunately our search found 0 results for your search, try again with new parameters');
+    }
+  }
 }
