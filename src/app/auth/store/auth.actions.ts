@@ -27,6 +27,7 @@ export class LoginSuccess implements Action {
     expirationDate: Date;
     userRole: string
     redirect: boolean;
+    agentHasPriceList: boolean;
   }) {}
 }
 

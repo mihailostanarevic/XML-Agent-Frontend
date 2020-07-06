@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit {
   changePassword(): void {
     this.router.navigateByUrl('dashboard/change-password');
   }
-  
+
   updatePriceList(): void {
     this.router.navigateByUrl(`dashboard/price-list/${this.user.id}/agent`);
   }
@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit {
       }else if(this.isSimpleUser){
         this.message.info('You have earnd ' + data.totalEarnings + '$ so far.');
       }
-      
+
     }, error => {
       this.message.info('You do not have any earnings.');
     });
@@ -170,7 +170,7 @@ export class DashboardComponent implements OnInit {
   customersAndAgents(): void {
     this.router.navigateByUrl('dashboard/customers-and-agents')
   }
-  
+
   adminRoleList(): void {
     this.router.navigateByUrl('dashboard/admin-role-list');
   }

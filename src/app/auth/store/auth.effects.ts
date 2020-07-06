@@ -17,6 +17,7 @@ export interface AuthResponseData {
   username: string;
   tokenExpiresIn: string;
   userRole: string;
+  agentHasPriceList: boolean;
 }
 
 const handleAuthentication = (
@@ -24,7 +25,8 @@ const handleAuthentication = (
   email: string,
   userId: string,
   token: string,
-  userRole: string
+  userRole: string,
+  agentHasPriceList: boolean
 ) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
   const user = new User(userId, email, token, expirationDate, userRole);
@@ -36,7 +38,8 @@ const handleAuthentication = (
     token: token,
     expirationDate: expirationDate,
     userRole: userRole,
-    redirect: false
+    redirect: false,
+    agentHasPriceList: agentHasPriceList
   });
 };
 
@@ -55,7 +58,7 @@ export class AuthEffects {
         })
       .pipe(
           map(responseData => {
-            return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole);
+            return handleAuthentication(+responseData.tokenExpiresIn, responseData.username, responseData.id, responseData.token, responseData.userRole, responseData.agentHasPriceList);
           }),
           catchError(responseError => {
             if(responseError.status === 409) {
@@ -120,6 +123,9 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_SUCCESS),
     tap((authSuccessAction: AuthActions.LoginSuccess) => {
       this.router.navigate(['dashboard']);
+      if(!authSuccessAction.payload.agentHasPriceList) {
+        this.router.navigate(['/create-price-list']);
+      }
       if(authSuccessAction.payload.redirect){
         this.router.navigate(['/']);
       }
@@ -167,7 +173,8 @@ export class AuthEffects {
               token: userData._token,
               expirationDate: new Date(userData._tokenExpirationDate),
               userRole: userData.userRole,
-              redirect: false
+              redirect: false,
+              agentHasPriceList: true
             });
           }
         }

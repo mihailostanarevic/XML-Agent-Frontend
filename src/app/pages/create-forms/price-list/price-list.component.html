@@ -7,7 +7,7 @@
                 <input nz-input id="price1day" formControlName="price1day" placeholder="Price for one day ($)" [disabled]="isSimpleUser"/>
             </nz-form-control>
         </nz-form-item>
-        
+
         <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="discount7days">Discount for 7+ days</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
@@ -28,7 +28,7 @@
                     <input nz-input id="discount30days" formControlName="discount30days" placeholder="Discount for thirty and more days  (%)" [disabled]="isSimpleUser"/>
                 </nz-form-control>
             </nz-form-item>
-        
+
         <nz-form-item nz-row style="margin-bottom:8px;">
             <nz-form-control>
             <button style="margin-left: 150px;" *ngIf="!isUpdate && !isSimpleUser" (click)="submitForm()" nz-button nzType="primary" [disabled]="!validateForm.valid || !isValid">Create</button>
