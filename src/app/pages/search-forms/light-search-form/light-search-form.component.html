@@ -1,44 +1,51 @@
 <div class="inputWrapper2" *ngIf="!showResults">
-    <form nz-form [formGroup]="validateForm" class="login-form" >
+    <div class="row" style="float: right">
+        <button nz-button nzType="link" (click)="toggleCollapse()" nzType="primary"><span *ngIf="!opened">Show advanced filters</span><span *ngIf="opened">Close advanced filters</span></button>
+    </div>
+    <form nz-form [formGroup]="validateForm" class="login-form">
         <nz-form-control>
             <nz-input-group>
-                <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup" [(ngModel)]="city" />
+                <input style="width: 300px;" formControlName="city" nz-input placeholder="Location of pickup"
+                    [(ngModel)]="city" />
             </nz-input-group>
         </nz-form-control>
 
 
-    <br/>
-    <br/>
-    <nz-form-control>
-        <nz-input-group>
-            <nz-form-item>
-                <nz-range-picker
-                    [nzShowTime]="{ nzFormat: 'hh:mm' }"
-                    [nzDisabledDate]="disabledDate"
-                    nzFormat="hh:mm dd-MM-yyyy"
-                    [nzPlaceHolder]="['Start Time', 'End Time']"
-                    ngModel
-                    (ngModelChange)="onChange($event)"
-                    style="width: 300px;"
-                    formControlName="dates"
-                ></nz-range-picker>
-            </nz-form-item>
-        </nz-input-group>
-    </nz-form-control>
+        <br />
+        <br />
+        <nz-form-control>
+            <nz-input-group>
+                <nz-form-item>
+                    <nz-range-picker [nzShowTime]="{ nzFormat: 'hh:mm' }" [nzDisabledDate]="disabledDate"
+                        nzFormat="hh:mm dd-MM-yyyy" [nzPlaceHolder]="['Start Time', 'End Time']" ngModel
+                        (ngModelChange)="onChange($event)" style="width: 300px;" formControlName="dates">
+                    </nz-range-picker>
+                </nz-form-item>
+            </nz-input-group>
+        </nz-form-control>
     </form>
 
-    <button nz-button (click)="submitSearch()" nzType="primary" [disabled]="!validateForm.valid">Search</button>
-  </div>
+    <app-advanced-search-form (searched)="advancedSearched($event)" *ngIf="opened" [city]="city" [dates]="dates"></app-advanced-search-form>
 
-  <div *ngIf="showResults">
-    <div>
-        <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i nz-icon
-            nzType="arrow-left" nzTheme="outline"></i>Go back to search</button>
+    <button nz-button (click)="submitSearch()" *ngIf="opened === false" nzType="primary"
+        [disabled]="!validateForm.valid">Search</button>
+</div>
+
+<div *ngIf="showResults">
+    <div class="row">
+        <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i
+                nz-icon nzType="arrow-left" nzTheme="outline"></i>Go back to search</button>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Sort by" style="width: 200px; float: right;">
+            <!-- (change)="sort($event)" -->
+            <nz-option><i nz-icon nzType="money-collect" value="price" nzTheme="twotone"></i>Price</nz-option>
+            <nz-option><i nz-icon nzType="star" nzTheme="twotone" value="rating"></i>Rating</nz-option>
+            <nz-option><i nz-icon nzType="car" nzTheme="twotone" value="kms"></i>Traveled kms</nz-option>
+        </nz-select>
     </div>
     <div class="row">
-      <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
-        <app-ad-card [result]="result" [page]="page"></app-ad-card>
-      </div>
+        <div class="col col-lg-4 col-md-6 col-sm-8" style="padding-top: 15px;" *ngFor="let result of searchResults">
+            <app-ad-card [result]="result" [page]="page"></app-ad-card>
+        </div>
     </div>
 
-  </div>
+</div>

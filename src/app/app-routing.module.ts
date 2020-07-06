@@ -33,6 +33,7 @@ import { PendingCommentsComponent } from './pages/lists/pending-comments/pending
 import { StatisticComponent } from './pages/statistic/statistic.component';
 import { ForgottenPasswordComponent } from './auth/forgotten-password/forgotten-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { AdvancedSearchComponent } from './pages/search-forms/advanced-search/advanced-search.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -72,7 +73,8 @@ const routes: Routes = [
       { path: 'agent/requests', component: AgentRequestsComponent},
       { path: 'user/requests', component: SimpleUserRequestsComponent},
       { path: 'statistic', component: StatisticComponent},
-      { path: 'change-password', component: ChangePasswordComponent}
+      { path: 'change-password', component: ChangePasswordComponent},
+      { path: 'search/advanced', component: AdvancedSearchComponent}
     ],
 
   },
