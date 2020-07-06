@@ -31,6 +31,8 @@ export class LightSearchFormComponent implements OnInit {
   page:string = '"search"';
   opened: boolean;
   userID: string;
+  param1: 'price';
+  parameter: '';
 
   constructor(private router: Router,
     private searchService: SearchService,
@@ -110,6 +112,7 @@ export class LightSearchFormComponent implements OnInit {
 
   backToSearch() : void {
     //this.city = "";
+    this.searchResults = [];
     this.showResults = false;
   }
 
@@ -118,13 +121,13 @@ export class LightSearchFormComponent implements OnInit {
   };
 
   sort($event){
-    let parameter: string = $event.target.value;
-    if(parameter === 'price'){
-      this.searchResults.sort(function(a:any, b:any){return b.ad.price - a.ad.price;});
-    }else if(parameter === 'rating'){
+    let parameter: string = $event;
+    if(parameter == 'price'){
+      this.searchResults.sort(function(a:any, b:any){return b.ad.price1day - a.ad.price1day;});
+    }else if(parameter == 'rating'){
       this.searchResults.sort(function(a:any, b:any){return b.ad.avgRating - a.ad.avgRating;});
     }else {
-      this.searchResults.sort(function(a:any, b:any){return b.ad.kmsTraveled - a.ad.kmsTraveled;});
+      this.searchResults.sort(function(a:any, b:any){return b.car.kilometersTraveled - a.car.kilometersTraveled;});
     }
   }
 
