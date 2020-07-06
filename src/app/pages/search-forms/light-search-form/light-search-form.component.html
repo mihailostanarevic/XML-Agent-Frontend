@@ -35,11 +35,10 @@
     <div class="row">
         <button nz-button nzType="primary" (click)="backToSearch()" style="margin-left: 18px;margin-bottom: 30px"><i
                 nz-icon nzType="arrow-left" nzTheme="outline"></i>Go back to search</button>
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Sort by" style="width: 200px; float: right;">
-            <!-- (change)="sort($event)" -->
-            <nz-option><i nz-icon nzType="money-collect" value="price" nzTheme="twotone"></i>Price</nz-option>
-            <nz-option><i nz-icon nzType="star" nzTheme="twotone" value="rating"></i>Rating</nz-option>
-            <nz-option><i nz-icon nzType="car" nzTheme="twotone" value="kms"></i>Traveled kms</nz-option>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Sort by" style="width: 200px; float: right; margin-left: 200px" (ngModelChange)="sort($event)" [(ngModel)]="parameter">
+            <nz-option nzValue="price" nzLabel="Price"><i nz-icon nzType="money-collect" nzTheme="twotone"></i></nz-option>
+            <nz-option nzValue="rating" nzLabel="Rating"><i nz-icon nzType="star" nzTheme="twotone"></i></nz-option>
+            <nz-option nzValue="kilometersTraveled" nzLabel="Kilometers traveled"><i nz-icon nzType="car" nzTheme="twotone"></i></nz-option>
         </nz-select>
     </div>
     <div class="row">

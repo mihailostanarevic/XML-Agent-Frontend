@@ -14,7 +14,7 @@
     <i nz-icon nz-tooltip nzType="message" (click)="seeMessages(result)" nzTooltipTitle="See messages" nzTheme="outline"></i>
 </ng-template>
 
-<nz-card [nzActions]="[actionInfo, actionShopping, commenting, rating]" [nzHoverable]="true" *ngIf="page === 'search'">
+<nz-card [nzActions]="[actionInfo, actionShopping, commenting, rating]" [nzHoverable]="true" *ngIf="page === 'search'" style="background-color: #a5c9e9;">
     <nz-descriptions nzLayout="horizontal">
     <nz-descriptions-item nzTitle="Name of issuer">{{result.agent.agentName}}</nz-descriptions-item>
     </nz-descriptions>
@@ -26,6 +26,15 @@
     </nz-descriptions>
     <nz-descriptions nzLayout="horizontal">
     <nz-descriptions-item style="margin-left: 20px;" nzTitle="Date issued">{{result.ad.formattedDate}}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Price for one day">{{result.ad.price1day}}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Average rating">{{result.ad.avgRating}}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item style="margin-left: 20px;" nzTitle="Kilometers traveled">{{result.car.kilometersTraveled}}</nz-descriptions-item>
     </nz-descriptions>
 </nz-card>
 <br/>

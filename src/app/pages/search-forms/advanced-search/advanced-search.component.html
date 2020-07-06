@@ -23,7 +23,7 @@
         </nz-form-control>
 
         <nz-form-item>
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a gearshift type"style="width: 300px;" (ngModelChange)="gearshiftTypeChanged($event)" [ngModel]="selectedGearshiftType">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a gearshift type" style="width: 300px;" (ngModelChange)="gearshiftTypeChanged($event)" [ngModel]="selectedGearshiftType">
                 <nz-option *ngFor="let gearshiftType of allGearshiftTypes" [nzValue]="gearshiftType" [nzLabel]="gearshiftType">
                 </nz-option>
             </nz-select>
@@ -63,9 +63,6 @@
                 </nz-input-group>
             </nz-form-item>
         </nz-form-control>
-
-        <br />
-        <br />
     </form>
 
     <nz-form-item>
