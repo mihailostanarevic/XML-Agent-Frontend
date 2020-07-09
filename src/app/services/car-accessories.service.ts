@@ -18,6 +18,7 @@ export class CarAccessoriesService {
               private http: HttpClient) { }
 
   getAllAccessories() : Observable<any> {
+    this.getToken();
     return this.http.get(this.baseUrl + "car-accessories", {
       headers: new HttpHeaders ({
         'Auth-Token' : this.activeUserToken
