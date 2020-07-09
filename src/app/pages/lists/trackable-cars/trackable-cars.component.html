@@ -1,0 +1,28 @@
+<h2>Currently rented cars</h2>
+<br />
+<nz-table #nzTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+            Brand
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Customer
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.brandName }}</td>
+        <td>{{ data.modelName }}</td>
+        <td>{{ data.customer }}</td>
+        <td>
+            <button (click)="track(data.carId, data.brandName, data.modelName)" nz-button nzType="primary">Track</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

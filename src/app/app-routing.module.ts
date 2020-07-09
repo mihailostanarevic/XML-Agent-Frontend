@@ -37,6 +37,8 @@ import { AdvancedSearchComponent } from './pages/search-forms/advanced-search/ad
 import { PriceListComponent } from './pages/create-forms/price-list/price-list.component';
 import { CustomersAndAgentsComponent } from './pages/lists/customers-and-agents/customers-and-agents.component';
 import { RolesComponent } from './pages/admin/roles/roles.component';
+import { MapsComponent } from './pages/maps/maps.component';
+import { TrackableCarsComponent } from './pages/lists/trackable-cars/trackable-cars.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
@@ -81,7 +83,9 @@ const routes: Routes = [
       { path: 'search/advanced', component: AdvancedSearchComponent},
       { path: 'price-list/:id/agent', component: PriceListComponent},
       { path: 'customers-and-agents', component: CustomersAndAgentsComponent},
-      { path: 'admin-role-list', component: RolesComponent}
+      { path: 'admin-role-list', component: RolesComponent},
+      { path: 'trackable-cars', component: TrackableCarsComponent},
+      { path: 'google-maps', component: MapsComponent}
     ],
 
   },
