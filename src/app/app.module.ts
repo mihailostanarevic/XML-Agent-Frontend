@@ -58,6 +58,8 @@ import { AdvancedSearchComponent } from './pages/search-forms/advanced-search/ad
 import { PriceListComponent } from './pages/create-forms/price-list/price-list.component';
 import { CustomersAndAgentsComponent } from './pages/lists/customers-and-agents/customers-and-agents.component';
 import { RolesComponent } from './pages/admin/roles/roles.component';
+import { MapsComponent } from './pages/maps/maps.component';
+import { TrackableCarsComponent } from './pages/lists/trackable-cars/trackable-cars.component';
 registerLocaleData(en);
 
 const antDesignIcons = AllIcons as {
@@ -106,7 +108,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AdvancedSearchComponent,
     PriceListComponent,
     CustomersAndAgentsComponent,
-    RolesComponent
+    RolesComponent,
+    MapsComponent,
+    TrackableCarsComponent
   ],
   imports: [
     BrowserModule,

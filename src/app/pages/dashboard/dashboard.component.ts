@@ -178,4 +178,12 @@ export class DashboardComponent implements OnInit {
   simpleUserCreateAd(): void {
     this.router.navigateByUrl('dashboard/create-ad');
   }
+
+  googleMaps(): void {
+    this.router.navigateByUrl('dashboard/google-maps');
+  }
+
+  trackableCars(): void {
+    this.router.navigateByUrl('dashboard/trackable-cars');
+  }
 }
