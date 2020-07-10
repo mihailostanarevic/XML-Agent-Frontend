@@ -29,6 +29,7 @@ export class MapsComponent implements AfterViewInit {
 
   private user: any;
   private helper: Number = 0;
+  private intervalSetupCarsReference: any;
 
   constructor(private message: NzMessageService, private router: Router, private gpsService: GpsService) { }
 
@@ -36,6 +37,18 @@ export class MapsComponent implements AfterViewInit {
     this.mapInitializer();
     this.setupUser();
     this.setupCars();
+    this.intervalSetupCarsReference = setInterval(() => {
+      for(let i = 0;i < this.helper;i++){
+        this.marker[i].setMap(null);  
+       }
+       this.helper = 0;
+      this.setupCars();
+    }, 30 * 1000);
+  }
+
+  ngOnDestroy() {
+    console.log("onDestroy");
+    clearInterval(this.intervalSetupCarsReference);
   }
 
   mapInitializer() {
