@@ -123,7 +123,8 @@ export class AuthEffects {
     ofType(AuthActions.LOGIN_SUCCESS),
     tap((authSuccessAction: AuthActions.LoginSuccess) => {
       this.router.navigate(['dashboard']);
-      if(!authSuccessAction.payload.agentHasPriceList) {
+      if(!authSuccessAction.payload.agentHasPriceList &&
+           authSuccessAction.payload.userRole === 'AGENT_ROLE') {
         this.router.navigate(['/create-price-list']);
       }
       if(authSuccessAction.payload.redirect){

@@ -61,6 +61,17 @@ export class RequestService {
     });
   }
 
+  public denyRequest(body): Observable<any> {
+    this.subscriptionUser = this.store.select('auth').subscribe(userData => {
+      this.activeUserToken = userData.user.token;
+    });
+    return this.http.get(this.baseUrl + 'agent/'+body.id+'/requests/'+body.resID+"/deny", {
+      headers: new HttpHeaders ({
+        'Auth-Token' : this.activeUserToken
+      })
+    });
+  }
+
   public payRequest(body): Observable<any> {
     this.subscriptionUser = this.store.select('auth').subscribe(userData => {
       this.activeUserToken = userData.user.token;

@@ -26,7 +26,7 @@ export class CustomersAndAgentsComponent implements OnInit {
 
   delete(id, username): void {
     this.userService.deleteCustomerOrAgent(id).subscribe(() => {
-      this.message.info('You have successfully deleted ' + username +'.');
+      this.message.info('You have successfully blocked ' + username +'.');
       this.setupData();
     });
   }

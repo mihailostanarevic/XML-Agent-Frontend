@@ -45,7 +45,12 @@
                 nz-button nzType="primary" nzGhost
                 *ngIf="data.requestStatus === 'PENDING'"
                 (click)="approveRequest(data.id)"
-                >Approve</button></td>
+                >Approve</button>
+                <button style="margin-left: 10px;"
+                nz-button nzType="primary" nzDanger
+                *ngIf="data.requestStatus === 'PENDING'"
+                (click)="denyRequest(data.id)"
+                >Deny</button></td>
         </tr>
         <tr [nzExpand]="expandSet.has(data.id)">
           <span> {{ data.description }} </span>

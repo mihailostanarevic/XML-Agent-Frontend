@@ -85,4 +85,14 @@ export class AgentRequestsComponent implements OnInit {
       this.listOfDisplayData = [...this.listOfData];
     })
   }
+
+  denyRequest(id): void {
+    this.requestService.denyRequest({
+      "id": this.activeUserID,
+      "resID": id
+    }).subscribe(response => {
+      this.listOfData = response;
+      this.listOfDisplayData = [...this.listOfData];
+    })
+  }
 }
